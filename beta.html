@@ -267,7 +267,7 @@ footer ul{list-style:none}footer li{margin-bottom:11px}footer li a{font-size:.92
 <nav id="nav"><div class="wrap nav-in">
   <a href="index.html" class="brand"><span class="logo">L</span> Legacy Coach</a>
   <div class="nav-links"><a href="index.html" class="">Home</a><a href="how-it-works.html" class="">How it works</a><a href="features.html" class="">Features</a><a href="use-cases.html" class="">Use cases</a><a href="about.html" class="">About</a><a href="roadmap.html" class="">Roadmap</a><a href="documentation.html" class="">Docs</a></div>
-  <div class="nav-right"><a href="#" class="nav-login">Log in</a><a href="beta.html" class="btn btn-primary">Join the beta</a></div>
+  <div class="nav-right"><a href="login.html" class="nav-login">Log in</a><a href="beta.html" class="btn btn-primary">Join the beta</a></div>
   <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
 </div></nav>
 <div class="mobile" id="mobile"><a href="index.html">Home</a><a href="how-it-works.html">How it works</a><a href="features.html">Features</a><a href="use-cases.html">Use cases</a><a href="about.html">About</a><a href="roadmap.html">Roadmap</a><a href="documentation.html">Docs</a><a href="beta.html" class="btn btn-primary">Join the beta</a></div>
@@ -303,12 +303,15 @@ footer ul{list-style:none}footer li{margin-bottom:11px}footer li a{font-size:.92
     <div class="fbrand"><a href="index.html" class="brand"><span class="logo">L</span> Legacy Coach</a>
       <p>The AI co-founder built for founders. A daily rhythm that turns ambition into shipped work — built by Legacy Ventures.</p></div>
     <div><h5>Product</h5><ul><li><a href="how-it-works.html">How it works</a></li><li><a href="features.html">Features</a></li><li><a href="use-cases.html">Use cases</a></li><li><a href="app-flow.html">App flow</a></li><li><a href="roadmap.html">Roadmap</a></li></ul></div>
-    <div><h5>Company</h5><ul><li><a href="about.html">About us</a></li><li><a href="#">Blog</a></li><li><a href="documentation.html">Documentation</a></li><li><a href="#">Contact</a></li></ul></div>
-    <div><h5>Get started</h5><ul><li><a href="beta.html">Join the beta</a></li><li><a href="beta.html">Pricing</a></li><li><a href="#">Log in</a></li></ul></div>
+    <div><h5>Company</h5><ul><li><a href="about.html">About us</a></li><li><a href="#">Blog</a></li><li><a href="documentation.html">Documentation</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div><h5>Get started</h5><ul><li><a href="beta.html">Join the beta</a></li><li><a href="beta.html">Pricing</a></li><li><a href="login.html">Log in</a></li></ul></div>
   </div>
   <div class="fbot"><span>© 2026 Legacy Coach · Legacy Ventures. All rights reserved.</span><span>Privacy · Terms</span></div>
 </div></footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="lc-app.js"></script>
 <script>
 const nav=document.getElementById('nav');addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>16));
 const burger=document.getElementById('burger'),mob=document.getElementById('mobile');
@@ -322,6 +325,6 @@ if(hg){const hgIO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersectin
 document.querySelectorAll('.fq').forEach(b=>b.addEventListener('click',()=>{const it=b.parentElement,o=it.classList.contains('open');document.querySelectorAll('.fitem').forEach(i=>i.classList.remove('open'));if(!o)it.classList.add('open')}));
 document.querySelectorAll('.vote[data-v]').forEach(v=>v.addEventListener('click',()=>{const ct=v.querySelector('.ct');let n=parseInt(v.dataset.v,10);if(v.classList.contains('voted')){v.classList.remove('voted');ct.textContent=n}else{v.classList.add('voted');ct.textContent=n+1}}));
 document.querySelectorAll('.app .task').forEach(t=>t.addEventListener('click',()=>{t.classList.toggle('done');t.querySelector('.box').textContent=t.classList.contains('done')?'✓':''}));
-function joinBeta(btn){const i=btn.previousElementSibling;if(i&&i.value&&i.value.includes('@')){btn.textContent="You're on the list ✓";btn.disabled=true;i.disabled=true}else if(i){i.focus();i.style.borderColor='var(--brand-2)'}}
+/* joinBeta is now provided by lc-app.js — it saves the email to Supabase. */
 </script>
-</body></html>
+</body></html>      

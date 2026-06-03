@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Log in — Legacy Coach</title>
+<meta name="description" content="Log in to your Legacy Coach account.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lc-auth.css">
+</head><body>
+
+<nav><div class="wrap nav-in">
+  <a href="index.html" class="brand"><span class="logo">L</span> Legacy Coach</a>
+  <div class="nav-links"><a href="index.html">Home</a><a href="how-it-works.html">How it works</a><a href="features.html">Features</a><a href="use-cases.html">Use cases</a><a href="about.html">About</a><a href="roadmap.html">Roadmap</a><a href="documentation.html">Docs</a></div>
+  <div class="nav-right"><a href="beta.html" class="btn btn-primary">Join the beta</a></div>
+</div></nav>
+
+<main class="auth-main"><div class="auth-card">
+  <span class="auth-eyebrow">Welcome back</span>
+  <h1>Log in</h1>
+  <p class="sub">Sign in to your Legacy Coach account.</p>
+
+  <div id="needsConfig" class="banner" style="display:none">The backend isn't connected yet. Add your Supabase keys in <b>config.js</b> to enable login.</div>
+
+  <form id="loginForm" autocomplete="on">
+    <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="you@yourstartup.com" required></div>
+    <div class="field"><label for="password">Password</label><input id="password" name="password" type="password" placeholder="••••••••" required></div>
+    <div class="auth-row"><span></span><a href="#" id="forgot">Forgot password?</a></div>
+    <div class="auth-status" id="status"></div>
+    <button type="submit" class="btn btn-primary btn-block" id="submitBtn">Log in</button>
+  </form>
+
+  <p class="auth-foot">New here? <a href="signup.html">Create an account</a></p>
+</div></main>
+
+<footer><div class="wrap fbot"><span>© 2026 Legacy Coach · Legacy Ventures.</span><span>Privacy · Terms</span></div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="lc-app.js"></script>
+<script>
+(function(){
+  var status=document.getElementById('status');
+  if(!window.LC||!LC.configured){document.getElementById('needsConfig').style.display='block';}
+  // already logged in? go to account
+  if(LC.client){LC.client.auth.getSession().then(function(r){if(r.data&&r.data.session)location.href='account.html';});}
+
+  document.getElementById('loginForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    if(!LC.client){status.textContent=LC.notConfiguredMsg;status.style.color='#c0392b';return;}
+    var email=document.getElementById('email').value.trim();
+    var pw=document.getElementById('password').value;
+    var btn=document.getElementById('submitBtn');
+    btn.disabled=true;btn.textContent='Logging in…';status.textContent='';
+    LC.signIn(email,pw).then(function(res){
+      if(res.error){status.textContent=res.error.message;status.style.color='#c0392b';btn.disabled=false;btn.textContent='Log in';return;}
+      location.href='account.html';
+    });
+  });
+
+  document.getElementById('forgot').addEventListener('click',function(e){
+    e.preventDefault();
+    if(!LC.client){status.textContent=LC.notConfiguredMsg;status.style.color='#c0392b';return;}
+    var email=document.getElementById('email').value.trim();
+    if(!email||email.indexOf('@')<1){status.textContent='Enter your email above first, then click “Forgot password?”.';status.style.color='#c0392b';return;}
+    LC.resetPassword(email).then(function(res){
+      if(res.error){status.textContent=res.error.message;status.style.color='#c0392b';return;}
+      status.textContent='Password reset link sent — check your email.';status.style.color='var(--brand)';
+    });
+  });
+})();
+</script>
+</body></html>
