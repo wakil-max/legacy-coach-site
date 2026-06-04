@@ -42,7 +42,23 @@
 (function(){
   var loading=document.getElementById('loading');
   if(!window.LC||!LC.client){loading.textContent='Backend not connected yet.';loading.style.color='#c0392b';return;}
-  LC.client.auth.getUser().then(function(res){
-    var user=res.data?res.data.user:null;
+  function render(user){
+    var meta=user.user_metadata||{};var name=meta.full_name||'there';
+    document.getElementById('hello').textContent='Welcome, '+name+'.';
+    document.getElementById('vName').textContent=meta.full_name||'—';
+    document.getElementById('vEmail').textContent=user.email||'—';
+    var d=user.created_at?new Date(user.created_at):null;
+    document.getElementById('vSince').textContent=d?d.toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'}):'—';
+    loading.style.display='none';document.getElementById('content').style.display='block';
+  }
+  LC.client.auth.getSession().then(function(res){
+    var session=res.data?res.data.session:null;
+    var user=session?session.user:null;
     if(!user){location.href='login.html';return;}
-    var meta=user.user_metadata||{};var name=meta.full_name||'ther
+    render(user);
+  }).catch(function(){location.href='login.html';});
+  var so=document.getElementById('signOut');
+  if(so) so.addEventListener('click',function(){LC.signOut().then(function(){location.href='index.html';});});
+})();
+</script>
+</body></html>
