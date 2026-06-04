@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Create your account — Legacy Coach</title>
-<meta name="description" content="Create your Legacy Coach account.">
+<title>Create your account — Legacy Foundry</title>
+<meta name="description" content="Create your Legacy Foundry account and start forging your goals into shipped work.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230c0e0d'/%3E%3Ctext x='15' y='21' font-family='sans-serif' font-size='12' font-weight='800' fill='white' text-anchor='middle'%3ELF%3C/text%3E%3Ccircle cx='25' cy='25' r='3' fill='%2310a876'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="lc-auth.css">
+<link rel="stylesheet" href="styles.css">
 </head><body>
 
-<nav><div class="wrap nav-in">
-  <a href="index.html" class="brand"><span class="logo">L</span> Legacy Coach</a>
-  <div class="nav-links"><a href="index.html">Home</a><a href="how-it-works.html">How it works</a><a href="features.html">Features</a><a href="use-cases.html">Use cases</a><a href="about.html">About</a><a href="roadmap.html">Roadmap</a><a href="documentation.html">Docs</a></div>
+<nav id="nav"><div class="wrap nav-in">
+  <a href="index.html" class="brand"><span class="logo">LF</span> Legacy Foundry</a>
+  <div class="nav-links"><a href="index.html">Home</a><a href="how-it-works.html">How it works</a><a href="getting-started.html">Getting started</a><a href="features.html">Features</a><a href="blog.html">Blog</a><a href="about.html">About</a></div>
   <div class="nav-right"><a href="login.html" class="nav-login">Log in</a></div>
+  <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
 </div></nav>
+<div class="mobile" id="mobile"><a href="index.html">Home</a><a href="how-it-works.html">How it works</a><a href="getting-started.html">Getting started</a><a href="features.html">Features</a><a href="blog.html">Blog</a><a href="about.html">About</a><a href="login.html">Log in</a></div>
 
 <main class="auth-main"><div class="auth-card">
   <span class="auth-eyebrow">Get started</span>
   <h1>Create your account</h1>
-  <p class="sub">Join Legacy Coach and start building your daily rhythm.</p>
-
-  <div id="needsConfig" class="banner" style="display:none">The backend isn't connected yet. Add your Supabase keys in <b>config.js</b> to enable sign up.</div>
-
+  <p class="sub">Join Legacy Foundry and start building your daily rhythm.</p>
+  <div id="needsConfig" class="banner" style="display:none">The backend isn't connected yet.</div>
   <form id="signupForm" autocomplete="on">
     <div class="field"><label for="fullName">Full name</label><input id="fullName" name="fullName" type="text" placeholder="Jane Founder" required></div>
     <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="you@yourstartup.com" required></div>
@@ -27,34 +29,27 @@
     <div class="auth-status" id="status"></div>
     <button type="submit" class="btn btn-primary btn-block" id="submitBtn">Create account</button>
   </form>
-
   <p class="auth-foot">Already have an account? <a href="login.html">Log in</a></p>
 </div></main>
 
-<footer><div class="wrap fbot"><span>© 2026 Legacy Coach · Legacy Ventures.</span><span>Privacy · Terms</span></div></footer>
+<footer><div class="wrap"><div class="fbot"><span>© 2026 Legacy Foundry · Legacy Ventures.</span><span>Privacy · Terms</span></div></div></footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js"></script>
-<script src="lc-app.js"></script>
+<script src="site.js"></script>
 <script>
 (function(){
   var status=document.getElementById('status');
   if(!window.LC||!LC.configured){document.getElementById('needsConfig').style.display='block';}
-
   document.getElementById('signupForm').addEventListener('submit',function(e){
     e.preventDefault();
     if(!LC.client){status.textContent=LC.notConfiguredMsg;status.style.color='#c0392b';return;}
-    var name=document.getElementById('fullName').value.trim();
-    var email=document.getElementById('email').value.trim();
-    var pw=document.getElementById('password').value;
-    var btn=document.getElementById('submitBtn');
-    btn.disabled=true;btn.textContent='Creating…';status.textContent='';
+    var name=document.getElementById('fullName').value.trim(),email=document.getElementById('email').value.trim(),pw=document.getElementById('password').value;
+    var btn=document.getElementById('submitBtn');btn.disabled=true;btn.textContent='Creating…';status.textContent='';
     LC.signUp(email,pw,name).then(function(res){
       if(res.error){status.textContent=res.error.message;status.style.color='#c0392b';btn.disabled=false;btn.textContent='Create account';return;}
-      // If email confirmation is on, there is no active session yet.
       if(res.data&&res.data.session){location.href='account.html';return;}
-      status.textContent='Account created — check your email to confirm, then log in.';status.style.color='var(--brand)';
-      btn.textContent='Check your inbox ✓';
+      status.textContent='Account created — check your email to confirm, then log in.';status.style.color='var(--brand)';btn.textContent='Check your inbox ✓';
     });
   });
 })();
