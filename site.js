@@ -28,6 +28,7 @@
     btn.disabled = true; var original = btn.textContent; btn.textContent = 'Saving…';
     LC.client.from('signups').insert({ email: email, source: 'beta_page' }).then(function (res) {
       if (res.error && res.error.code !== '23505') { btn.disabled = false; btn.textContent = original; alert('Something went wrong. Please try again.'); return; }
+      try { fetch('/api/beta-confirm', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: email }) }).catch(function(){}); } catch (e) {}
       btn.textContent = "You're on the list ✓"; if (input) input.disabled = true;
     });
   };
