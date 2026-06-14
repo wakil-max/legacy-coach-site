@@ -13,9 +13,9 @@ body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:var(--text);back
 .wrap{max-width:1140px;margin:0 auto;padding:0 24px}a{color:inherit;text-decoration:none}
 .btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:15px;padding:13px 22px;border-radius:11px;border:1px solid transparent;cursor:pointer;transition:.18s}
 .btn-primary{background:var(--brand);color:#fff}.btn-primary:hover{background:var(--brand-ink)}
-.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--brand);background:var(--brand-tint);padding:6px 14px;border-radius:999px}
-.eyebrow.light{color:#a7ecd0;background:rgba(11,138,95,.22)}
-section{padding:72px 0}h1{font-size:clamp(32px,4.6vw,50px);line-height:1.1;font-weight:800;letter-spacing:-.02em}
+.btn-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.28)}.btn-ghost:hover{border-color:#fff}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--brand);background:var(--brand-tint);padding:6px 14px;border-radius:999px}.eyebrow.light{color:#a7ecd0;background:rgba(11,138,95,.22)}
+section{padding:72px 0}h1{font-size:clamp(32px,4.6vw,52px);line-height:1.08;font-weight:800;letter-spacing:-.02em}
 h2{font-size:clamp(24px,3vw,34px);line-height:1.18;font-weight:800}
 .lead{font-size:18px;color:var(--muted);max-width:660px}.kicker{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--brand)}
 nav{position:sticky;top:0;z-index:30;background:rgba(251,251,250,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
@@ -23,7 +23,7 @@ nav{position:sticky;top:0;z-index:30;background:rgba(251,251,250,.88);backdrop-f
 .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px}
 .logo{width:30px;height:30px;border-radius:8px;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:13px;font-weight:800;position:relative}
 .logo::after{content:"";position:absolute;right:3px;bottom:3px;width:6px;height:6px;border-radius:50%;background:var(--brand-2)}
-.nav-links{display:flex;gap:26px;font-size:15px;font-weight:500;color:var(--muted)}.nav-links a:hover{color:var(--brand)}
+.nav-links{display:flex;gap:26px;font-size:15px;font-weight:500;color:var(--muted)}.nav-links a:hover{color:var(--brand)}.nav-links a.active{color:var(--brand);font-weight:700}
 .nav-right{display:flex;align-items:center;gap:16px}.nav-login{font-weight:600;font-size:15px}.nav-login:hover{color:var(--brand)}
 .burger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer}.burger span{width:24px;height:2px;background:var(--text);border-radius:2px}
 .mobile{display:none;flex-direction:column;gap:6px;padding:14px 24px;background:#fff;border-bottom:1px solid var(--line)}.mobile.open{display:flex}.mobile a{padding:8px 0;font-weight:600}
@@ -32,38 +32,45 @@ nav{position:sticky;top:0;z-index:30;background:rgba(251,251,250,.88);backdrop-f
 .avatar-menu .who{padding:10px 12px;border-bottom:1px solid var(--line);margin-bottom:6px}.avatar-menu .nm{font-weight:700;font-size:14px}.avatar-menu .em{font-size:12px;color:var(--muted)}
 .avatar-menu a,.avatar-menu button{display:block;width:100%;text-align:left;padding:9px 12px;border-radius:8px;font-size:14px;border:0;background:none;cursor:pointer;color:var(--text)}.avatar-menu a:hover,.avatar-menu button:hover{background:var(--brand-tint)}
 @media(max-width:840px){.nav-links{display:none}.burger{display:flex}}
-.phead{background:radial-gradient(1000px 460px at 72% -20%,#123a2a 0%,var(--ink) 60%);color:#fff;padding:66px 0 60px}
-.phead h1{margin:16px 0 14px}.phead p{color:#c7d4ce;font-size:18px;max-width:640px}
+.phead{background:radial-gradient(1100px 520px at 78% -10%,#123a2a 0%,var(--ink) 58%);color:#fff;padding:70px 0 74px;overflow:hidden}
+.phead-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.phead h1{margin:16px 0 14px}.phead p{color:#c7d4ce;font-size:18px;max-width:560px}
+.phone-wrap{display:flex;justify-content:center}
+.device{position:relative;width:300px;max-width:78vw;background:#0a0c10;border-radius:42px;padding:12px;border:2px solid rgba(255,255,255,.13);box-shadow:0 32px 64px rgba(0,0,0,.55)}
+.device::before{content:"";position:absolute;top:18px;left:50%;transform:translateX(-50%);width:9px;height:9px;border-radius:50%;background:#04050a;z-index:4}
+.device img{width:100%;display:block;border-radius:31px}
+@media(max-width:840px){.phead-grid{grid-template-columns:1fr}.phone-wrap{margin-top:8px}}
+.goal-band{background:var(--brand-ink);color:#eafaf3;text-align:center;padding:42px 0}.goal-band h2{color:#fff;max-width:720px;margin:0 auto 10px}.goal-band p{max-width:600px;margin:0 auto;color:#cdeede}
 .head{max-width:680px;margin-bottom:40px}.head h2{margin:10px 0 12px}
-.goal-band{background:var(--brand-ink);color:#eafaf3;text-align:center;padding:40px 0}
-.goal-band h2{color:#fff;max-width:720px;margin:0 auto 10px}.goal-band p{max-width:600px;margin:0 auto;color:#cdeede}
-.flow{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;max-width:900px;margin:0 auto}
-@media(max-width:760px){.flow{grid-template-columns:1fr}}
-.fcard{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px}
+.flow{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;max-width:920px;margin:0 auto}@media(max-width:760px){.flow{grid-template-columns:1fr}}
+.fcard{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px;position:relative}
+.fcard .ico{font-size:26px;margin-bottom:8px}
 .fcard .when{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--brand)}
-.fcard h3{font-size:19px;margin:8px 0 8px}.fcard p{font-size:15px;color:var(--muted)}
-.note{font-size:13px;color:var(--muted);text-align:center;max-width:640px;margin:24px auto 0}
+.fcard h3{font-size:20px;margin:6px 0 8px}.fcard p{font-size:15px;color:var(--muted)}
+.note{font-size:13px;color:var(--muted);text-align:center;max-width:660px;margin:26px auto 0}
 .always{background:var(--ink);color:#fff}.always .head h2{color:#fff}.always .lead{color:#c7d4ce}
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}@media(max-width:840px){.grid3{grid-template-columns:1fr}}
-.acard{background:#0f1715;border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:24px}
-.acard h3{font-size:17px;margin-bottom:6px;color:#fff}.acard p{font-size:14px;color:#9fb3ab}
+.acard{background:#0f1715;border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:24px}.acard h3{font-size:17px;margin-bottom:6px;color:#fff}.acard p{font-size:14px;color:#9fb3ab}
 .cta{background:var(--brand);color:#fff;text-align:center}.cta h2{color:#fff;margin-bottom:18px}.cta .btn-primary{background:#fff;color:var(--brand-ink)}
-footer{background:var(--ink);color:#9fb3ab;padding:42px 0;border-top:1px solid rgba(255,255,255,.08);font-size:14px}
-.fbot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+footer{background:var(--ink);color:#9fb3ab;padding:42px 0;border-top:1px solid rgba(255,255,255,.08);font-size:14px}.fbot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 </style></head><body>
 
 <nav id="nav"><div class="wrap nav-in">
   <a href="index.html" class="brand"><span class="logo">LF</span> Legacy Foundry</a>
-  <div class="nav-links"><a href="index.html">Home</a><a href="how-it-works.html">How it works</a><a href="getting-started.html">Getting started</a><a href="features.html">Features</a><a href="blog.html">Blog</a><a href="about.html">About</a></div>
+  <div class="nav-links"><a href="index.html">Home</a><a href="how-it-works.html" class="active">How it works</a><a href="getting-started.html">Getting started</a><a href="features.html">Features</a><a href="blog.html">Blog</a><a href="about.html">About</a></div>
   <div class="nav-right"><a href="login.html" class="nav-login">Log in</a><a href="beta.html" class="btn btn-primary">Try the beta — free</a></div>
   <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
 </div></nav>
 <div class="mobile" id="mobile"><a href="index.html">Home</a><a href="how-it-works.html">How it works</a><a href="getting-started.html">Getting started</a><a href="features.html">Features</a><a href="blog.html">Blog</a><a href="about.html">About</a><a href="login.html">Log in</a><a href="beta.html">Try the beta — free</a></div>
 
-<header class="phead"><div class="wrap">
-  <span class="eyebrow light">How it works</span>
-  <h1>One goal. A daily rhythm. Real momentum.</h1>
-  <p>Legacy Foundry turns a single quarterly goal into focused daily action — through a rhythm of short coaching sessions you simply talk your way through.</p>
+<header class="phead"><div class="wrap phead-grid">
+  <div>
+    <span class="eyebrow light">How it works</span>
+    <h1>One goal. A daily rhythm. Real momentum.</h1>
+    <p>Legacy Foundry turns a single quarterly goal into focused daily action — through a rhythm of short coaching sessions you simply talk your way through.</p>
+    <div style="margin-top:26px"><a href="beta.html" class="btn btn-primary">Try the beta — free →</a></div>
+  </div>
+  <div class="phone-wrap"><div class="device"><img src="screens/s-sessions.jpg" alt="Your morning, evening, weekly and monthly coaching sessions"></div></div>
 </div></header>
 
 <div class="goal-band"><div class="wrap">
@@ -74,12 +81,12 @@ footer{background:var(--ink);color:#9fb3ab;padding:42px 0;border-top:1px solid r
 <section><div class="wrap">
   <div class="head"><span class="kicker">The rhythm</span><h2>Your coach shows up on a cadence — you just talk to it.</h2><p class="lead">No dashboards to manage and no fixed clock. Each session is a short conversation; have it whenever your morning, evening, week or month calls for it.</p></div>
   <div class="flow">
-    <div class="fcard"><div class="when">☀️ Morning session</div><h3>Set the day</h3><p>Tell your coach how you're feeling and what's urgent. It helps you lock your top three moves for the day — your most important actions, tied to your goal.</p></div>
-    <div class="fcard"><div class="when">🌙 Evening session</div><h3>Review &amp; reset</h3><p>Review what got done, name what got in the way, and prepare tomorrow — so the same thing never stalls you twice.</p></div>
-    <div class="fcard"><div class="when">🧭 Weekly session</div><h3>Zoom out</h3><p>A deeper review and planning session that connects your week of effort back to your goal and recalibrates priorities.</p></div>
-    <div class="fcard"><div class="when">📅 Monthly session</div><h3>Plan the month ahead</h3><p>Step back, review real progress against your goal, and map out the month to come.</p></div>
+    <div class="fcard"><div class="ico">☀️</div><div class="when">Morning session</div><h3>Set the day</h3><p>Tell your coach how you're feeling and what's urgent. It helps you lock your top three moves for the day — your most important actions, tied to your goal.</p></div>
+    <div class="fcard"><div class="ico">🌙</div><div class="when">Evening session</div><h3>Review &amp; reset</h3><p>Review what got done, name what got in the way, and prepare tomorrow — so the same thing never stalls you twice.</p></div>
+    <div class="fcard"><div class="ico">🧭</div><div class="when">Weekly session</div><h3>Zoom out</h3><p>A deeper review and planning session that connects your week of effort back to your goal and recalibrates priorities.</p></div>
+    <div class="fcard"><div class="ico">📅</div><div class="when">Monthly session</div><h3>Plan the month ahead</h3><p>Step back, review real progress against your goal, and map out the month to come.</p></div>
   </div>
-  <p class="note">Session times are yours to set — morning, evening, weekly and monthly windows that fit your life. The screenshots in the app show example times only.</p>
+  <p class="note">Session times are yours to set — morning, evening, weekly and monthly windows that fit your life. The times shown inside the app are examples only.</p>
 </div></section>
 
 <section class="always"><div class="wrap">
@@ -91,15 +98,9 @@ footer{background:var(--ink);color:#9fb3ab;padding:42px 0;border-top:1px solid r
   </div>
 </div></section>
 
-<section class="cta"><div class="wrap">
-  <h2>See it in your own week.</h2>
-  <p style="color:#eafaf3;max-width:560px;margin:0 auto 22px">Join the public beta free and run your first morning session.</p>
-  <a href="beta.html" class="btn btn-primary">Try the beta — it's free →</a>
-</div></section>
+<section class="cta"><div class="wrap"><h2>See it in your own week.</h2><p style="color:#eafaf3;max-width:560px;margin:0 auto 22px">Join the public beta free and run your first morning session.</p><a href="beta.html" class="btn btn-primary">Try the beta — it's free →</a></div></section>
 
 <footer><div class="wrap fbot"><span>© 2026 Legacy Foundry · Legacy Ventures · Onnorokom Group</span><span><a href="contact.html">Contact</a> · Privacy · Terms</span></div></footer>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="config.js"></script>
-<script src="site.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script><script src="site.js"></script>
 </body></html>
