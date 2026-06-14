@@ -52,8 +52,9 @@ nav{position:sticky;top:0;z-index:30;background:rgba(251,251,250,.88);backdrop-f
 .screen{position:relative;overflow:hidden;border-radius:32px;aspect-ratio:520/1129;background:#fff}
 .car{display:flex;width:100%;height:100%;transition:transform .6s cubic-bezier(.65,0,.35,1)}
 .car img{width:100%;height:100%;object-fit:cover;flex:none}
-.dots{display:flex;gap:6px;justify-content:center;margin-top:16px}
-.dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.3)}.dots i.on{background:#46d49e}
+.dots{display:flex;gap:4px;justify-content:center;margin-top:16px}
+.dots i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;border:5px solid transparent;background-clip:padding-box;box-sizing:content-box;transition:background .2s}
+.dots i:hover{background:rgba(255,255,255,.6)}.dots i.on{background:#46d49e}
 @media(max-width:840px){.hero-grid{grid-template-columns:1fr;min-width:0}.hero-grid>*{min-width:0;max-width:100%}.hero p{max-width:100%}.phone-wrap{margin-top:14px}}
 .whatis{background:var(--brand-ink);color:#eafaf3;padding:28px 0}
 .whatis .wrap{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap}.whatis b{color:#fff}.whatis .tag{font-weight:800;color:#bff3df;white-space:nowrap}
@@ -191,10 +192,11 @@ footer{background:var(--ink);color:#9fb3ab;padding:42px 0;border-top:1px solid r
 <script>
 (function(){
   var car=document.getElementById('car'); var dots=document.getElementById('dots');
-  if(!car)return; var n=car.children.length, i=0;
-  for(var k=0;k<n;k++){var d=document.createElement('i'); if(k===0)d.className='on'; dots.appendChild(d);}
+  if(!car)return; var n=car.children.length, i=0, timer;
+  for(var k=0;k<n;k++){(function(k){var d=document.createElement('i'); if(k===0)d.className='on'; d.setAttribute('role','button'); d.setAttribute('aria-label','Show screen '+(k+1)); d.addEventListener('click',function(){ i=k; go(); restart(); }); dots.appendChild(d);})(k);}
   function go(){ car.style.transform='translateX(-'+(i*100)+'%)'; [].forEach.call(dots.children,function(d,x){d.className=x===i?'on':'';}); }
-  setInterval(function(){ i=(i+1)%n; go(); }, 2600);
+  function restart(){ clearInterval(timer); timer=setInterval(function(){ i=(i+1)%n; go(); }, 2600); }
+  restart();
 })();
 </script>
 </body></html>
