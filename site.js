@@ -1,6 +1,19 @@
 /* Legacy Foundry — shared site script.
    Load order per page: supabase CDN, config.js, site.js */
 (function () {
+  /* ---------- global mobile nav polish (injected so every page benefits) ---------- */
+  try {
+    var mq = document.createElement('style');
+    mq.textContent =
+      '@media(max-width:840px){' +
+      '.nav-right .btn-primary,.nav-right .nav-login{display:none!important}' +
+      '.nav-right{gap:10px}' +
+      '.nav-in .burger{display:flex!important;order:3}' +
+      '.avatar-wrap{order:2}' +
+      '}';
+    document.head.appendChild(mq);
+  } catch (e) {}
+
   /* ---------- marketing UI (runs on every page) ---------- */
   var nav = document.getElementById('nav');
   if (nav) addEventListener('scroll', function () { nav.classList.toggle('scrolled', scrollY > 16); });
