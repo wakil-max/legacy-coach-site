@@ -39,17 +39,24 @@ nav{position:sticky;top:0;z-index:30;background:rgba(251,251,250,.88);backdrop-f
 .card h3{font-size:17px;margin-bottom:6px}.card p{font-size:14px;color:var(--muted)}
 .tag-now{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;color:var(--brand-ink);background:var(--brand-tint);padding:3px 9px;border-radius:999px;text-transform:uppercase}
 .road{background:var(--ink);color:#fff}.road .head h2{color:#fff}.road .lead{color:#c7d4ce}
-.vemail{display:flex;gap:10px;flex-wrap:wrap;align-items:center;background:#0f1715;border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:14px 16px;margin-bottom:18px;max-width:560px}
-.vemail label{font-size:14px;color:#cdeede;font-weight:600}
-.vemail input{flex:1;min-width:200px;background:#0a100d;border:1px solid rgba(255,255,255,.18);border-radius:9px;padding:10px 12px;color:#fff;font:inherit}
-.vemail input:focus{outline:none;border-color:var(--brand-2)}
-.vnote{font-size:12px;color:#9fb3ab;margin-bottom:18px;max-width:560px}
-.vote{display:flex;align-items:center;gap:16px;background:#0f1715;border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:16px 18px;margin-bottom:12px}
-.vote.star{border-color:rgba(70,212,158,.5);background:linear-gradient(100deg,#10231b,#0f1715)}
-.vote .vmain{flex:1}.vote .vt{font-weight:700;color:#fff;font-size:16px}.vote .vt .badge{font-size:11px;font-weight:700;color:var(--ink);background:#46d49e;padding:2px 8px;border-radius:999px;margin-left:8px;text-transform:uppercase}
-.vote .vd{font-size:14px;color:#9fb3ab;margin-top:3px}
-.vbtn{flex:none;display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14px;padding:11px 18px;border-radius:10px;border:1px solid var(--brand-2);background:transparent;color:#9ff0cf;cursor:pointer;transition:.15s}
-.vbtn:hover{background:rgba(16,168,118,.15)}.vbtn.voted{background:var(--brand);border-color:var(--brand);color:#fff;cursor:default}
+/* voting banner */
+.vbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:#0f1715;border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:14px 18px;margin-bottom:22px}
+.vbar.flash{border-color:#46d49e;box-shadow:0 0 0 3px rgba(70,212,158,.18)}
+.vbar .vi{font-size:18px}.vbar .vtext{flex:1;font-size:14px;color:#cdeede}.vbar .vtext b{color:#fff}
+.vbar .btn{padding:9px 16px;font-size:14px}
+/* roadmap grid of vote cards */
+.vgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:760px){.vgrid{grid-template-columns:1fr}}
+.vcardx{display:flex;gap:16px;align-items:stretch;background:#11201b;border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:16px;transition:.15s}
+.vcardx:hover{border-color:rgba(70,212,158,.45);transform:translateY(-2px)}
+.vcardx.star{border-color:rgba(70,212,158,.5);background:linear-gradient(120deg,#12281e,#11201b)}
+.uv{flex:none;width:70px;border:1px solid rgba(255,255,255,.18);border-radius:12px;background:#0c1512;color:#9ff0cf;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;transition:.15s;font-weight:800}
+.uv:hover{background:rgba(16,168,118,.16);border-color:var(--brand-2)}
+.uv .ar{font-size:18px;line-height:1}.uv .lb{font-size:11px;font-weight:700;letter-spacing:.03em;text-transform:uppercase}
+.uv.locked{color:#7e928b}.uv.locked .ar{font-size:15px}
+.uv.voted{background:var(--brand);border-color:var(--brand);color:#fff;cursor:default}
+.vcardx .vm{flex:1;min-width:0}
+.vcardx .vt{font-weight:700;color:#fff;font-size:16px}.vcardx .vt .badge{font-size:10px;font-weight:800;color:var(--ink);background:#46d49e;padding:2px 8px;border-radius:999px;margin-left:8px;text-transform:uppercase;vertical-align:middle}
+.vcardx .vd{font-size:13.5px;color:#9fb3ab;margin-top:4px}
 .suggest{background:#fff;border:1px dashed var(--brand-2);border-radius:18px;padding:28px;max-width:720px;margin:0 auto}
 .suggest h3{font-size:20px;margin-bottom:6px}.suggest p{color:var(--muted);margin-bottom:16px}
 .suggest textarea,.suggest input{width:100%;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font:inherit;margin-bottom:10px;resize:vertical}.suggest textarea:focus,.suggest input:focus{outline:none;border-color:var(--brand)}
@@ -69,7 +76,7 @@ footer{background:var(--ink);color:#9fb3ab;padding:42px 0;border-top:1px solid r
 <header class="phead"><div class="wrap">
   <span class="eyebrow light">Features</span>
   <h1>Everything your AI coach does — and what's next.</h1>
-  <p>Here's what Legacy Foundry can do today, plus a roadmap you get to shape. Vote for what we build next.</p>
+  <p>Here's what Legacy Foundry can do today, plus a roadmap you get to shape. Log in and vote for what we build next.</p>
 </div></header>
 
 <section><div class="wrap">
@@ -89,17 +96,15 @@ footer{background:var(--ink);color:#9fb3ab;padding:42px 0;border-top:1px solid r
 
 <section class="road"><div class="wrap">
   <div class="head"><span class="eyebrow light">The roadmap</span><h2>Vote for what we build next.</h2><p class="lead">This is where Legacy Foundry is headed. The most-wanted features get built first.</p></div>
-  <div class="vemail"><label for="voteEmail">Vote with your email:</label><input id="voteEmail" type="email" placeholder="you@yourstartup.com" autocomplete="email"></div>
-  <p class="vote" style="display:none"></p>
-  <p class="vnote">We ask for your email so each founder's vote counts once — and so we can tell you when the feature you wanted ships. We never spam.</p>
-  <div id="voteList">
-    <div class="vote star" data-feat="investor_connect"><div class="vmain"><div class="vt">Investor connect <span class="badge">Big one</span></div><div class="vd">Investors discover high-performing founders by their real momentum — and invest directly through the app.</div></div><button class="vbtn" data-feat="investor_connect">▲ Vote</button></div>
-    <div class="vote" data-feat="team_goals"><div class="vmain"><div class="vt">Team &amp; shared goals</div><div class="vd">Bring your co-founders and team into shared goals and accountability.</div></div><button class="vbtn" data-feat="team_goals">▲ Vote</button></div>
-    <div class="vote" data-feat="calendar_sync"><div class="vmain"><div class="vt">Calendar &amp; reminder sync</div><div class="vd">Sync your sessions and moves to Google Calendar with smart reminders.</div></div><button class="vbtn" data-feat="calendar_sync">▲ Vote</button></div>
-    <div class="vote" data-feat="web_app"><div class="vmain"><div class="vt">Web app</div><div class="vd">Use Legacy Foundry on desktop, not just your phone.</div></div><button class="vbtn" data-feat="web_app">▲ Vote</button></div>
-    <div class="vote" data-feat="integrations"><div class="vmain"><div class="vt">Integrations</div><div class="vd">Connect Notion, Slack, and Google so your moves live where you work.</div></div><button class="vbtn" data-feat="integrations">▲ Vote</button></div>
-    <div class="vote" data-feat="voice_sessions"><div class="vmain"><div class="vt">Voice sessions</div><div class="vd">Talk through your morning and evening sessions out loud, hands-free.</div></div><button class="vbtn" data-feat="voice_sessions">▲ Vote</button></div>
-    <div class="vote" data-feat="analytics"><div class="vmain"><div class="vt">Progress analytics</div><div class="vd">A dashboard of your momentum, streaks, and goal trends over time.</div></div><button class="vbtn" data-feat="analytics">▲ Vote</button></div>
+  <div class="vbar" id="vbar"><span class="vi">🔒</span><span class="vtext" id="vbarText">Log in to cast your vote — one vote per founder.</span><a class="btn btn-primary" id="vbarBtn" href="login.html?next=features.html">Log in to vote</a></div>
+  <div class="vgrid" id="voteList">
+    <div class="vcardx star" data-feat="investor_connect"><button class="uv" data-feat="investor_connect"><span class="ar">▲</span><span class="lb">Vote</span></button><div class="vm"><div class="vt">Investor connect <span class="badge">Big one</span></div><div class="vd">Investors discover high-performing founders by their real momentum — and invest directly through the app.</div></div></div>
+    <div class="vcardx" data-feat="team_goals"><button class="uv" data-feat="team_goals"><span class="ar">▲</span><span class="lb">Vote</span></button><div class="vm"><div class="vt">Team &amp; shared goals</div><div class="vd">Bring your co-founders and team into shared goals and accountability.</div></div></div>
+    <div class="vcardx" data-feat="calendar_sync"><button class="uv" data-feat="calendar_sync"><span class="ar">▲</span><span class="lb">Vote</span></button><div class="vm"><div class="vt">Calendar &amp; reminder sync</div><div class="vd">Sync your sessions and moves to Google Calendar with smart reminders.</div></div></div>
+    <div class="vcardx" data-feat="web_app"><button class="uv" data-feat="web_app"><span class="ar">▲</span><span class="lb">Vote</span></button><div class="vm"><div class="vt">Web app</div><div class="vd">Use Legacy Foundry on desktop, not just your phone.</div></div></div>
+    <div class="vcardx" data-feat="integrations"><button class="uv" data-feat="integrations"><span class="ar">▲</span><span class="lb">Vote</span></button><div class="vm"><div class="vt">Integrations</div><div class="vd">Connect Notion, Slack, and Google so your moves live where you work.</div></div></div>
+    <div class="vcardx" data-feat="voice_sessions"><button class="uv" data-feat="voice_sessions"><span class="ar">▲</span><span class="lb">Vote</span></button><div class="vm"><div class="vt">Voice sessions</div><div class="vd">Talk through your morning and evening sessions out loud, hands-free.</div></div></div>
+    <div class="vcardx" data-feat="analytics"><button class="uv" data-feat="analytics"><span class="ar">▲</span><span class="lb">Vote</span></button><div class="vm"><div class="vt">Progress analytics</div><div class="vd">A dashboard of your momentum, streaks, and goal trends over time.</div></div></div>
   </div>
 </div></section>
 
@@ -116,46 +121,55 @@ footer{background:var(--ink);color:#9fb3ab;padding:42px 0;border-top:1px solid r
 
 <section class="cta"><div class="wrap"><h2>Want all of this?</h2><p style="color:#eafaf3;max-width:560px;margin:0 auto 22px">Join the public beta free and start with your first morning session.</p><a href="beta.html" class="btn btn-primary">Try the beta — it's free →</a></div></section>
 
-<footer><div class="wrap fbot"><span>© 2026 Legacy Foundry · Legacy Ventures · Onnorokom Group</span><span><a href="contact.html">Contact</a> · Privacy · Terms</span></div></footer>
+<footer><div class="wrap fbot"><span>© 2026 Legacy Foundry · Legacy Ventures · OnnoRokom Group</span><span><a href="contact.html">Contact</a> · Privacy · Terms</span></div></footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script><script src="site.js"></script>
 <script>
 (function(){
   function client(){ return (window.LC && LC.client) ? LC.client : null; }
-  var EK='lf_vote_email', VK='lf_voted_features';
-  var emailInput=document.getElementById('voteEmail');
-  function getEmail(){ var e=(emailInput.value||'').trim(); if(!e){e=localStorage.getItem(EK)||'';} return e; }
-  function validEmail(e){ return /.+@.+\..+/.test(e); }
-  // prefill remembered email + logged-in email
-  var saved=localStorage.getItem(EK); if(saved) emailInput.value=saved;
-  if(window.LC && LC.client){ LC.client.auth.getSession().then(function(r){ var s=r&&r.data?r.data.session:null; if(s&&s.user&&!emailInput.value){ emailInput.value=s.user.email; } }); }
-  function voted(){ try{return JSON.parse(localStorage.getItem(VK)||'[]');}catch(e){return [];} }
-  function markVoted(f){ var v=voted(); if(v.indexOf(f)<0){v.push(f);localStorage.setItem(VK,JSON.stringify(v));} }
-  voted().forEach(function(f){ var b=document.querySelector('.vbtn[data-feat="'+f+'"]'); if(b){b.classList.add('voted');b.textContent='✓ Voted';} });
-  document.querySelectorAll('.vbtn').forEach(function(btn){
-    btn.addEventListener('click',function(){
-      if(btn.classList.contains('voted'))return;
-      var email=getEmail();
-      if(!validEmail(email)){ emailInput.style.borderColor='#ff7a7a'; emailInput.focus(); emailInput.placeholder='Enter your email to vote →'; return; }
-      localStorage.setItem(EK,email); emailInput.style.borderColor='';
-      var f=btn.getAttribute('data-feat');
-      btn.classList.add('voted'); btn.textContent='✓ Voted'; markVoted(f);
-      var c=client();
-      if(c){ c.from('contacts').insert({name:'FEATURE_VOTE', email:email, message:f}).then(function(){},function(){}); }
+  var user=null;
+  var bar=document.getElementById('vbar'), barText=document.getElementById('vbarText'), barBtn=document.getElementById('vbarBtn');
+  function votedKey(){ return 'lf_votes_'+(user?user.id:'anon'); }
+  function voted(){ try{return JSON.parse(localStorage.getItem(votedKey())||'[]');}catch(e){return [];} }
+  function markVoted(f){ var v=voted(); if(v.indexOf(f)<0){v.push(f);localStorage.setItem(votedKey(),JSON.stringify(v));} }
+  function setButtons(){
+    document.querySelectorAll('.uv').forEach(function(b){
+      var f=b.getAttribute('data-feat');
+      if(voted().indexOf(f)>=0){ b.classList.add('voted'); b.classList.remove('locked'); b.innerHTML='<span class="ar">✓</span><span class="lb">Voted</span>'; }
+      else if(!user){ b.classList.add('locked'); b.innerHTML='<span class="ar">🔒</span><span class="lb">Vote</span>'; }
+      else { b.classList.remove('locked'); b.innerHTML='<span class="ar">▲</span><span class="lb">Vote</span>'; }
+    });
+  }
+  function renderBar(){
+    if(user){ bar.querySelector('.vi').textContent='✓'; barText.innerHTML='You\'re voting as <b>'+user.email+'</b>. Tap the features you want most.'; barBtn.style.display='none'; }
+    else { bar.querySelector('.vi').textContent='🔒'; barText.textContent='Log in to cast your vote — one vote per founder.'; barBtn.style.display=''; }
+  }
+  function flashBar(){ bar.classList.add('flash'); bar.scrollIntoView({behavior:'smooth',block:'center'}); setTimeout(function(){bar.classList.remove('flash');},1600); }
+  // init session
+  var c=client();
+  if(c){ c.auth.getSession().then(function(r){ user=(r&&r.data&&r.data.session)?r.data.session.user:null; renderBar(); setButtons(); }); }
+  else { renderBar(); setButtons(); }
+  document.querySelectorAll('.uv').forEach(function(b){
+    b.addEventListener('click',function(){
+      var f=b.getAttribute('data-feat');
+      if(b.classList.contains('voted'))return;
+      if(!user){ flashBar(); return; }
+      markVoted(f); b.classList.add('voted'); b.classList.remove('locked'); b.innerHTML='<span class="ar">✓</span><span class="lb">Voted</span>';
+      client().from('contacts').insert({name:'FEATURE_VOTE', email:user.email, message:f}).then(function(){},function(){});
     });
   });
+  // suggestions
   var sgBtn=document.getElementById('sgBtn');
   sgBtn.addEventListener('click',function(){
     var t=document.getElementById('sgText').value.trim(); var e=document.getElementById('sgEmail').value.trim();
     var st=document.getElementById('sgStatus');
     if(t.length<3){ st.style.color='#c0392b'; st.textContent='Tell us a little more about the feature.'; return; }
-    var c=client(); if(!c){ st.style.color='#c0392b'; st.textContent="Backend not connected — try again shortly."; return; }
+    var cc=client(); if(!cc){ st.style.color='#c0392b'; st.textContent='Backend not connected — try again shortly.'; return; }
     sgBtn.disabled=true; sgBtn.textContent='Sending…';
-    c.from('contacts').insert({name:'FEATURE_SUGGESTION', email: e||'suggestion@legacyfoundry.ai', message: t}).then(function(res){
-      if(res && res.error){ st.style.color='#c0392b'; st.textContent="Couldn't send — please try again."; sgBtn.disabled=false; sgBtn.textContent='Send suggestion'; return; }
+    cc.from('contacts').insert({name:'FEATURE_SUGGESTION', email: e||(user?user.email:'suggestion@legacyfoundry.ai'), message: t}).then(function(res){
+      if(res&&res.error){ st.style.color='#c0392b'; st.textContent="Couldn't send — please try again."; sgBtn.disabled=false; sgBtn.textContent='Send suggestion'; return; }
       document.getElementById('sgText').value=''; document.getElementById('sgEmail').value='';
-      st.style.color='var(--brand)'; st.textContent="Got it — thanks! If we hear this a lot, it'll go up for a vote.";
-      sgBtn.textContent='Sent ✓';
+      st.style.color='var(--brand)'; st.textContent="Got it — thanks! If we hear this a lot, it'll go up for a vote."; sgBtn.textContent='Sent ✓';
     });
   });
 })();
