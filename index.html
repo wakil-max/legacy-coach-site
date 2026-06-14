@@ -112,8 +112,7 @@ footer{background:var(--ink);color:#9fb3ab;padding:42px 0;border-top:1px solid r
       <img src="screens/s-habits.jpg" alt="Daily habit tracker" decoding="async">
       <img src="screens/s-mentor.jpg" alt="On-demand mentor" decoding="async">
       <img src="screens/s-history.jpg" alt="Your commitment history" decoding="async">
-    </div></div></div>
-    <div class="dots" id="dots"></div></div>
+    </div></div></div></div>
   </div>
 </div></header>
 
@@ -191,10 +190,9 @@ footer{background:var(--ink);color:#9fb3ab;padding:42px 0;border-top:1px solid r
 <script src="site.js"></script>
 <script>
 (function(){
-  var car=document.getElementById('car'); var dots=document.getElementById('dots');
+  var car=document.getElementById('car');
   if(!car)return; var n=car.children.length, i=0, timer;
-  for(var k=0;k<n;k++){(function(k){var d=document.createElement('i'); if(k===0)d.className='on'; d.setAttribute('role','button'); d.setAttribute('aria-label','Show screen '+(k+1)); d.addEventListener('click',function(){ i=k; go(); restart(); }); dots.appendChild(d);})(k);}
-  function go(){ car.style.transform='translateX(-'+(i*100)+'%)'; [].forEach.call(dots.children,function(d,x){d.className=x===i?'on':'';}); }
+  function go(){ car.style.transform='translateX(-'+(i*100)+'%)'; }
   function restart(){ clearInterval(timer); timer=setInterval(function(){ i=(i+1)%n; go(); }, 2600); }
   restart();
 })();
