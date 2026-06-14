@@ -175,16 +175,23 @@ footer{background:var(--ink);color:#9fb3ab;padding:34px 0;margin-top:40px;font-s
       var row={ id:u.id, full_name:$('fullName').value.trim(), role:$('role').value.trim(),
         region:$('region').value.trim(), company:$('company').value.trim(), stage:$('stage').value,
         building:$('building').value.trim(), avatar_url:avatarData||null, updated_at:new Date().toISOString() };
-      LC.client.from('profiles').upsert(row).then(function(res){
-        // keep auth metadata in sync (drives nav avatar)
-        LC.client.auth.updateUser({ data:{ full_name:row.full_name, role:row.role, region:row.region, company:row.company, stage:row.stage, building:row.building, avatar_url:avatarData } });
+      var meta={ full_name:row.full_name, role:row.role, region:row.region, company:row.company, stage:row.stage, building:row.building, avatar_url:avatarData };
+      function done(ok,msg){
         btn.disabled=false;
-        if(res.error){ st.textContent='Could not save. '+res.error.message; st.style.color='var(--danger)'; return; }
-        st.textContent='Saved ✓'; st.style.color='var(--brand)';
-        $('hName').textContent=row.full_name||'Founder';
-        $('hSub').textContent=[row.role,row.company].filter(Boolean).join(' · ');
-        setTimeout(function(){st.textContent='';},2500);
-      });
+        if(ok){
+          st.textContent='Saved ✓'; st.style.color='var(--brand)';
+          $('hName').textContent=row.full_name||'Founder';
+          $('hSub').textContent=[row.role,row.company].filter(Boolean).join(' · ');
+          setTimeout(function(){st.textContent='';},2500);
+        } else { st.textContent=msg||'Could not save. Please try again.'; st.style.color='var(--danger)'; }
+      }
+      // Primary save: auth metadata (always available, drives nav + account fallback).
+      LC.client.auth.updateUser({ data:meta }).then(function(ures){
+        // Best-effort: also write to the profiles table if its columns exist. Never block on this.
+        try{ LC.client.from('profiles').upsert(row).then(function(){},function(){}); }catch(e){}
+        if(ures && ures.error){ done(false, ures.error.message); return; }
+        done(true);
+      }, function(err){ done(false, err && err.message); });
     });
 
     $('pwBtn').addEventListener('click',function(){
