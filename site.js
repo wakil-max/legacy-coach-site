@@ -113,36 +113,62 @@
 
   window.LC = LC;
 
-  /* ---------- footer: social links + legal links (site-wide) ---------- */
+  /* ---------- consistent rich footer (site-wide) ---------- */
   function enhanceFooter() {
     var foot = document.querySelector('footer');
-    if (!foot || foot.querySelector('.lc-social')) return;
+    if (!foot || foot.getAttribute('data-lc-foot')) return;
+    foot.setAttribute('data-lc-foot', '1');
 
-    /* 1) turn plain "Privacy" / "Terms" text into real links (footer is simple markup) */
-    foot.innerHTML = foot.innerHTML
-      .replace(/Privacy(?!<\/a>)/g, '<a href="privacy.html" style="color:inherit;text-decoration:underline;text-underline-offset:2px">Privacy</a>')
-      .replace(/Terms(?!<\/a>)/g, '<a href="terms.html" style="color:inherit;text-decoration:underline;text-underline-offset:2px">Terms</a>');
-
-    /* 2) social icons row (built after innerHTML edit so listeners survive) */
-    var st = document.createElement('style');
-    st.textContent = '.lc-social a{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(255,255,255,.18);color:inherit;opacity:.82;transition:.18s}.lc-social a:hover{opacity:1;background:rgba(16,168,118,.22);border-color:#10a876}';
-    document.head.appendChild(st);
     var SOC = [
       ['Facebook', 'https://www.facebook.com/profile.php?id=61590857663977', '<path d="M14 8.5h2V5.7h-2.3C11 5.7 10 7 10 9v1.5H8V13h2v6h2.8v-6h2.1l.4-2.5h-2.5V9.2c0-.5.2-.7.8-.7z"/>'],
       ['X', 'https://x.com/LegacyFoundry_', '<path d="M13.6 10.7L19 5h-1.5l-4.6 4.9L9 5H5l5.7 8L5 19h1.5l4.9-5.2L15 19h4l-5.4-8.3zm-1.7 1.9l-.6-.8L7 6.1h1.8l3.6 5 .6.8 4.7 6.5h-1.8l-3.9-5.4z"/>'],
       ['LinkedIn', 'https://www.linkedin.com/company/131333988/', '<path d="M8.3 18H5.7V9.5h2.6V18zM7 8.3a1.5 1.5 0 110-3 1.5 1.5 0 010 3zM18.3 18h-2.6v-4.4c0-1.1-.4-1.8-1.4-1.8-.8 0-1.2.5-1.4 1-.1.2-.1.5-.1.8V18H10.2s0-7.6 0-8.5h2.6v1.2c.3-.5 1-1.3 2.4-1.3 1.8 0 3.1 1.1 3.1 3.6V18z"/>'],
       ['YouTube', 'https://www.youtube.com/@LegacyFoundryAI', '<path d="M20.5 9s-.2-1.2-.7-1.7c-.7-.7-1.4-.7-1.7-.8C15.9 6.3 12 6.3 12 6.3s-3.9 0-6.1.2c-.3 0-1 0-1.7.8C3.7 7.8 3.5 9 3.5 9S3.3 10.4 3.3 11.8v1.3C3.3 14.6 3.5 16 3.5 16s.2 1.2.7 1.7c.7.7 1.6.7 2 .8 1.5.1 5.8.2 5.8.2s3.9 0 6.1-.2c.3 0 1 0 1.7-.8.5-.5.7-1.7.7-1.7s.2-1.4.2-2.8v-1.3C20.7 10.4 20.5 9 20.5 9zM10.4 14.6V9.9l4 2.4-4 2.3z"/>']
     ];
-    var bar = document.createElement('div');
-    bar.className = 'lc-social';
-    bar.style.cssText = 'display:flex;gap:12px;justify-content:center;margin:0 0 18px;flex-wrap:wrap';
-    SOC.forEach(function (s) {
-      var a = document.createElement('a');
-      a.href = s[1]; a.target = '_blank'; a.rel = 'noopener noreferrer'; a.setAttribute('aria-label', s[0]); a.title = s[0];
-      a.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">' + s[2] + '</svg>';
-      bar.appendChild(a);
-    });
-    foot.insertBefore(bar, foot.firstChild);
+    var social = SOC.map(function (s) {
+      return '<a href="' + s[1] + '" target="_blank" rel="noopener noreferrer" aria-label="' + s[0] + '" title="' + s[0] + '"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">' + s[2] + '</svg></a>';
+    }).join('');
+
+    function col(title, links) {
+      return '<div class="lc-col"><h4>' + title + '</h4>' +
+        links.map(function (l) { return '<a href="' + l[1] + '">' + l[0] + '</a>'; }).join('') + '</div>';
+    }
+
+    var st = document.createElement('style');
+    st.textContent =
+      'footer[data-lc-foot]{background:var(--ink,#0c0e0d);color:#9fb3ab;border-top:1px solid rgba(255,255,255,.08);padding:54px 0 30px;font-size:14px}' +
+      '.lc-fwrap{max-width:1140px;margin:0 auto;padding:0 24px}' +
+      '.lc-ftop{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:36px}' +
+      '.lc-brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px;color:#fff}' +
+      '.lc-brand .lf{width:30px;height:30px;border-radius:8px;background:#fff;color:#075c40;display:grid;place-items:center;font-size:13px;font-weight:800}' +
+      '.lc-tag{margin:14px 0 16px;max-width:330px;line-height:1.6;color:#9fb3ab}' +
+      '.lc-social{display:flex;gap:10px}' +
+      '.lc-social a{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(255,255,255,.18);color:#cfe0d8;opacity:.85;transition:.18s}' +
+      '.lc-social a:hover{opacity:1;background:rgba(16,168,118,.22);border-color:#10a876;color:#fff}' +
+      '.lc-col h4{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#6f827b;margin-bottom:14px}' +
+      '.lc-col a{display:block;color:#c2cfc9;margin-bottom:11px;transition:.15s}.lc-col a:hover{color:#fff}' +
+      '.lc-fbot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:38px;padding-top:22px;border-top:1px solid rgba(255,255,255,.08);font-size:13px}' +
+      '.lc-fbot a{color:inherit;text-decoration:underline;text-underline-offset:2px}.lc-fbot a:hover{color:#fff}' +
+      '@media(max-width:760px){.lc-ftop{grid-template-columns:1fr 1fr;gap:28px}.lc-brand-col{grid-column:1/-1}}';
+    document.head.appendChild(st);
+
+    foot.innerHTML =
+      '<div class="lc-fwrap">' +
+        '<div class="lc-ftop">' +
+          '<div class="lc-brand-col">' +
+            '<a href="index.html" class="lc-brand"><span class="lf">LF</span> Legacy Foundry</a>' +
+            '<p class="lc-tag">The AI coach for founders and entrepreneurs — a daily rhythm that turns ambition into shipped work. Built by Legacy Ventures &amp; Onnorokom Group.</p>' +
+            '<div class="lc-social">' + social + '</div>' +
+          '</div>' +
+          col('Product', [['How it works', 'how-it-works.html'], ['Getting started', 'getting-started.html'], ['Features', 'features.html'], ['Blog', 'blog.html']]) +
+          col('Company', [['About', 'about.html'], ['Contact', 'contact.html']]) +
+          col('Get started', [['Join the beta', 'beta.html'], ['Log in', 'login.html']]) +
+        '</div>' +
+        '<div class="lc-fbot">' +
+          '<span>© 2026 Legacy Foundry · Legacy Ventures · Onnorokom Group. All rights reserved.</span>' +
+          '<span><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></span>' +
+        '</div>' +
+      '</div>';
   }
 
   document.addEventListener('DOMContentLoaded', function () { LC.renderNav(); enhanceFooter(); });
