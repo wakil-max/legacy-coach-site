@@ -455,7 +455,7 @@ function boot(){
     });
   });
 }
-if('serviceWorker' in navigator){ navigator.serviceWorker.register('sw.js').catch(function(){}); }
+if('serviceWorker' in navigator){ navigator.serviceWorker.register('/app/sw.js',{scope:'/app/'}).catch(function(){}); }
 boot();
 
 })();
