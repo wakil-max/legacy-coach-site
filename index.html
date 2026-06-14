@@ -54,7 +54,7 @@ nav{position:sticky;top:0;z-index:30;background:rgba(251,251,250,.88);backdrop-f
 .car img{width:100%;height:100%;object-fit:cover;flex:none}
 .dots{display:flex;gap:6px;justify-content:center;margin-top:16px}
 .dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.3)}.dots i.on{background:#46d49e}
-@media(max-width:840px){.hero-grid{grid-template-columns:1fr}.phone-wrap{margin-top:14px}}
+@media(max-width:840px){.hero-grid{grid-template-columns:1fr;min-width:0}.hero-grid>*{min-width:0;max-width:100%}.hero p{max-width:100%}.phone-wrap{margin-top:14px}}
 .whatis{background:var(--brand-ink);color:#eafaf3;padding:28px 0}
 .whatis .wrap{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap}.whatis b{color:#fff}.whatis .tag{font-weight:800;color:#bff3df;white-space:nowrap}
 .head{max-width:700px;margin-bottom:46px}.head h2{margin:10px 0 14px}

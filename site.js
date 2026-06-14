@@ -5,6 +5,8 @@
   try {
     var mq = document.createElement('style');
     mq.textContent =
+      'html,body{max-width:100%;overflow-x:hidden}' +
+      'img,video,iframe{max-width:100%}' +
       '@media(max-width:840px){' +
       '.nav-right .btn-primary,.nav-right .nav-login{display:none!important}' +
       '.nav-right{gap:10px}' +
