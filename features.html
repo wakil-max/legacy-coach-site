@@ -59,6 +59,17 @@ nav{position:sticky;top:0;z-index:30;background:rgba(251,251,250,.88);backdrop-f
 .bartrack{flex:1;height:8px;background:rgba(255,255,255,.12);border-radius:99px;overflow:hidden}
 .barfill{height:100%;width:0;background:linear-gradient(90deg,var(--brand),#46d49e);border-radius:99px;transition:width .7s cubic-bezier(.65,0,.35,1)}
 .barlbl{font-size:12px;color:#9fb3ab;white-space:nowrap;min-width:96px;text-align:right}
+.lmodal{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(8,16,13,.62);backdrop-filter:blur(3px)}
+.lmodal.open{display:flex}
+.lmcard{background:#fff;color:var(--text);border-radius:20px;max-width:380px;width:100%;padding:32px 28px;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.4);transform:translateY(8px);animation:lmpop .22s ease forwards}
+@keyframes lmpop{to{transform:translateY(0)}}
+.lmicon{width:62px;height:62px;border-radius:50%;background:var(--brand-tint);color:var(--brand);display:grid;place-items:center;font-size:28px;margin:0 auto 16px}
+.lmcard h3{font-size:21px;font-weight:800;margin-bottom:8px}
+.lmcard p{color:var(--muted);font-size:14.5px;margin-bottom:22px}
+.lmcard p b{color:var(--text)}
+.lmcard .btn{display:block;width:100%;justify-content:center;margin-bottom:10px}
+.lmsignup{font-size:13.5px;color:var(--muted)}.lmsignup a{color:var(--brand);font-weight:700}
+.lmclose{position:absolute;top:14px;right:18px;background:none;border:0;font-size:22px;color:#fff;cursor:pointer;line-height:1}
 .suggest{background:#fff;border:1px dashed var(--brand-2);border-radius:18px;padding:28px;max-width:720px;margin:0 auto}
 .suggest h3{font-size:20px;margin-bottom:6px}.suggest p{color:var(--muted);margin-bottom:16px}
 .suggest textarea,.suggest input{width:100%;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font:inherit;margin-bottom:10px;resize:vertical}.suggest textarea:focus,.suggest input:focus{outline:none;border-color:var(--brand)}
@@ -125,6 +136,17 @@ footer{background:var(--ink);color:#9fb3ab;padding:42px 0;border-top:1px solid r
 
 <footer><div class="wrap fbot"><span>© 2026 Legacy Foundry · Legacy Ventures · OnnoRokom Group</span><span><a href="contact.html">Contact</a> · Privacy · Terms</span></div></footer>
 
+<div class="lmodal" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="lmTitle">
+  <button class="lmclose" id="lmClose" aria-label="Close">×</button>
+  <div class="lmcard">
+    <div class="lmicon">🗳️</div>
+    <h3 id="lmTitle">Log in to vote</h3>
+    <p>Votes shape our roadmap, so we keep it to <b>one vote per founder</b>. Log in to your account first, then cast your vote.</p>
+    <a href="login.html" class="btn btn-primary">Log in to vote →</a>
+    <p class="lmsignup">New here? <a href="signup.html">Create a free account</a></p>
+  </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script><script src="site.js"></script>
 <script>
 (function(){
@@ -155,7 +177,13 @@ footer{background:var(--ink);color:#9fb3ab;padding:42px 0;border-top:1px solid r
     if(user){ barText.innerHTML='You\'re voting as <b>'+user.email+'</b>. Tap a feature to vote.'; barBtn.style.display='none'; }
     else { barText.textContent='Log in to cast your vote — one vote per founder.'; barBtn.style.display=''; }
   }
-  function flashLogin(){ bar.classList.add('flash'); barText.innerHTML='<b>Please log in first to vote.</b>'; barBtn.style.display=''; bar.scrollIntoView({behavior:'smooth',block:'center'}); setTimeout(function(){ bar.classList.remove('flash'); renderBar(); },2600); }
+  var lmodal=document.getElementById('loginModal');
+  function flashLogin(){ if(lmodal){ lmodal.classList.add('open'); } }
+  if(lmodal){
+    document.getElementById('lmClose').addEventListener('click',function(){ lmodal.classList.remove('open'); });
+    lmodal.addEventListener('click',function(e){ if(e.target===lmodal) lmodal.classList.remove('open'); });
+    document.addEventListener('keydown',function(e){ if(e.key==='Escape') lmodal.classList.remove('open'); });
+  }
   function loadCounts(){
     var c=client(); if(!c||!c.rpc) return;
     c.rpc('feature_vote_counts').then(function(res){

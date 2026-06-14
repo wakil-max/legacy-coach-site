@@ -1,55 +1,278 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Create your account — Legacy Foundry</title>
-<meta name="description" content="Create your Legacy Foundry account and start forging your goals into shipped work.">
+<meta name="description" content="Create your Legacy Foundry founder account and set up your profile.">
 <meta name="robots" content="noindex">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230c0e0d'/%3E%3Ctext x='15' y='21' font-family='sans-serif' font-size='12' font-weight='800' fill='white' text-anchor='middle'%3ELF%3C/text%3E%3Ccircle cx='25' cy='25' r='3' fill='%2310a876'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
-</head><body>
+<style>
+:root{--ink:#0c0e0d;--paper:#fbfbfa;--white:#fff;--brand:#0b8a5f;--brand-2:#10a876;--brand-ink:#075c40;--brand-tint:#eaf6f1;--text:#141b19;--muted:#6b736e;--line:#e6e8e5;--gold:#d8a13a;--danger:#c0392b}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:var(--text);background:var(--paper);line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.shell{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);min-height:100vh}
+/* ---------- brand side ---------- */
+.brandside{position:relative;color:#fff;background:radial-gradient(1100px 520px at 18% -10%,#15543c 0%,#0b3326 48%,#071d16 100%);padding:48px 52px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
+.brandside::after{content:"";position:absolute;right:-120px;bottom:-120px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(16,168,118,.30),transparent 65%)}
+.bs-top{position:relative;z-index:2}
+.bs-brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:19px}
+.bs-logo{width:36px;height:36px;border-radius:10px;background:#fff;color:var(--brand-ink);display:grid;place-items:center;font-size:15px;font-weight:800;position:relative}
+.bs-logo::after{content:"";position:absolute;right:4px;bottom:4px;width:7px;height:7px;border-radius:50%;background:var(--brand-2)}
+.bs-mid{position:relative;z-index:2;max-width:420px}
+.bs-mid h2{font-size:clamp(26px,2.6vw,34px);line-height:1.18;font-weight:800;letter-spacing:-.02em;margin-bottom:18px}
+.bs-mid p{color:#bfded0;font-size:16px}
+.bs-list{list-style:none;margin:26px 0 0;display:flex;flex-direction:column;gap:14px}
+.bs-list li{display:flex;gap:12px;align-items:flex-start;font-size:15px;color:#e7f5ee}
+.bs-list .ic{flex:none;width:24px;height:24px;border-radius:50%;background:rgba(16,168,118,.22);color:#7ef0c2;display:grid;place-items:center;font-size:13px;font-weight:800;margin-top:1px}
+.bs-quote{position:relative;z-index:2;border-left:3px solid var(--brand-2);padding:6px 0 6px 16px;max-width:440px}
+.bs-quote p{font-style:italic;color:#dcefe4;font-size:15px}
+.bs-quote span{display:block;margin-top:8px;font-size:13px;color:#9fc6b5;font-style:normal;font-weight:600}
+/* ---------- form side ---------- */
+.formside{padding:40px clamp(24px,4vw,64px);display:flex;flex-direction:column;justify-content:center}
+.fwrap{width:100%;max-width:520px;margin:0 auto}
+.backhome{font-size:14px;color:var(--muted);font-weight:600;display:inline-flex;gap:6px;margin-bottom:22px}.backhome:hover{color:var(--brand)}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;color:var(--brand);background:var(--brand-tint);padding:6px 13px;border-radius:999px}
+.fwrap h1{font-size:clamp(26px,3.2vw,33px);line-height:1.12;font-weight:800;letter-spacing:-.02em;margin:14px 0 6px}
+.fwrap .sub{color:var(--muted);font-size:15px;margin-bottom:8px}
+.steps{display:flex;gap:8px;margin:18px 0 22px}
+.steps .sdot{flex:1;height:5px;border-radius:999px;background:var(--line)}
+.steps .sdot.on{background:var(--brand)}
+.banner{background:#fff4e5;border:1px solid #f0d49a;color:#8a5a12;padding:11px 14px;border-radius:11px;font-size:13.5px;margin-bottom:16px}
+.sectlabel{font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin:22px 0 12px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:13.5px;font-weight:700;margin-bottom:6px}
+.field .hint{font-weight:500;color:var(--muted);font-size:12px}
+.inp,select.inp{width:100%;font:inherit;font-size:15px;padding:12px 14px;border:1.5px solid var(--line);border-radius:11px;background:#fff;color:var(--text);transition:.16s}
+.inp:focus,select.inp:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(16,168,118,.14)}
+.inp::placeholder{color:#aab2ad}
+select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b736e' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pwwrap{position:relative}
+.pwtoggle{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:0;cursor:pointer;color:var(--muted);font-size:12.5px;font-weight:700}
+.pwbar{height:5px;border-radius:999px;background:var(--line);margin-top:8px;overflow:hidden}
+.pwbar i{display:block;height:100%;width:0;background:var(--brand);transition:.25s}
+.pwnote{font-size:12px;color:var(--muted);margin-top:5px}
+/* avatar uploader */
+.avrow{display:flex;align-items:center;gap:16px;margin-bottom:6px}
+.avprev{width:66px;height:66px;border-radius:50%;flex:none;background:var(--brand-tint);color:var(--brand-ink);display:grid;place-items:center;font-weight:800;font-size:20px;overflow:hidden;border:2px solid var(--line)}
+.avprev img{width:100%;height:100%;object-fit:cover}
+.avbtn{font-size:13.5px;font-weight:700;color:var(--brand);border:1.5px solid var(--brand);background:#fff;padding:9px 15px;border-radius:10px;cursor:pointer}
+.avbtn:hover{background:var(--brand-tint)}
+.avhint{font-size:12px;color:var(--muted);margin-top:4px}
+.btn-primary{width:100%;font:inherit;font-weight:700;font-size:15.5px;padding:14px;border-radius:12px;border:0;background:var(--brand);color:#fff;cursor:pointer;transition:.16s;margin-top:8px}
+.btn-primary:hover{background:var(--brand-ink)}.btn-primary:disabled{opacity:.6;cursor:default}
+.status{min-height:18px;font-size:13.5px;margin-top:10px;font-weight:600}
+.terms{font-size:12px;color:var(--muted);margin-top:14px;line-height:1.5}
+.foot{font-size:14.5px;color:var(--muted);margin-top:22px;text-align:center}.foot a{color:var(--brand);font-weight:700}
+.success{display:none;text-align:center;padding:18px 0}
+.success .big{width:72px;height:72px;border-radius:50%;background:var(--brand-tint);color:var(--brand);display:grid;place-items:center;font-size:34px;margin:0 auto 18px}
+.success h2{font-size:24px;font-weight:800;margin-bottom:10px}
+.success p{color:var(--muted);font-size:15px;max-width:380px;margin:0 auto 8px}
+@media(max-width:900px){.shell{grid-template-columns:1fr}.brandside{display:none}.formside{padding:34px 22px}.two{grid-template-columns:1fr}}
+</style></head><body>
 
-<nav id="nav"><div class="wrap nav-in">
-  <a href="index.html" class="brand"><span class="logo">LF</span> Legacy Foundry</a>
-  <div class="nav-links"><a href="index.html">Home</a><a href="how-it-works.html">How it works</a><a href="getting-started.html">Getting started</a><a href="features.html">Features</a><a href="blog.html">Blog</a><a href="about.html">About</a></div>
-  <div class="nav-right"><a href="login.html" class="nav-login">Log in</a></div>
-  <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
-</div></nav>
-<div class="mobile" id="mobile"><a href="index.html">Home</a><a href="how-it-works.html">How it works</a><a href="getting-started.html">Getting started</a><a href="features.html">Features</a><a href="blog.html">Blog</a><a href="about.html">About</a><a href="login.html">Log in</a></div>
+<div class="shell">
 
-<main class="auth-main"><div class="auth-card">
-  <span class="auth-eyebrow">Get started</span>
-  <h1>Create your account</h1>
-  <p class="sub">Join Legacy Foundry and start building your daily rhythm.</p>
-  <div id="needsConfig" class="banner" style="display:none">The backend isn't connected yet.</div>
-  <form id="signupForm" autocomplete="on">
-    <div class="field"><label for="fullName">Full name</label><input id="fullName" name="fullName" type="text" placeholder="Jane Founder" required></div>
-    <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="you@yourstartup.com" required></div>
-    <div class="field"><label for="password">Password</label><input id="password" name="password" type="password" placeholder="At least 6 characters" minlength="6" required></div>
-    <div class="auth-status" id="status"></div>
-    <button type="submit" class="btn btn-primary btn-block" id="submitBtn">Create account</button>
-  </form>
-  <p class="auth-foot">Already have an account? <a href="login.html">Log in</a></p>
-</div></main>
+  <aside class="brandside">
+    <div class="bs-top">
+      <a href="index.html" class="bs-brand"><span class="bs-logo">LF</span> Legacy Foundry</a>
+    </div>
+    <div class="bs-mid">
+      <h2>Your AI coach for the long game.</h2>
+      <p>Set up your founder profile so your coach can tailor every session — your goals, your stage, your business.</p>
+      <ul class="bs-list">
+        <li><span class="ic">✓</span><span>A daily rhythm: morning focus, evening reflection, weekly &amp; monthly reviews.</span></li>
+        <li><span class="ic">✓</span><span>Guidance grounded in your real goals — not generic advice.</span></li>
+        <li><span class="ic">✓</span><span>Free during the public beta. No card required.</span></li>
+      </ul>
+    </div>
+    <blockquote class="bs-quote">
+      <p>“Reunite progress with purpose, innovation with wisdom, and growth with balance.”</p>
+      <span>— Our mission, Legacy Foundry</span>
+    </blockquote>
+  </aside>
 
-<footer><div class="wrap"><div class="fbot"><span>© 2026 Legacy Foundry · Legacy Ventures.</span><span>Privacy · Terms</span></div></div></footer>
+  <main class="formside"><div class="fwrap">
+    <a href="index.html" class="backhome">← Back to site</a>
+
+    <div id="formView">
+      <span class="eyebrow">Create your account</span>
+      <h1>Build your founder profile</h1>
+      <p class="sub">Takes about a minute. This shapes how your coach works with you.</p>
+      <div class="steps"><span class="sdot on"></span><span class="sdot on"></span><span class="sdot on"></span></div>
+
+      <div id="needsConfig" class="banner" style="display:none">The backend isn't connected yet — sign-up will be enabled shortly.</div>
+
+      <form id="signupForm" autocomplete="on" novalidate>
+
+        <div class="sectlabel">Your account</div>
+        <div class="field">
+          <label for="fullName">Full name</label>
+          <input class="inp" id="fullName" name="fullName" type="text" placeholder="Jane Founder" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="email">Work email</label>
+          <input class="inp" id="email" name="email" type="email" placeholder="you@yourstartup.com" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="password">Password <span class="hint">· at least 8 characters</span></label>
+          <div class="pwwrap">
+            <input class="inp" id="password" name="password" type="password" placeholder="Create a strong password" minlength="8" autocomplete="new-password" required>
+            <button type="button" class="pwtoggle" id="pwToggle">Show</button>
+          </div>
+          <div class="pwbar"><i id="pwFill"></i></div>
+          <div class="pwnote" id="pwNote">Use 8+ characters with a mix of letters and numbers.</div>
+        </div>
+
+        <div class="sectlabel">About you</div>
+        <div class="field">
+          <label>Profile photo <span class="hint">· optional</span></label>
+          <div class="avrow">
+            <div class="avprev" id="avPrev">LF</div>
+            <div>
+              <button type="button" class="avbtn" id="avBtn">Upload photo</button>
+              <input type="file" id="avFile" accept="image/*" hidden>
+              <div class="avhint">Square image works best. JPG or PNG.</div>
+            </div>
+          </div>
+        </div>
+        <div class="two">
+          <div class="field">
+            <label for="role">Your role</label>
+            <input class="inp" id="role" name="role" type="text" placeholder="Founder &amp; CEO" required>
+          </div>
+          <div class="field">
+            <label for="region">Region</label>
+            <input class="inp" id="region" name="region" type="text" placeholder="Dhaka, Bangladesh" required>
+          </div>
+        </div>
+
+        <div class="sectlabel">Your startup</div>
+        <div class="two">
+          <div class="field">
+            <label for="company">Company / startup</label>
+            <input class="inp" id="company" name="company" type="text" placeholder="Acme Inc." required>
+          </div>
+          <div class="field">
+            <label for="stage">Stage</label>
+            <select class="inp" id="stage" name="stage" required>
+              <option value="" disabled selected>Select stage</option>
+              <option>Just an idea</option>
+              <option>Building MVP</option>
+              <option>Launched / early traction</option>
+              <option>Growing / scaling</option>
+              <option>Established</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="building">What are you building? <span class="hint">· one line</span></label>
+          <input class="inp" id="building" name="building" type="text" placeholder="An AI tutor for university students" required>
+        </div>
+
+        <div class="status" id="status"></div>
+        <button type="submit" class="btn-primary" id="submitBtn">Create my account</button>
+        <p class="terms">By creating an account you agree to our Terms and Privacy Policy. We'll only use your details to personalise your coaching.</p>
+      </form>
+
+      <p class="foot">Already have an account? <a href="login.html">Log in</a></p>
+    </div>
+
+    <div class="success" id="successView">
+      <div class="big">✓</div>
+      <h2 id="successTitle">You're in.</h2>
+      <p id="successMsg">Your founder profile is set up.</p>
+      <p style="margin-top:18px"><a class="btn-primary" id="successCta" href="account.html" style="display:inline-block;width:auto;padding:13px 26px">Go to your account →</a></p>
+    </div>
+
+  </div></main>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js"></script>
 <script src="site.js"></script>
 <script>
 (function(){
-  var status=document.getElementById('status');
-  if(!window.LC||!LC.configured){document.getElementById('needsConfig').style.display='block';}
-  document.getElementById('signupForm').addEventListener('submit',function(e){
+  var $=function(id){return document.getElementById(id);};
+  var status=$('status');
+  if(!window.LC||!LC.configured){ $('needsConfig').style.display='block'; }
+  if(window.LC&&LC.client){ LC.client.auth.getSession().then(function(r){ if(r.data&&r.data.session) location.href='account.html'; }); }
+
+  /* password show/hide */
+  $('pwToggle').addEventListener('click',function(){
+    var p=$('password'); if(p.type==='password'){p.type='text';this.textContent='Hide';}else{p.type='password';this.textContent='Show';}
+  });
+  /* password strength */
+  $('password').addEventListener('input',function(){
+    var v=this.value,s=0; if(v.length>=8)s++; if(/[A-Z]/.test(v))s++; if(/[0-9]/.test(v))s++; if(/[^A-Za-z0-9]/.test(v))s++;
+    var pct=[0,30,55,80,100][s]; $('pwFill').style.width=pct+'%';
+    $('pwFill').style.background = s<=1?'#d98a3a':(s<=2?'#d8a13a':'var(--brand)');
+  });
+
+  /* avatar upload → compressed data URL */
+  var avatarData='';
+  $('avBtn').addEventListener('click',function(){ $('avFile').click(); });
+  $('avFile').addEventListener('change',function(){
+    var f=this.files&&this.files[0]; if(!f) return;
+    var rd=new FileReader();
+    rd.onload=function(e){
+      var img=new Image();
+      img.onload=function(){
+        var s=Math.min(img.width,img.height), c=document.createElement('canvas'); c.width=c.height=256;
+        var ctx=c.getContext('2d');
+        ctx.drawImage(img,(img.width-s)/2,(img.height-s)/2,s,s,0,0,256,256);
+        avatarData=c.toDataURL('image/jpeg',0.82);
+        $('avPrev').innerHTML='<img src="'+avatarData+'" alt="">';
+      };
+      img.src=e.target.result;
+    };
+    rd.readAsDataURL(f);
+  });
+  /* live initials in avatar preview */
+  $('fullName').addEventListener('input',function(){
+    if(avatarData) return;
+    var p=this.value.trim().split(/\s+/), ini=(p[0]?p[0][0]:'')+(p[1]?p[1][0]:'');
+    $('avPrev').textContent=(ini||'LF').toUpperCase();
+  });
+
+  $('signupForm').addEventListener('submit',function(e){
     e.preventDefault();
-    if(!LC.client){status.textContent=LC.notConfiguredMsg;status.style.color='#c0392b';return;}
-    var name=document.getElementById('fullName').value.trim(),email=document.getElementById('email').value.trim(),pw=document.getElementById('password').value;
-    var btn=document.getElementById('submitBtn');btn.disabled=true;btn.textContent='Creating…';status.textContent='';
-    LC.signUp(email,pw,name).then(function(res){
-      if(res.error){status.textContent=res.error.message;status.style.color='#c0392b';btn.disabled=false;btn.textContent='Create account';return;}
-      if(res.data&&res.data.session){location.href='account.html';return;}
-      status.textContent='Account created — check your email to confirm, then log in.';status.style.color='var(--brand)';btn.textContent='Check your inbox ✓';
+    var name=$('fullName').value.trim(), email=$('email').value.trim(), pw=$('password').value;
+    var company=$('company').value.trim(), role=$('role').value.trim(), stage=$('stage').value,
+        region=$('region').value.trim(), building=$('building').value.trim();
+    function bad(msg){ status.textContent=msg; status.style.color='var(--danger)'; }
+    if(!name){return bad('Please enter your full name.');}
+    if(!email||email.indexOf('@')<1){return bad('Please enter a valid email.');}
+    if(pw.length<8){return bad('Password must be at least 8 characters.');}
+    if(!company||!role||!region||!stage||!building){return bad('Please complete your founder profile.');}
+    if(!window.LC||!LC.client){return bad(LC?LC.notConfiguredMsg:'Backend not connected yet.');}
+
+    var btn=$('submitBtn'); btn.disabled=true; btn.textContent='Creating your account…'; status.textContent='';
+    var meta={ full_name:name, company:company, role:role, stage:stage, region:region, building:building };
+    if(avatarData) meta.avatar_url=avatarData;
+
+    LC.client.auth.signUp({
+      email:email, password:pw,
+      options:{ data:meta, emailRedirectTo: location.origin + '/account.html' }
+    }).then(function(res){
+      if(res.error){ bad(res.error.message); btn.disabled=false; btn.textContent='Create my account'; return; }
+      var session=res.data&&res.data.session;
+      // also push profile row directly when we have a session (instant), trigger covers the rest
+      if(session){
+        try{ LC.client.from('profiles').upsert({ id:res.data.user.id, full_name:name, company:company, role:role, stage:stage, region:region, building:building, avatar_url:avatarData||null, updated_at:new Date().toISOString() }).then(function(){}); }catch(e){}
+      }
+      $('formView').style.display='none';
+      $('successView').style.display='block';
+      if(session){
+        $('successTitle').textContent="You're in, "+name.split(/\s+/)[0]+".";
+        $('successMsg').textContent='Your founder profile is set up and ready.';
+      }else{
+        $('successTitle').textContent='Check your email';
+        $('successMsg').textContent='We sent a confirmation link to '+email+'. Click it to activate your account, then log in.';
+        $('successCta').textContent='Go to log in →'; $('successCta').setAttribute('href','login.html');
+      }
+      window.scrollTo({top:0,behavior:'smooth'});
     });
   });
 })();

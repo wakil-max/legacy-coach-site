@@ -1,6 +1,7 @@
 /* Legacy Foundry — shared site script.
    Load order per page: supabase CDN, config.js, site.js */
 (function () {
+  /* ---------- marketing UI (runs on every page) ---------- */
   var nav = document.getElementById('nav');
   if (nav) addEventListener('scroll', function () { nav.classList.toggle('scrolled', scrollY > 16); });
   var burger = document.getElementById('burger'), mob = document.getElementById('mobile');
@@ -15,9 +16,11 @@
   document.querySelectorAll('.fq').forEach(function (b) { b.addEventListener('click', function () { var it = b.parentElement, o = it.classList.contains('open'); document.querySelectorAll('.fitem').forEach(function (i) { i.classList.remove('open'); }); if (!o) it.classList.add('open'); }); });
   document.querySelectorAll('.app .task').forEach(function (t) { t.addEventListener('click', function () { t.classList.toggle('done'); t.querySelector('.box').textContent = t.classList.contains('done') ? '✓' : ''; }); });
 
+  /* ---------- Supabase ---------- */
   var URL = window.LC_SUPABASE_URL || '', KEY = window.LC_SUPABASE_ANON_KEY || '';
   var configured = URL.indexOf('http') === 0 && KEY && KEY.indexOf('__') !== 0;
   var client = (configured && window.supabase && window.supabase.createClient) ? window.supabase.createClient(URL, KEY) : null;
+
   var LC = { client: client, configured: configured, notConfiguredMsg: 'Backend not connected yet.' };
 
   LC.joinBeta = function (btn) {
@@ -54,9 +57,10 @@
   LC.getUser = function () { return LC.client.auth.getUser(); };
   LC.resetPassword = function (email) { return LC.client.auth.resetPasswordForEmail(email, { redirectTo: window.location.origin + '/account' }); };
 
+  /* ---------- login avatar in the nav ---------- */
   function initials(name, email) {
     var s = (name || '').trim();
-    if (s) { var p = s.split(/ +/); return (p[0][0] + (p[1] ? p[1][0] : '')).toUpperCase(); }
+    if (s) { var p = s.split(/\s+/); return (p[0][0] + (p[1] ? p[1][0] : '')).toUpperCase(); }
     return (email || '?').slice(0, 2).toUpperCase();
   }
   LC.renderNav = function () {
@@ -70,11 +74,12 @@
         if (slot.querySelector('.avatar-wrap')) return;
         if (loginLink) loginLink.remove();
         var u = session.user, meta = u.user_metadata || {};
-        var name = meta.full_name || '', email = u.email || '';
+        var name = meta.full_name || '', email = u.email || '', photo = meta.avatar_url || '';
+        var avInner = photo ? '<img src="' + photo + '" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%">' : initials(name, email);
         var wrap = document.createElement('div');
         wrap.className = 'avatar-wrap';
         wrap.innerHTML =
-          '<div class="avatar" title="Account">' + initials(name, email) + '</div>' +
+          '<div class="avatar" title="Account" style="overflow:hidden">' + avInner + '</div>' +
           '<div class="avatar-menu">' +
           '<div class="who"><div class="nm">' + (name || 'Founder') + '</div><div class="em">' + email + '</div></div>' +
           '<a href="account.html">Your account</a>' +

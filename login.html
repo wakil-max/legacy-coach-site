@@ -6,61 +6,137 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230c0e0d'/%3E%3Ctext x='15' y='21' font-family='sans-serif' font-size='12' font-weight='800' fill='white' text-anchor='middle'%3ELF%3C/text%3E%3Ccircle cx='25' cy='25' r='3' fill='%2310a876'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
-</head><body>
+<style>
+:root{--ink:#0c0e0d;--paper:#fbfbfa;--white:#fff;--brand:#0b8a5f;--brand-2:#10a876;--brand-ink:#075c40;--brand-tint:#eaf6f1;--text:#141b19;--muted:#6b736e;--line:#e6e8e5;--gold:#d8a13a;--danger:#c0392b}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:var(--text);background:var(--paper);line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.shell{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);min-height:100vh}
+.brandside{position:relative;color:#fff;background:radial-gradient(1100px 520px at 18% -10%,#15543c 0%,#0b3326 48%,#071d16 100%);padding:48px 52px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
+.brandside::after{content:"";position:absolute;right:-120px;bottom:-120px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(16,168,118,.30),transparent 65%)}
+.bs-top{position:relative;z-index:2}
+.bs-brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:19px}
+.bs-logo{width:36px;height:36px;border-radius:10px;background:#fff;color:var(--brand-ink);display:grid;place-items:center;font-size:15px;font-weight:800;position:relative}
+.bs-logo::after{content:"";position:absolute;right:4px;bottom:4px;width:7px;height:7px;border-radius:50%;background:var(--brand-2)}
+.bs-mid{position:relative;z-index:2;max-width:420px}
+.bs-mid h2{font-size:clamp(26px,2.6vw,34px);line-height:1.18;font-weight:800;letter-spacing:-.02em;margin-bottom:16px}
+.bs-mid p{color:#bfded0;font-size:16px}
+.bs-list{list-style:none;margin:26px 0 0;display:flex;flex-direction:column;gap:14px}
+.bs-list li{display:flex;gap:12px;align-items:flex-start;font-size:15px;color:#e7f5ee}
+.bs-list .ic{flex:none;width:24px;height:24px;border-radius:50%;background:rgba(16,168,118,.22);color:#7ef0c2;display:grid;place-items:center;font-size:13px;font-weight:800;margin-top:1px}
+.bs-quote{position:relative;z-index:2;border-left:3px solid var(--brand-2);padding:6px 0 6px 16px;max-width:440px}
+.bs-quote p{font-style:italic;color:#dcefe4;font-size:15px}
+.bs-quote span{display:block;margin-top:8px;font-size:13px;color:#9fc6b5;font-style:normal;font-weight:600}
+.formside{padding:40px clamp(24px,4vw,64px);display:flex;flex-direction:column;justify-content:center}
+.fwrap{width:100%;max-width:400px;margin:0 auto}
+.backhome{font-size:14px;color:var(--muted);font-weight:600;display:inline-flex;gap:6px;margin-bottom:26px}.backhome:hover{color:var(--brand)}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;color:var(--brand);background:var(--brand-tint);padding:6px 13px;border-radius:999px}
+.fwrap h1{font-size:clamp(28px,3.4vw,36px);line-height:1.12;font-weight:800;letter-spacing:-.02em;margin:14px 0 6px}
+.fwrap .sub{color:var(--muted);font-size:15px;margin-bottom:26px}
+.banner{background:#fff4e5;border:1px solid #f0d49a;color:#8a5a12;padding:11px 14px;border-radius:11px;font-size:13.5px;margin-bottom:16px}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:13.5px;font-weight:700;margin-bottom:6px}
+.inp{width:100%;font:inherit;font-size:15px;padding:13px 14px;border:1.5px solid var(--line);border-radius:11px;background:#fff;color:var(--text);transition:.16s}
+.inp:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(16,168,118,.14)}
+.inp::placeholder{color:#aab2ad}
+.pwwrap{position:relative}
+.pwtoggle{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:0;cursor:pointer;color:var(--muted);font-size:12.5px;font-weight:700}
+.row{display:flex;align-items:center;justify-content:space-between;margin:-4px 0 18px}
+.row a{font-size:13.5px;color:var(--brand);font-weight:700}
+.remember{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--muted);font-weight:600;cursor:pointer}
+.remember input{width:16px;height:16px;accent-color:var(--brand)}
+.btn-primary{width:100%;font:inherit;font-weight:700;font-size:15.5px;padding:14px;border-radius:12px;border:0;background:var(--brand);color:#fff;cursor:pointer;transition:.16s}
+.btn-primary:hover{background:var(--brand-ink)}.btn-primary:disabled{opacity:.6;cursor:default}
+.status{min-height:18px;font-size:13.5px;margin-top:10px;font-weight:600}
+.foot{font-size:14.5px;color:var(--muted);margin-top:26px;text-align:center}.foot a{color:var(--brand);font-weight:700}
+@media(max-width:900px){.shell{grid-template-columns:1fr}.brandside{display:none}.formside{padding:34px 22px}}
+</style></head><body>
 
-<nav id="nav"><div class="wrap nav-in">
-  <a href="index.html" class="brand"><span class="logo">LF</span> Legacy Foundry</a>
-  <div class="nav-links"><a href="index.html">Home</a><a href="how-it-works.html">How it works</a><a href="getting-started.html">Getting started</a><a href="features.html">Features</a><a href="blog.html">Blog</a><a href="about.html">About</a></div>
-  <div class="nav-right"><a href="beta.html" class="btn btn-primary">Join the beta</a></div>
-  <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
-</div></nav>
-<div class="mobile" id="mobile"><a href="index.html">Home</a><a href="how-it-works.html">How it works</a><a href="getting-started.html">Getting started</a><a href="features.html">Features</a><a href="blog.html">Blog</a><a href="about.html">About</a><a href="beta.html" class="btn btn-primary">Join the beta</a></div>
+<div class="shell">
 
-<main class="auth-main"><div class="auth-card">
-  <span class="auth-eyebrow">Welcome back</span>
-  <h1>Log in</h1>
-  <p class="sub">Sign in to your Legacy Foundry account.</p>
-  <div id="needsConfig" class="banner" style="display:none">The backend isn't connected yet.</div>
-  <form id="loginForm" autocomplete="on">
-    <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="you@yourstartup.com" required></div>
-    <div class="field"><label for="password">Password</label><input id="password" name="password" type="password" placeholder="••••••••" required></div>
-    <div class="auth-row"><span></span><a href="#" id="forgot">Forgot password?</a></div>
-    <div class="auth-status" id="status"></div>
-    <button type="submit" class="btn btn-primary btn-block" id="submitBtn">Log in</button>
-  </form>
-  <p class="auth-foot">New here? <a href="signup.html">Create an account</a></p>
-</div></main>
+  <aside class="brandside">
+    <div class="bs-top">
+      <a href="index.html" class="bs-brand"><span class="bs-logo">LF</span> Legacy Foundry</a>
+    </div>
+    <div class="bs-mid">
+      <h2>Welcome back, founder.</h2>
+      <p>Pick up where you left off — your goals, your streak, and your next move are waiting.</p>
+      <ul class="bs-list">
+        <li><span class="ic">✓</span><span>Your morning and evening sessions, ready when you are.</span></li>
+        <li><span class="ic">✓</span><span>Weekly and monthly reviews to keep you on track.</span></li>
+        <li><span class="ic">✓</span><span>A coach that remembers your context, every time.</span></li>
+      </ul>
+    </div>
+    <blockquote class="bs-quote">
+      <p>“Progress with conscience — innovation paired with wisdom.”</p>
+      <span>— Legacy Foundry</span>
+    </blockquote>
+  </aside>
 
-<footer><div class="wrap"><div class="fbot"><span>© 2026 Legacy Foundry · Legacy Ventures.</span><span>Privacy · Terms</span></div></div></footer>
+  <main class="formside"><div class="fwrap">
+    <a href="index.html" class="backhome">← Back to site</a>
+    <span class="eyebrow">Welcome back</span>
+    <h1>Log in</h1>
+    <p class="sub">Sign in to continue with your AI coach.</p>
+
+    <div id="needsConfig" class="banner" style="display:none">The backend isn't connected yet.</div>
+
+    <form id="loginForm" autocomplete="on" novalidate>
+      <div class="field">
+        <label for="email">Email</label>
+        <input class="inp" id="email" name="email" type="email" placeholder="you@yourstartup.com" autocomplete="email" required>
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <div class="pwwrap">
+          <input class="inp" id="password" name="password" type="password" placeholder="••••••••" autocomplete="current-password" required>
+          <button type="button" class="pwtoggle" id="pwToggle">Show</button>
+        </div>
+      </div>
+      <div class="row">
+        <label class="remember"><input type="checkbox" id="remember" checked> Remember me</label>
+        <a href="#" id="forgot">Forgot password?</a>
+      </div>
+      <div class="status" id="status"></div>
+      <button type="submit" class="btn-primary" id="submitBtn">Log in</button>
+    </form>
+
+    <p class="foot">New to Legacy Foundry? <a href="signup.html">Create an account</a></p>
+  </div></main>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js"></script>
 <script src="site.js"></script>
 <script>
 (function(){
-  var status=document.getElementById('status');
-  if(!window.LC||!LC.configured){document.getElementById('needsConfig').style.display='block';}
-  if(LC.client){LC.client.auth.getSession().then(function(r){if(r.data&&r.data.session)location.href='account.html';});}
-  document.getElementById('loginForm').addEventListener('submit',function(e){
+  var $=function(id){return document.getElementById(id);};
+  var status=$('status');
+  if(!window.LC||!LC.configured){ $('needsConfig').style.display='block'; }
+  if(window.LC&&LC.client){ LC.client.auth.getSession().then(function(r){ if(r.data&&r.data.session) location.href='account.html'; }); }
+
+  $('pwToggle').addEventListener('click',function(){
+    var p=$('password'); if(p.type==='password'){p.type='text';this.textContent='Hide';}else{p.type='password';this.textContent='Show';}
+  });
+
+  $('loginForm').addEventListener('submit',function(e){
     e.preventDefault();
-    if(!LC.client){status.textContent=LC.notConfiguredMsg;status.style.color='#c0392b';return;}
-    var email=document.getElementById('email').value.trim(),pw=document.getElementById('password').value;
-    var btn=document.getElementById('submitBtn');btn.disabled=true;btn.textContent='Logging in…';status.textContent='';
+    var email=$('email').value.trim(), pw=$('password').value;
+    if(!email||email.indexOf('@')<1){ status.textContent='Please enter a valid email.'; status.style.color='var(--danger)'; return; }
+    if(!window.LC||!LC.client){ status.textContent=LC?LC.notConfiguredMsg:'Backend not connected yet.'; status.style.color='var(--danger)'; return; }
+    var btn=$('submitBtn'); btn.disabled=true; btn.textContent='Logging in…'; status.textContent='';
     LC.signIn(email,pw).then(function(res){
-      if(res.error){status.textContent=res.error.message;status.style.color='#c0392b';btn.disabled=false;btn.textContent='Log in';return;}
+      if(res.error){ status.textContent=res.error.message; status.style.color='var(--danger)'; btn.disabled=false; btn.textContent='Log in'; return; }
       location.href='account.html';
     });
   });
-  document.getElementById('forgot').addEventListener('click',function(e){
+
+  $('forgot').addEventListener('click',function(e){
     e.preventDefault();
-    if(!LC.client){status.textContent=LC.notConfiguredMsg;status.style.color='#c0392b';return;}
-    var email=document.getElementById('email').value.trim();
-    if(!email||email.indexOf('@')<1){status.textContent='Enter your email above first, then click Forgot password.';status.style.color='#c0392b';return;}
-    LC.resetPassword(email).then(function(res){
-      if(res.error){status.textContent=res.error.message;status.style.color='#c0392b';return;}
-      status.textContent='Password reset link sent — check your email.';status.style.color='var(--brand)';
-    });
+    var email=$('email').value.trim();
+    if(!window.LC||!LC.client){ status.textContent=LC?LC.notConfiguredMsg:'Backend not connected yet.'; status.style.color='var(--danger)'; return; }
+    if(!email||email.indexOf('@')<1){ status.textContent='Enter your email above first, then tap “Forgot password?”.'; status.style.color='var(--danger)'; return; }
+    LC.resetPassword(email).then(function(){ status.textContent='Password reset link sent to '+email+'.'; status.style.color='var(--brand)'; });
   });
 })();
 </script>

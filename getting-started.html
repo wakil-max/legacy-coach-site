@@ -45,7 +45,20 @@ nav{position:sticky;top:0;z-index:30;background:rgba(251,251,250,.88);backdrop-f
 .gstep .mins{display:inline-block;font-size:12px;font-weight:700;color:var(--brand-ink);background:var(--brand-tint);padding:3px 10px;border-radius:999px;margin-top:12px}
 .gimg{width:100%;border-radius:14px;border:1px solid var(--line);background:#fff;display:block}
 .gstep.textonly{grid-template-columns:1fr;max-width:760px;margin:0 auto}
-@media(max-width:760px){.gstep{grid-template-columns:1fr}.gstep.rev .gtext{order:0}}
+.gtag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--brand);background:var(--brand-tint);padding:4px 11px;border-radius:999px;margin-bottom:10px}
+.sectdiv{text-align:center;max-width:640px;margin:18px auto 6px;padding-top:30px}
+.sectdiv .eyebrow{margin-bottom:12px}
+.sectdiv h2{font-size:clamp(22px,3vw,30px)}
+.sectdiv p{color:var(--muted);font-size:16px;margin-top:10px}
+.gphone{display:flex;justify-content:center}
+.gphone img{width:100%;max-width:236px;border-radius:26px;border:6px solid #14201d;box-shadow:0 26px 60px rgba(0,0,0,.18);display:block;background:#fff}
+.loop{background:var(--brand-tint);border:1px solid #cdeadd;border-radius:20px;padding:34px;margin:46px 0 0;text-align:center}
+.loop h3{font-size:22px;font-weight:800;margin-bottom:8px}
+.loop p{color:#2c4a3e;max-width:560px;margin:0 auto 22px}
+.loopcycle{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-items:center}
+.loopcycle span{background:#fff;border:1px solid #cdeadd;border-radius:999px;padding:8px 16px;font-size:13.5px;font-weight:700;color:var(--brand-ink)}
+.loopcycle .arr{background:none;border:0;color:var(--brand);font-weight:800;padding:0 2px}
+@media(max-width:760px){.gstep{grid-template-columns:1fr}.gstep.rev .gtext{order:0}.gphone img{max-width:220px}}
 .cta{background:var(--brand);color:#fff;text-align:center}.cta h2{color:#fff;margin-bottom:18px}.cta .btn-primary{background:#fff;color:var(--brand-ink)}
 footer{background:var(--ink);color:#9fb3ab;padding:42px 0;border-top:1px solid rgba(255,255,255,.08);font-size:14px}.fbot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 </style></head><body>
@@ -73,17 +86,43 @@ footer{background:var(--ink);color:#9fb3ab;padding:42px 0;border-top:1px solid r
 
 <section><div class="wrap">
 
-  <div class="gstep textonly"><div class="gtext"><span class="gnum">1</span><h3>Apply for the beta</h3><p>Drop your details to claim a founding-member seat. We onboard founders in small waves, so you'll get an invite to create your account.</p><span class="mins">10 seconds · free, no card</span></div></div>
+  <div class="sectdiv"><span class="eyebrow">Part 1</span><h2>Set up your account</h2><p>From applying to your first goal — a one-time setup that takes about ten minutes.</p></div>
 
-  <div class="gstep"><div class="gtext"><span class="gnum">2</span><h3>Install the app</h3><p>Open your invite link, join the tester program, and install <b>Legacy Foundry (Early Access)</b> from Google Play.</p><span class="mins">~1 minute</span></div><img class="gimg" src="screens/howto-install.jpg" alt="Installing Legacy Foundry from Google Play" loading="lazy"></div>
+  <div class="gstep textonly"><div class="gtext"><span class="gnum">1</span><h3>Apply for the public beta</h3><p>Drop your details to claim a founding-member seat. We onboard founders in small waves, so you're guaranteed a spot in the next one.</p><span class="mins">10 seconds · free, no card</span></div></div>
 
-  <div class="gstep rev"><div class="gtext"><span class="gnum">3</span><h3>Onboard with your coach</h3><p>A short, friendly conversation where your AI coach learns about you and your business — so everything afterwards is tailored to you.</p><span class="mins">A few minutes</span></div><img class="gimg" src="screens/howto-onboard.jpg" alt="The onboarding session" loading="lazy"></div>
+  <div class="gstep"><div class="gtext"><span class="gnum">2</span><h3>Get your invite email</h3><p>Once your wave opens, we email you a private invite from <b>team@legacyfoundry.ai</b> with a secure link to download the app. Keep an eye on your inbox (and spam folder, just in case).</p><span class="mins">Arrives by email</span></div><img class="gimg" src="screens/howto-email.jpg" alt="The beta invite email with a download link" loading="lazy"></div>
 
-  <div class="gstep textonly"><div class="gtext"><span class="gnum">4</span><h3>Set your first goal</h3><p>Create one clear quarterly goal. This becomes the anchor your coach guides you toward every single day.</p><span class="mins">A few minutes</span></div></div>
+  <div class="gstep rev"><div class="gtext"><span class="gnum">3</span><h3>Install the app</h3><p>Open your invite link, join the tester program, and install <b>Legacy Foundry (Early Access)</b> from Google Play.</p><span class="mins">~1 minute</span></div><img class="gimg" src="screens/howto-install.jpg" alt="Installing Legacy Foundry from Google Play" loading="lazy"></div>
 
-  <div class="gstep"><div class="gtext"><span class="gnum">5</span><h3>Run your first morning session</h3><p>Talk through your day with the coach. It helps you lock your top three moves — your most important actions for the day.</p><span class="mins">Each morning</span></div><img class="gimg" src="screens/howto-session.jpg" alt="A morning coaching session" loading="lazy"></div>
+  <div class="gstep"><div class="gtext"><span class="gnum">4</span><h3>Onboard with your coach</h3><p>A short, friendly conversation where your AI coach learns about you and your business — so everything afterwards is tailored to you.</p><span class="mins">A few minutes</span></div><img class="gimg" src="screens/howto-onboard.jpg" alt="The onboarding session" loading="lazy"></div>
 
-  <div class="gstep rev"><div class="gtext"><span class="gnum">6</span><h3>Work your moves &amp; keep momentum</h3><p>Your home screen shows your goal, streak, and the three moves for today. Check them off, close the day with an evening session, and let weekly and monthly sessions keep you on track.</p><span class="mins">Every day</span></div><img class="gimg" src="screens/howto-home.jpg" alt="Your home screen with goals and daily moves" loading="lazy"></div>
+  <div class="gstep textonly"><div class="gtext"><span class="gnum">5</span><h3>Set your first goal</h3><p>Create one clear quarterly goal. This becomes the anchor your coach guides you toward every single day.</p><span class="mins">A few minutes</span></div></div>
+
+  <div class="sectdiv"><span class="eyebrow">Part 2</span><h2>Your daily rhythm</h2><p>This is the heart of Legacy Foundry — a loop that repeats every day, week, and month to keep you moving.</p></div>
+
+  <div class="gstep rev"><div class="gtext"><span class="gtag">Each morning</span><span class="gnum">6</span><h3>Morning session — set your focus</h3><p>Talk through your day with the coach. It helps you lock your top three moves — the most important actions that push your goal forward today.</p><span class="mins">~5 minutes</span></div><img class="gimg" src="screens/howto-session.jpg" alt="A morning coaching session" loading="lazy"></div>
+
+  <div class="gstep"><div class="gtext"><span class="gtag">Each evening</span><span class="gnum">7</span><h3>Evening session — reflect &amp; close the day</h3><p>Wind down with a short reflection. Review what got done, capture what you learned, and let your coach help you reset for tomorrow with a clear head.</p><span class="mins">~5 minutes</span></div><div class="gphone"><img src="screens/s-sessions.jpg" alt="The evening reflection session" loading="lazy"></div></div>
+
+  <div class="gstep rev"><div class="gtext"><span class="gtag">Weekly &amp; monthly</span><span class="gnum">8</span><h3>Reviews — zoom out &amp; adjust</h3><p>Your home screen tracks your goal, streak, and daily moves. Weekly and monthly reviews step back from the day-to-day so you can see progress, spot patterns, and adjust your plan.</p><span class="mins">Every week &amp; month</span></div><img class="gimg" src="screens/howto-home.jpg" alt="Your home screen with goals, streak and daily moves" loading="lazy"></div>
+
+  <div class="sectdiv"><span class="eyebrow">Part 3</span><h2>Always in your corner</h2><p>Beyond the scheduled sessions, support is there whenever you need it.</p></div>
+
+  <div class="gstep"><div class="gtext"><span class="gtag">Anytime</span><span class="gnum">9</span><h3>Chat with your coach 24/7</h3><p>Stuck at 1am? Need to think something through between sessions? Open the chat and talk it out any time — your coach remembers your goals and context, so you never start from scratch.</p><span class="mins">Always available</span></div><div class="gphone"><img src="screens/s-chat.jpg" alt="Chatting with the AI coach any time" loading="lazy"></div></div>
+
+  <div class="gstep rev"><div class="gtext"><span class="gtag">When you need it</span><span class="gnum">10</span><h3>Get matched with a mentor</h3><p>Choose the mentoring style that fits how you want to be met today — sharp and analytical, warm and reflective, or direct and challenging. Your mentor adapts its tone, pacing, and questions to you.</p><span class="mins">On demand</span></div><div class="gphone"><img src="screens/s-mentor.jpg" alt="Choosing a mentor style in the app" loading="lazy"></div></div>
+
+  <div class="loop">
+    <h3>That's the full cycle.</h3>
+    <p>Set up once, then run the loop. Every day compounds into real, steady progress toward your goal.</p>
+    <div class="loopcycle">
+      <span>🌅 Morning focus</span><b class="arr">→</b>
+      <span>✅ Work your moves</span><b class="arr">→</b>
+      <span>🌙 Evening reflect</span><b class="arr">→</b>
+      <span>💬 Chat &amp; mentor anytime</span><b class="arr">→</b>
+      <span>📈 Weekly &amp; monthly review</span><b class="arr">↺</b>
+    </div>
+  </div>
 
 </div></section>
 
