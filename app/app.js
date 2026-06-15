@@ -259,7 +259,7 @@ function shell(){
   root.innerHTML =
     '<div id="screens"></div>'+
     '<nav class="nav" id="nav">'+
-      tabBtn('home','Home')+tabBtn('sessions','Sessions')+tabBtn('coach','Coach')+tabBtn('mentor','Mentor')+tabBtn('habit','Habits')+
+      tabBtn('home','Home')+tabBtn('coach','Coach')+tabBtn('mentor','Mentor')+tabBtn('habit','Habit')+
     '</nav>'+
     '<div class="sheet" id="sheet"><div class="sheetcard" id="sheetcard"></div></div>';
   $('boot').classList.add('hidden');
@@ -287,31 +287,58 @@ function homeView(){
     var g=S.goal;
     var hh=new Date().getHours();
     var greet = hh<12?'Good morning':hh<17?'Good afternoon':'Good evening';
-    var prog = g?goalProgress(g):0;
-    var html = topbar('Legacy Foundry')+'<div class="screen on" style="padding-top:6px">';
-    html += '<div class="hi">'+greet+', '+esc(firstName())+'.</div><div class="sub2">'+new Date().toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'})+'</div>';
-    if(!aiConfigured()) html += '<div class="banner" style="margin-top:12px">Add your OpenAI key in <a id="bk_set">Profile</a> to turn on full AI coaching.</div>';
-    if(g){
-      html += '<div class="card goalcard"><div class="lab">Active goal'+(g.duration_months?' · '+g.duration_months+' month'+(g.duration_months>1?'s':''):'')+'</div><h3>'+esc(g.title)+'</h3>'+
-        '<div class="bar"><i style="width:'+prog+'%"></i></div>'+
-        '<div class="stats"><div><b>'+prog+'%</b>on track</div><div><b>'+streakCount()+'</b>day streak</div><div><b>'+(g.target_month||'—')+'</b>target</div></div></div>';
+    var av = (S.profile&&S.profile.avatar_url)?'<img src="'+S.profile.avatar_url+'" alt="">':esc(initials());
+    var seg = S.homeSeg||'active';
+    var html = '<div class="screen on" style="padding:0 0 calc(96px + var(--safe-b))">';
+    html += '<div class="dhead"><div class="dd">'+new Date().toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'}).toUpperCase()+'</div>'+
+      '<div class="row"><h1>'+greet+', '+esc(firstName())+'.</h1>'+
+      '<div style="display:flex;gap:10px"><button class="bell" id="bell">🔔</button><button class="av" id="avBtn">'+av+'</button></div></div>'+
+      '<div class="seg"><button data-seg="active" class="'+(seg==='active'?'on':'')+'">Active Goal</button>'+
+      '<button data-seg="goals" class="'+(seg==='goals'?'on':'')+'">Goals <span class="cnt">'+(S.goals.length||0)+'</span></button></div></div>';
+    html += '<div style="padding:0 16px">';
+    if(seg==='goals'){
+      html += '<button class="btn" id="ng" style="margin:6px 0 14px">+ New goal</button>';
+      html += S.goals.length ? S.goals.map(goalListItem).join('') : '<div class="empty">No goals yet — create your first.</div>';
     } else {
-      html += '<div class="card" style="margin:14px 0;text-align:center"><h3 style="font-size:17px;margin-bottom:6px">Set your first goal</h3><p class="muted" style="font-size:13.5px;margin-bottom:12px">One clear goal your coach guides you toward every day.</p><button class="btn" id="newGoal">+ Create a goal</button></div>';
+      if(!aiConfigured()) html += '<div class="banner" style="margin:6px 0 4px">Add your OpenAI key in <a id="bk_set">Profile</a> to turn on full AI coaching.</div>';
+      if(g){
+        var prog=goalProgress(g), dl=daysLeft(g);
+        html += '<div class="gcard"><span class="arrow">↗</span><div class="glab">Goal'+(g.target_month?' · '+esc(g.target_month):'')+'</div><h3>'+esc(g.title)+'</h3>'+
+          '<div class="gbar"><i style="width:'+prog+'%"></i></div><div class="gpct">'+prog+'%</div>'+
+          '<div class="gstats"><div><div class="k">Streak</div><div class="v">'+streakCount()+'<small> d</small></div></div>'+
+          '<div><div class="k">Days left</div><div class="v">'+dl+'<small> d</small></div></div>'+
+          '<div><div class="k">Momentum</div><div class="v">+'+Math.max(1,Math.round(prog/8))+'<small> %</small></div></div></div></div>';
+      } else {
+        html += '<div class="card" style="text-align:center;margin:6px 0"><h3 style="font-size:17px;margin-bottom:6px">Set your first goal</h3><p class="muted" style="font-size:13.5px;margin-bottom:12px">One clear goal your coach guides you toward every day.</p><button class="btn" id="newGoal">+ Create a goal</button></div>';
+      }
+      html += '<div class="reclabel">Recommended session</div>';
+      html += sesRow('morning','🌅','#e6f6ee','Morning Session','Start your day with focused guidance.',sessTime('morning'));
+      html += sesRow('evening','🌙','#ede7f6','Evening Session','Review today and prepare for tomorrow.',sessTime('evening'));
+      html += sesRow('weekly','📈','#fdf0db','Weekly Session','A focused session for deeper review & planning.',sessTime('weekly'));
+      html += sesRow('monthly','🗓️','#e8eefb','Monthly Session','Review progress & plan the month ahead.',sessTime('monthly'));
+      html += '<div class="reclabel">Quick chat</div>';
+      html += '<button class="qcard" id="quickBtn"><div class="ic">💬</div><div><div class="ti">Instant Queries</div><div class="de">Get quick support between sessions · 24/7</div></div><div class="chev">›</div></button>';
     }
-    html += '<div class="sectt">Start a session</div><div class="sgrid">'+
-      sCard('morning','🌅','Morning','Plan your focus','#fff3e0')+
-      sCard('evening','🌙','Evening','Reflect & close the day','#ede7f6')+
-      sCard('weekly','📈','Weekly','Zoom out & adjust','#e3f2fd')+
-      sCard('monthly','🗓️','Monthly','The bigger picture','#e8f5e9')+'</div>';
-    html += '<button class="btn ghost" id="quickBtn" style="margin-top:14px">💬 Quick chat with your coach</button>';
-    html += '<div style="margin-top:18px"></div></div>';
-    screen(''); $('screens').innerHTML=html; wireTop();
+    html += '</div></div>';
+    $('screens').innerHTML=html;
+    var a=$('avBtn'); if(a) a.onclick=profileSheet;
+    $('screens').querySelectorAll('[data-seg]').forEach(function(b){ b.onclick=function(){ S.homeSeg=b.getAttribute('data-seg'); homeView(); }; });
     var bk=$('bk_set'); if(bk) bk.onclick=profileSheet;
-    var ng=$('newGoal'); if(ng) ng.onclick=goalSheet;
+    var ng=$('ng'); if(ng) ng.onclick=goalSheet;
+    var ng2=$('newGoal'); if(ng2) ng2.onclick=goalSheet;
     var qb=$('quickBtn'); if(qb) qb.onclick=function(){ go('coach'); };
     $('screens').querySelectorAll('[data-sess]').forEach(function(c){ c.onclick=function(){ startSession(c.getAttribute('data-sess')); }; });
   });
 }
+function goalListItem(g){ return '<div class="listitem"><div class="h">'+esc(g.title)+'<span class="muted" style="font-weight:500">'+(g.duration_months||'')+'mo</span></div>'+(g.detail?'<div class="d">'+esc(g.detail)+'</div>':'')+'<div class="d">Target '+esc(g.target_month||'—')+' · '+goalProgress(g)+'%</div></div>'; }
+function sesRow(kind,ic,bg,title,desc,t){ return '<button class="sesrow" data-sess="'+kind+'"><div class="ic" style="background:'+bg+'">'+ic+'</div><div class="bd"><div class="ti">'+title+'<span class="chip '+t.cls+'">'+t.tag+'</span></div><div class="de">'+desc+'</div><div class="mt">'+t.time+'</div></div><div class="chev">›</div></button>'; }
+function sessTime(kind){ var h=new Date().getHours();
+  if(kind==='morning') return {time:'7:00 – 8:00 AM', tag:h<12?'Available':'Done', cls:h<12?'avail':'up'};
+  if(kind==='evening') return {time:'6:00 – 7:00 PM', tag:h>=17?'Available':'Upcoming', cls:h>=17?'avail':'up'};
+  if(kind==='weekly') return {time:'Fridays', tag:'Scheduled', cls:'sched'};
+  return {time:'Month-end', tag:'Scheduled', cls:'sched'};
+}
+function daysLeft(g){ if(!g) return 0; var start=new Date(g.created_at).getTime(); var months=g.duration_months||3; var end=start+months*30*864e5; return Math.max(0,Math.round((end-Date.now())/864e5)); }
 function sCard(kind,ic,h,p,bg){ return '<button class="scard" data-sess="'+kind+'"><div class="ic" style="background:'+bg+'">'+ic+'</div><h4>'+h+'</h4><p>'+p+'</p></button>'; }
 function goalProgress(g){ if(!g) return 0; var start=new Date(g.created_at).getTime(); var months=g.duration_months||3; var end=start+months*30*864e5; var now=Date.now(); var p=Math.round((now-start)/(end-start)*100); return Math.max(2,Math.min(99,p)); }
 function streakCount(){ return parseInt(localStorage.getItem('lf_streak_'+(S.user&&S.user.id))||'1',10); }
