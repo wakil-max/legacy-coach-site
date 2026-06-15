@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#0c0e0d;--paper:#f6f7f6;--card:#fff;--brand:#0b8a5f;--brand2:#10a876;--brandink:#075c40;--tint:#eaf6f1;--text:#141b19;--mut:#6b736e;--line:#e6e8e5;--danger:#c0392b;--blue:#2f4a8f;--safe-b:env(safe-area-inset-bottom,0px)}
+:root{--ink:#16213e;--paper:#f7f8fb;--card:#fff;--brand:#2f4a8f;--brand2:#3a5aa8;--brandink:#21356b;--tint:#eef1f8;--text:#1c2433;--mut:#6b7385;--line:#e4e7f0;--danger:#c0392b;--blue:#2f4a8f;--safe-b:env(safe-area-inset-bottom,0px)}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
 body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--paper);color:var(--text);-webkit-font-smoothing:antialiased;overscroll-behavior-y:none}
@@ -34,7 +34,7 @@ input,textarea,select{font-family:inherit}
 .screen.on{display:block}
 @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 /* auth */
-.auth{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:28px 22px calc(28px + var(--safe-b));background:radial-gradient(1000px 480px at 70% -10%,#15543c,#0b3326 55%,#071d16)}
+.auth{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:28px 22px calc(28px + var(--safe-b));background:radial-gradient(1000px 480px at 70% -10%,#27407d,#1a2b56 55%,#111b36)}
 .auth .logo{display:flex;align-items:center;gap:10px;color:#fff;font-weight:800;font-size:20px;margin-bottom:26px}
 .auth .lf{width:38px;height:38px;border-radius:11px;background:#fff;color:var(--brandink);display:grid;place-items:center;font-weight:800}
 .auth h1{color:#fff;font-size:28px;line-height:1.15;margin-bottom:6px}
@@ -54,7 +54,7 @@ input,textarea,select{font-family:inherit}
 .nav svg{width:23px;height:23px}
 /* home */
 .hi{font-size:22px;font-weight:800}.sub2{color:var(--mut);font-size:14px;margin-top:2px}
-.goalcard{background:linear-gradient(135deg,#0e3d2b,#0b8a5f);color:#fff;border:0;margin:14px 0}
+.goalcard{background:linear-gradient(135deg,#21356b,#2f4a8f);color:#fff;border:0;margin:14px 0}
 .goalcard .lab{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#bde6d3}
 .goalcard h3{font-size:18px;margin:4px 0 12px}
 .bar{height:8px;background:rgba(255,255,255,.25);border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;background:#fff;border-radius:99px}
@@ -125,5 +125,6 @@ input,textarea,select{font-family:inherit}
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="/config.js"></script>
+<script src="/app/prompts.js"></script>
 <script src="/app/app.js"></script>
 </body></html>

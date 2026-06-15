@@ -33,39 +33,29 @@ var ICON = {
   habit:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>'
 };
 
-// ---------- AI (Gemini or demo) ----------
-function systemPrompt(mode){
-  var p = S.profile||{};
-  var g = S.goal;
-  var styleMap = {
-    Strategist:'sharp, analytical and structured — push for clarity, priorities and decisions',
-    Guide:'warm, reflective and encouraging — ask gentle questions and build confidence',
-    Challenger:'direct and provoking — challenge excuses and hold a high bar'
+// ---------- AI (OpenAI via Edge Function or device key; demo fallback) ----------
+// Maps an app mode to a key in prompts.js (window.LF_PROMPTS)
+function modeKey(mode){
+  return ({ morning:'daily', evening:'evening', weekly:'weekly', monthly:'monthly',
+            instant:'coaching', quick:'quick', onboarding:'onboarding', goal:'goal_setting' })[mode] || 'coaching';
+}
+// Fills {placeholders} in a prompt with the founder's live context
+function fillPrompt(t){
+  var p=S.profile||{}, g=S.goal;
+  var map={
+    name:firstName(), company:p.company||'their company', role:p.role||'founder',
+    stage:p.stage||'early stage', building:p.building||'their business',
+    goal: g ? ('"'+g.title+'"'+(g.duration_months?(' ('+g.duration_months+'-month goal'+(g.target_month?', target '+g.target_month:'')+')'):'')) : 'no goal set yet',
+    mentor: p.mentor_style||'Strategist',
+    date: new Date().toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'})
   };
-  var style = styleMap[p.mentor_style] || styleMap.Strategist;
-  var lines = [];
-  lines.push("You are the Legacy Foundry coach — an AI coach for founders and entrepreneurs (not an 'AI co-founder', and not a general assistant).");
-  lines.push("Your job: help this founder turn ambition into shipped work through a daily rhythm, clear goals and accountability.");
-  lines.push("Coaching style: be "+style+".");
-  lines.push("HOW TO COACH (very important): You are a coach, not an answer-machine. Lead with QUESTIONS. In almost every reply: (1) briefly acknowledge or reflect what they said in one line, then (2) ask ONE clear, specific question that moves them forward. Do not ask more than one question at a time. Draw the answer out of the founder instead of lecturing. Only give direct advice when they ask for it or are truly stuck — and keep it to 1–3 crisp points.");
-  lines.push("Keep every reply short — like good business communication. Usually 1–4 sentences. Warm, direct, human. No long essays, no big bullet dumps, no emojis unless they use them.");
-  lines.push("Stay strictly on the founder's business, goals, productivity, mindset and entrepreneurship. If they go off-topic, answer in one friendly line and steer back with a question about their business.");
-  lines.push("Use their name occasionally and refer to their goal and context so it feels personal and continuous (you DO remember past messages in this conversation).");
-  var who=[];
-  if(p.full_name) who.push("Name: "+p.full_name);
-  if(p.role) who.push("Role: "+p.role);
-  if(p.company) who.push("Company: "+p.company);
-  if(p.stage) who.push("Stage: "+p.stage);
-  if(p.building) who.push("Building: "+p.building);
-  if(who.length) lines.push("About the founder — "+who.join("; ")+".");
-  if(g) lines.push("Their active goal: \""+g.title+"\""+(g.detail?(" — "+g.detail):"")+(g.duration_months?(" ("+g.duration_months+"-month goal"+(g.target_month?", target "+g.target_month:"")+")"):"")+". Connect your coaching to this goal.");
-  if(mode==='morning') lines.push("This is a MORNING session. Help them choose their top 3 moves for today that push the goal forward. End by confirming the 3 moves.");
-  else if(mode==='evening') lines.push("This is an EVENING session. Help them reflect: what got done, what got in the way, what matters tomorrow. Keep it short and kind.");
-  else if(mode==='weekly') lines.push("This is a WEEKLY review. Zoom out: progress vs the goal this week, what to adjust, the focus for next week.");
-  else if(mode==='monthly') lines.push("This is a MONTHLY review. Look at the bigger picture and momentum toward the goal; set the theme for next month.");
-  else if(mode==='instant') lines.push("This is an instant session. Help with whatever is most pressing for their business right now.");
-  else lines.push("This is quick chat. Answer concisely and keep it about their business.");
-  return lines.join("\n");
+  return (t||'').replace(/\{(\w+)\}/g,function(_,k){ return (k in map)?map[k]:('{'+k+'}'); });
+}
+function systemPrompt(mode){
+  var PR = window.LF_PROMPTS || {};
+  var base = fillPrompt(PR.base || "You are the Legacy Foundry coach for founders. Lead with one question at a time, keep replies short, stay on their business.");
+  var modeText = fillPrompt(PR[modeKey(mode)] || '');
+  return base + (modeText ? ("\n\n"+modeText) : "");
 }
 
 function demoReply(mode, history){
@@ -99,19 +89,37 @@ function demoReply(mode, history){
   return "Got it. What outcome are you aiming for, and what's the next concrete step toward it?";
 }
 
+function coachUrl(){ return (window.LF_COACH_URL || localStorage.getItem('lf_coach_url') || '').trim(); }
+function openaiKey(){ return (localStorage.getItem('lf_openai_key') || '').trim(); }
+function aiConfigured(){ return !!(coachUrl() || openaiKey()); }
 function aiReply(mode, history){
-  var key = GKEY();
-  if(!key){ return Promise.resolve({ text: demoReply(mode, history), demo:true }); }
-  var contents = history.slice(-20).map(function(m){ return { role: m.role==='coach'?'model':'user', parts:[{text:m.content}] }; });
-  if(!contents.length || contents[contents.length-1].role!=='user'){ contents.push({role:'user',parts:[{text:'Begin the session.'}]}); }
-  var body = { systemInstruction:{parts:[{text:systemPrompt(mode)}]}, contents:contents, generationConfig:{ temperature:0.7, maxOutputTokens:500 } };
-  return fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='+encodeURIComponent(key), {
-    method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)
-  }).then(function(r){ return r.json(); }).then(function(d){
-    if(d && d.candidates && d.candidates[0] && d.candidates[0].content){ return { text: d.candidates[0].content.parts.map(function(p){return p.text||'';}).join('') }; }
-    var err = (d && d.error && d.error.message) ? d.error.message : 'No response';
-    return { text: "I couldn't reach the AI just now ("+err+"). Check your Gemini key in Profile. In the meantime: what's the next concrete step for your business?", demo:true };
-  }).catch(function(e){ return { text: "Network issue reaching the AI. What's the most important move for your business right now?", demo:true }; });
+  var sys = systemPrompt(mode);
+  var msgs = history.slice(-24).map(function(m){ return { role: m.role==='coach'?'assistant':'user', content:m.content }; });
+  if(!msgs.length || msgs[msgs.length-1].role!=='user'){ msgs.push({ role:'user', content:'Begin the session.' }); }
+  var url = coachUrl();
+  // 1) Secure proxy (Supabase Edge Function) — recommended for the published app
+  if(url){
+    return fetch(url, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ system:sys, messages:msgs, mode:mode }) })
+      .then(function(r){ return r.json(); }).then(function(d){
+        var t = d && (d.text || d.reply || (d.choices && d.choices[0] && d.choices[0].message && d.choices[0].message.content));
+        if(t) return { text:t };
+        return { text: "Couldn't get a reply from the coach service just now. What's the next concrete step for your business?", demo:true };
+      }).catch(function(){ return { text:"Network issue reaching the coach. What's the most important move right now?", demo:true }; });
+  }
+  // 2) Direct OpenAI with a device key (for the owner to test now)
+  var key = openaiKey();
+  if(key){
+    return fetch('https://api.openai.com/v1/chat/completions', {
+      method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},
+      body: JSON.stringify({ model:'gpt-4o-mini', temperature:0.7, max_tokens:500, messages:[{role:'system',content:sys}].concat(msgs) })
+    }).then(function(r){ return r.json(); }).then(function(d){
+      if(d && d.choices && d.choices[0] && d.choices[0].message){ return { text: d.choices[0].message.content }; }
+      var err = (d && d.error && d.error.message) ? d.error.message : 'No response';
+      return { text: "Couldn't reach the AI ("+err+"). Check your OpenAI key in Profile. Meanwhile — what's the next step for your business?", demo:true };
+    }).catch(function(){ return { text:"Network issue reaching the AI. What's the most important move right now?", demo:true }; });
+  }
+  // 3) Demo (no key yet)
+  return Promise.resolve({ text: demoReply(mode, history), demo:true });
 }
 
 // ---------- data ----------
@@ -275,38 +283,35 @@ function go(t){ S.tab=t; setActiveTab(t);
 
 // ---------- HOME ----------
 function homeView(){
-  Promise.all([loadGoals(), loadMoves()]).then(function(){
+  loadGoals().then(function(){
     var g=S.goal;
     var hh=new Date().getHours();
     var greet = hh<12?'Good morning':hh<17?'Good afternoon':'Good evening';
     var prog = g?goalProgress(g):0;
-    var done = S.moves.filter(function(m){return m.done;}).length;
     var html = topbar('Legacy Foundry')+'<div class="screen on" style="padding-top:6px">';
     html += '<div class="hi">'+greet+', '+esc(firstName())+'.</div><div class="sub2">'+new Date().toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'})+'</div>';
-    if(!GKEY()) html += '<div class="banner" style="margin-top:12px">Add your free Gemini key in <a id="bk_set">Profile</a> to turn on full AI coaching.</div>';
+    if(!aiConfigured()) html += '<div class="banner" style="margin-top:12px">Add your OpenAI key in <a id="bk_set">Profile</a> to turn on full AI coaching.</div>';
     if(g){
       html += '<div class="card goalcard"><div class="lab">Active goal'+(g.duration_months?' · '+g.duration_months+' month'+(g.duration_months>1?'s':''):'')+'</div><h3>'+esc(g.title)+'</h3>'+
         '<div class="bar"><i style="width:'+prog+'%"></i></div>'+
-        '<div class="stats"><div><b>'+prog+'%</b>on track</div><div><b>'+streakCount()+'</b>day streak</div><div><b>'+done+'/'+(S.moves.length||3)+'</b>moves today</div></div></div>';
+        '<div class="stats"><div><b>'+prog+'%</b>on track</div><div><b>'+streakCount()+'</b>day streak</div><div><b>'+(g.target_month||'—')+'</b>target</div></div></div>';
     } else {
       html += '<div class="card" style="margin:14px 0;text-align:center"><h3 style="font-size:17px;margin-bottom:6px">Set your first goal</h3><p class="muted" style="font-size:13.5px;margin-bottom:12px">One clear goal your coach guides you toward every day.</p><button class="btn" id="newGoal">+ Create a goal</button></div>';
     }
-    html += '<div class="sectt">Today\'s 3 moves <button id="addMove" style="color:var(--brand);font-weight:700;font-size:13px">+ Add</button></div>';
-    if(S.moves.length){ html += S.moves.map(moveRow).join(''); }
-    else html += '<div class="empty">No moves yet. Run a morning session or add them here.</div>';
     html += '<div class="sectt">Start a session</div><div class="sgrid">'+
-      sCard('morning','🌅','Morning','Set your top 3 moves','#fff3e0')+
-      sCard('evening','🌙','Evening','Reflect & close the day','#ede7f6')+'</div>';
+      sCard('morning','🌅','Morning','Plan your focus','#fff3e0')+
+      sCard('evening','🌙','Evening','Reflect & close the day','#ede7f6')+
+      sCard('weekly','📈','Weekly','Zoom out & adjust','#e3f2fd')+
+      sCard('monthly','🗓️','Monthly','The bigger picture','#e8f5e9')+'</div>';
+    html += '<button class="btn ghost" id="quickBtn" style="margin-top:14px">💬 Quick chat with your coach</button>';
     html += '<div style="margin-top:18px"></div></div>';
     screen(''); $('screens').innerHTML=html; wireTop();
     var bk=$('bk_set'); if(bk) bk.onclick=profileSheet;
     var ng=$('newGoal'); if(ng) ng.onclick=goalSheet;
-    var am=$('addMove'); if(am) am.onclick=addMoveSheet;
-    $('screens').querySelectorAll('[data-move]').forEach(function(r){ r.onclick=function(){ toggleMove(r.getAttribute('data-move')); }; });
+    var qb=$('quickBtn'); if(qb) qb.onclick=function(){ go('coach'); };
     $('screens').querySelectorAll('[data-sess]').forEach(function(c){ c.onclick=function(){ startSession(c.getAttribute('data-sess')); }; });
   });
 }
-function moveRow(m){ return '<div class="move '+(m.done?'done':'')+'" data-move="'+m.id+'"><div class="box">'+(m.done?'✓':'')+'</div><div class="mt">'+esc(m.text)+'</div></div>'; }
 function sCard(kind,ic,h,p,bg){ return '<button class="scard" data-sess="'+kind+'"><div class="ic" style="background:'+bg+'">'+ic+'</div><h4>'+h+'</h4><p>'+p+'</p></button>'; }
 function goalProgress(g){ if(!g) return 0; var start=new Date(g.created_at).getTime(); var months=g.duration_months||3; var end=start+months*30*864e5; var now=Date.now(); var p=Math.round((now-start)/(end-start)*100); return Math.max(2,Math.min(99,p)); }
 function streakCount(){ return parseInt(localStorage.getItem('lf_streak_'+(S.user&&S.user.id))||'1',10); }
@@ -439,15 +444,16 @@ function habitView(){
 function profileSheet(){
   var p=S.profile||{};
   openSheet('<h3>'+esc(p.full_name||'Your account')+'</h3><p class="muted" style="font-size:13px;margin-bottom:14px">'+esc(S.user.email||'')+'</p>'+
-    '<div class="field"><label>AI coach key (Gemini, free)</label><input class="inp" id="s_key" type="password" placeholder="Paste your Gemini API key" value="'+esc(GKEY())+'"><div class="muted" style="font-size:12px;margin-top:6px">Get a free key at aistudio.google.com → “Get API key”. Stored only on this device.</div></div>'+
-    '<button class="btn" id="s_savekey">Save key</button>'+
+    '<div class="field"><label>OpenAI API key</label><input class="inp" id="s_key" type="password" placeholder="sk-..." value="'+esc(openaiKey())+'"><div class="muted" style="font-size:12px;margin-top:6px">For testing on your own device. Get it at platform.openai.com → API keys. Stored only on this device.</div></div>'+
+    '<div class="field"><label>Coach service URL (optional, for launch)</label><input class="inp" id="s_url" type="text" placeholder="https://...supabase.co/functions/v1/coach" value="'+esc(coachUrl())+'"><div class="muted" style="font-size:12px;margin-top:6px">Use this instead of a key once the secure Supabase function is deployed — then the key never lives on devices.</div></div>'+
+    '<button class="btn" id="s_savekey">Save</button>'+
     '<div style="height:10px"></div>'+
     '<button class="btn sec" id="s_history">View past sessions</button>'+
     '<div style="height:8px"></div>'+
     '<button class="btn sec" id="s_goals">My goals</button>'+
     '<div style="height:8px"></div>'+
     '<button class="btn sec" id="s_out" style="color:var(--danger);border-color:#f3c4bd">Sign out</button>');
-  $('s_savekey').onclick=function(){ localStorage.setItem('lf_gemini_key',($('s_key').value||'').trim()); closeSheet(); toast('Saved ✓ AI coaching on'); go(S.tab); };
+  $('s_savekey').onclick=function(){ localStorage.setItem('lf_openai_key',($('s_key').value||'').trim()); localStorage.setItem('lf_coach_url',($('s_url').value||'').trim()); closeSheet(); toast(aiConfigured()?'Saved ✓ AI coaching on':'Saved'); go(S.tab); };
   $('s_history').onclick=function(){ closeSheet(); historyView(); };
   $('s_goals').onclick=function(){ closeSheet(); goalsView(); };
   $('s_out').onclick=function(){ sb.auth.signOut().then(function(){ location.reload(); }); };
