@@ -47,8 +47,10 @@ function systemPrompt(mode){
   lines.push("You are the Legacy Foundry coach — an AI coach for founders and entrepreneurs (not an 'AI co-founder', and not a general assistant).");
   lines.push("Your job: help this founder turn ambition into shipped work through a daily rhythm, clear goals and accountability.");
   lines.push("Coaching style: be "+style+".");
-  lines.push("ALWAYS keep replies short and practical — like good business communication. Usually 2–5 sentences or a short list. Ask one focused question at a time. Never write long essays.");
-  lines.push("Stay strictly on the founder's business, goals, productivity, mindset and entrepreneurship. If they go off-topic, briefly and politely steer them back to their business.");
+  lines.push("HOW TO COACH (very important): You are a coach, not an answer-machine. Lead with QUESTIONS. In almost every reply: (1) briefly acknowledge or reflect what they said in one line, then (2) ask ONE clear, specific question that moves them forward. Do not ask more than one question at a time. Draw the answer out of the founder instead of lecturing. Only give direct advice when they ask for it or are truly stuck — and keep it to 1–3 crisp points.");
+  lines.push("Keep every reply short — like good business communication. Usually 1–4 sentences. Warm, direct, human. No long essays, no big bullet dumps, no emojis unless they use them.");
+  lines.push("Stay strictly on the founder's business, goals, productivity, mindset and entrepreneurship. If they go off-topic, answer in one friendly line and steer back with a question about their business.");
+  lines.push("Use their name occasionally and refer to their goal and context so it feels personal and continuous (you DO remember past messages in this conversation).");
   var who=[];
   if(p.full_name) who.push("Name: "+p.full_name);
   if(p.role) who.push("Role: "+p.role);
@@ -66,19 +68,40 @@ function systemPrompt(mode){
   return lines.join("\n");
 }
 
-function demoReply(mode, userText){
+function demoReply(mode, history){
   var n=firstName();
-  if(mode==='morning') return "Morning, "+n+". Let's lock today. What's the single most important outcome for your business today? Once you tell me, we'll shape your top 3 moves.";
-  if(mode==='evening') return "Good to close the day, "+n+". Quick reflection: what's one thing you finished today, and one thing that got in the way?";
-  if(mode==='weekly') return "Weekly check-in. Compared to your goal, what moved this week — and what's the one focus for next week?";
-  if(mode==='monthly') return "Monthly review. Step back: are you closer to your goal than a month ago? What theme should next month have?";
-  if(/^\s*$/.test(userText||'')) return "I'm here. What's on your plate for the business right now?";
-  return "Got it. Let's keep it focused on your business — what outcome are you trying to reach, and what's the next concrete step? (Tip: add your free Gemini key in Profile to get full AI answers.)";
+  var goal = S.goal ? S.goal.title : null;
+  var turns = (history||[]).filter(function(m){return m.role==='user';}).length;
+  if(mode==='morning'){
+    if(turns===0) return "Morning, "+n+". Before we plan the day — what's the one outcome that would make today a win for your business?";
+    if(turns===1) return "Good. If you only finished one thing today, what should it be? Let's make that move #1.";
+    return "Nice — that's a clear set of moves. Which one will you start with, and when?";
+  }
+  if(mode==='evening'){
+    if(turns===0) return "Let's close the day, "+n+". What's one thing you got done today?";
+    if(turns===1) return "Good. And what got in the way — something to watch tomorrow?";
+    return "Noted. What's the first move you want to line up for tomorrow morning?";
+  }
+  if(mode==='weekly'){
+    if(turns===0) return "Weekly check-in. Looking at "+(goal?('“'+goal+'”'):"your goal")+", what actually moved this week?";
+    return "Got it. What's the single focus that would make next week count?";
+  }
+  if(mode==='monthly'){
+    if(turns===0) return "Monthly review. Compared to a month ago, are you closer to "+(goal?('“'+goal+'”'):"your goal")+"? What changed?";
+    return "Understood. If next month had one theme, what would it be?";
+  }
+  if(mode==='instant'){
+    if(turns===0) return "I'm here, "+n+". What's the most pressing thing on your plate right now?";
+    return "Okay. What feels like the real blocker underneath that?";
+  }
+  // quick chat
+  if(turns<=1) return "Hey "+n+" — what's on your mind for the business today?";
+  return "Got it. What outcome are you aiming for, and what's the next concrete step toward it?";
 }
 
 function aiReply(mode, history){
   var key = GKEY();
-  if(!key){ return Promise.resolve({ text: demoReply(mode, history.length?history[history.length-1].content:''), demo:true }); }
+  if(!key){ return Promise.resolve({ text: demoReply(mode, history), demo:true }); }
   var contents = history.slice(-20).map(function(m){ return { role: m.role==='coach'?'model':'user', parts:[{text:m.content}] }; });
   if(!contents.length || contents[contents.length-1].role!=='user'){ contents.push({role:'user',parts:[{text:'Begin the session.'}]}); }
   var body = { systemInstruction:{parts:[{text:systemPrompt(mode)}]}, contents:contents, generationConfig:{ temperature:0.7, maxOutputTokens:500 } };
@@ -155,12 +178,18 @@ function authView(signup){
 //  ONBOARDING (saves every step -> resume)
 // ============================================================
 var ONB_STEPS = [
-  { k:'full_name', q:"What's your name?", ph:'Jane Founder', type:'text' },
-  { k:'company', q:"What's your company or project called?", ph:'Acme Inc.', type:'text' },
-  { k:'role', q:"What's your role?", ph:'Founder & CEO', type:'text' },
-  { k:'stage', q:"What stage are you at?", type:'choice', opts:['Just an idea','Building MVP','Launched / early traction','Growing / scaling','Established'] },
-  { k:'building', q:"In one line, what are you building?", ph:'An AI tutor for students', type:'text' },
-  { k:'focus', q:"What matters most to you right now?", type:'choice', opts:['Shipping faster','Getting customers','Staying consistent','Beating overwhelm','Fundraising'] }
+  { k:'full_name', q:"What's your name?", ph:'Jane Founder', type:'text',
+    coach:function(d){ return "Hi — I'm your Legacy Foundry coach 👋 I'll be in your corner every day. Let's get to know each other in under a minute. First, what should I call you?"; } },
+  { k:'company', q:"Your company or project", ph:'Acme Inc.', type:'text',
+    coach:function(d){ return "Great to meet you, "+(d.full_name||'founder').split(/\s+/)[0]+". What's the company or project you're building?"; } },
+  { k:'role', q:"Your role", ph:'Founder & CEO', type:'text',
+    coach:function(d){ return "And what's your role at "+(d.company||'your company')+"?"; } },
+  { k:'stage', q:"Pick your stage", type:'choice', opts:['Just an idea','Building MVP','Launched / early traction','Growing / scaling','Established'],
+    coach:function(d){ return "Where are you in the journey right now?"; } },
+  { k:'building', q:"In one line, what are you building?", ph:'An AI tutor for students', type:'text',
+    coach:function(d){ return "Tell me in one line — what are you actually building?"; } },
+  { k:'focus', q:"What matters most right now?", type:'choice', opts:['Shipping faster','Getting customers','Staying consistent','Beating overwhelm','Fundraising'],
+    coach:function(d){ return "Last one, "+(d.full_name||'').split(/\s+/)[0]+". Right now, what matters most to you?"; } }
 ];
 function onbDraft(){ try{ return JSON.parse(localStorage.getItem('lf_onb')||'{}'); }catch(e){ return {}; } }
 function onbSave(d){ localStorage.setItem('lf_onb', JSON.stringify(d)); }
@@ -179,10 +208,14 @@ function onboarding(){
   function render(){
     var step=ONB_STEPS[i];
     var dots=ONB_STEPS.map(function(_,x){ return '<span style="width:'+(x===i?22:8)+'px;height:8px;border-radius:99px;background:'+(x<=i?'#10a876':'rgba(255,255,255,.25)')+';display:inline-block"></span>'; }).join(' ');
+    var coachLine = (typeof step.coach==='function') ? step.coach(d) : step.q;
     v.innerHTML='<div class="logo"><span class="lf">LF</span> Legacy Foundry</div>'+
-      '<div style="display:flex;gap:6px;margin-bottom:18px">'+dots+'</div>'+
-      '<h1 style="font-size:24px">'+esc(step.q)+'</h1>'+
-      '<p class="sub">Step '+(i+1)+' of '+ONB_STEPS.length+' · your answers are saved as you go.</p>'+
+      '<div style="display:flex;gap:6px;margin-bottom:16px">'+dots+'</div>'+
+      '<div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:14px">'+
+        '<div style="width:34px;height:34px;border-radius:50%;background:#fff;color:#075c40;display:grid;place-items:center;font-weight:800;flex:none;font-size:13px">LF</div>'+
+        '<div style="background:rgba(255,255,255,.12);color:#eafaf3;border:1px solid rgba(255,255,255,.14);border-radius:16px;border-top-left-radius:5px;padding:12px 14px;font-size:15.5px;line-height:1.5">'+esc(coachLine)+'</div>'+
+      '</div>'+
+      '<p class="sub" style="margin-bottom:10px">Step '+(i+1)+' of '+ONB_STEPS.length+' · saved as you go, so you can stop and come back any time.</p>'+
       (step.type==='text'
         ? '<div class="field"><input class="inp" id="o_in" type="text" placeholder="'+esc(step.ph||'')+'" value="'+esc(d[step.k]||'')+'"></div>'
         : '<div id="o_opts">'+step.opts.map(function(o){ return '<button class="btn sec" data-o="'+esc(o)+'" style="justify-content:flex-start;margin-bottom:8px;'+(d[step.k]===o?'border-color:#10a876;background:rgba(16,168,118,.18);color:#fff':'')+'">'+esc(o)+'</button>'; }).join('')+'</div>')+
@@ -362,7 +395,7 @@ function openChat(threadId, mode, seed){
     var rows=(r&&r.data)||[];
     if(rows.length){ rows.forEach(function(m){ add(m.role,m.content); pushHistory(m.role,m.content); }); }
     else if(seed){ coachTurn(); } // coach opens the session
-    else { add('coach', demoReply(mode,'')); }
+    else { var op=demoReply(mode,history); add('coach',op); pushHistory('coach',op); persist('coach',op); }
     setTimeout(function(){ input.focus(); },120);
   }, function(){ if(seed) coachTurn(); });
 }
