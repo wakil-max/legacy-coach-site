@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-label="Legacy Foundry">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0" stop-color="#0a0d0c"/>
+      <stop offset="0.55" stop-color="#0a1d16"/>
+      <stop offset="1" stop-color="#0c4d35"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.82" r="0.6">
+      <stop offset="0" stop-color="#10a876" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#10a876" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="spark" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0" stop-color="#27d699"/>
+      <stop offset="1" stop-color="#0c9764"/>
+    </linearGradient>
+  </defs>
+  <rect width="1024" height="1024" rx="232" fill="url(#bg)"/>
+  <rect width="1024" height="1024" rx="232" fill="url(#glow)"/>
+  <g fill="#ffffff">
+    <rect x="300" y="356" width="84" height="370"/>
+    <rect x="300" y="642" width="208" height="84"/>
+    <rect x="560" y="356" width="84" height="370"/>
+    <rect x="560" y="356" width="216" height="80"/>
+    <rect x="560" y="500" width="178" height="76"/>
+  </g>
+  <path d="M705 150 Q705 296 805 296 Q705 296 705 442 Q705 296 605 296 Q705 296 705 150 Z" fill="url(#spark)"/>
+</svg>

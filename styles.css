@@ -27,8 +27,8 @@ nav{position:sticky;top:0;z-index:100;background:rgba(251,251,250,.82);backdrop-
 nav.scrolled{border-color:var(--line);box-shadow:var(--sh-xs)}
 .nav-in{display:flex;align-items:center;justify-content:space-between;height:68px}
 .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.18rem;letter-spacing:-.03em}
-.logo{width:30px;height:30px;border-radius:8px;background:var(--ink);display:grid;place-items:center;color:#fff;font-weight:800;font-size:.78rem;letter-spacing:-.04em;position:relative}
-.logo::after{content:"";position:absolute;right:4px;bottom:4px;width:6px;height:6px;border-radius:50%;background:var(--brand-2)}
+.logo{width:30px;height:30px;border-radius:7px;display:block}
+
 .nav-links{display:flex;gap:28px;font-size:.93rem;font-weight:500}
 .nav-links a{color:var(--ink-2);transition:color .18s;position:relative}
 .nav-links a:hover{color:var(--ink)}
