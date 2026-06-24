@@ -43,22 +43,24 @@ nav{position:sticky;top:0;z-index:30;background:rgba(251,251,250,.88);backdrop-f
 .vbar.flash{border-color:#ffd27a;background:#241d10;box-shadow:0 0 0 3px rgba(255,210,122,.18)}
 .vbar .vtext{flex:1;font-size:14px;color:#cdeede}.vbar .vtext b{color:#fff}
 .vbar .btn{padding:9px 16px;font-size:14px}
-.vgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:760px){.vgrid{grid-template-columns:1fr}}
-.vcardx{display:flex;gap:16px;align-items:flex-start;background:#11201b;border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:16px;transition:.15s}
-.vcardx:hover{border-color:rgba(70,212,158,.4)}
-.vcardx.star{border-color:rgba(70,212,158,.5);background:linear-gradient(120deg,#12281e,#11201b)}
-.uv{flex:none;width:56px;align-self:stretch;border:1px solid rgba(255,255,255,.14);border-radius:10px;background:#0e1814;color:#bfe8d6;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;transition:.15s}
-.uv:hover{background:rgba(16,168,118,.10);border-color:rgba(70,212,158,.4)}
-.uv .ar{font-size:15px;line-height:1;color:#7e978d}.uv .lb{font-size:10.5px;font-weight:600;letter-spacing:.01em;color:#8fa9a0}
-.uv .ct{font-size:16px;font-weight:700;line-height:1;color:#fff}
-.uv.voted{background:rgba(16,168,118,.18);border-color:var(--brand);cursor:default}.uv.voted .ct{color:#fff}.uv.voted .lb{color:#9ff0cf}
+.vgrid{display:grid;grid-template-columns:1fr;gap:12px}
+.vcardx{display:flex;gap:18px;align-items:center;background:#13241e;border:1px solid rgba(255,255,255,.10);border-radius:14px;padding:16px 18px;transition:.15s}
+.vcardx:hover{border-color:rgba(70,212,158,.35);background:#16291f}
+.vcardx.star{border-color:rgba(70,212,158,.5);background:#16291f}
 .vcardx .vm{flex:1;min-width:0}
-.vcardx .vt{font-weight:700;color:#fff;font-size:16px}.vcardx .vt .badge{font-size:10.5px;font-weight:600;color:#9ff0cf;background:transparent;border:1px solid rgba(70,212,158,.45);padding:2px 9px;border-radius:999px;margin-left:8px;letter-spacing:.01em;vertical-align:middle}
-.vcardx .vd{font-size:13.5px;color:#9fb3ab;margin-top:4px}
-.barrow{display:flex;align-items:center;gap:12px;margin-top:12px}
-.bartrack{flex:1;height:8px;background:rgba(255,255,255,.12);border-radius:99px;overflow:hidden}
-.barfill{height:100%;width:0;background:var(--brand);border-radius:99px;transition:width .7s cubic-bezier(.65,0,.35,1)}
-.barlbl{font-size:12px;color:#9fb3ab;white-space:nowrap;min-width:96px;text-align:right}
+.vcardx .vt{font-weight:700;color:#fff;font-size:15.5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.vcardx .vt .badge{font-size:10.5px;font-weight:600;color:#9ff0cf;background:rgba(16,168,118,.14);border:1px solid rgba(70,212,158,.4);padding:2px 9px;border-radius:999px;letter-spacing:.01em}
+.vcardx .vd{font-size:13px;color:#9fb3ab;margin-top:3px}
+.barrow{display:flex;align-items:center;gap:12px;margin-top:11px}
+.bartrack{flex:1;height:6px;background:rgba(255,255,255,.10);border-radius:99px;overflow:hidden}
+.barfill{height:100%;width:0;background:var(--brand-2);border-radius:99px;transition:width .7s cubic-bezier(.65,0,.35,1)}
+.barlbl{font-size:12px;color:#cdeede;white-space:nowrap;min-width:88px;text-align:right;font-weight:600}
+.uv{flex:none;width:88px;align-self:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:11px 0;border:1px solid rgba(70,212,158,.35);border-radius:12px;background:rgba(16,168,118,.10);color:#cdeede;cursor:pointer;transition:.15s}
+.uv:hover{background:rgba(16,168,118,.20);border-color:var(--brand-2)}
+.uv .ar{font-size:17px;line-height:1;color:#46d49e}
+.uv .lb{font-size:12.5px;font-weight:700;letter-spacing:.02em}
+.uv.voted{background:var(--brand);border-color:var(--brand);color:#fff;cursor:default}
+.uv.voted .ar{color:#fff}
 .lmodal{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(8,16,13,.62);backdrop-filter:blur(3px)}
 .lmodal.open{display:flex}
 .lmcard{background:#fff;color:var(--text);border-radius:20px;max-width:380px;width:100%;padding:32px 28px;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.4);transform:translateY(8px);animation:lmpop .22s ease forwards}
@@ -80,11 +82,11 @@ footer{background:var(--ink);color:#9fb3ab;padding:42px 0;border-top:1px solid r
 
 <nav id="nav"><div class="wrap nav-in">
   <a href="index.html" class="brand"><span class="logo">LF</span> Legacy Foundry</a>
-  <div class="nav-links"><a href="index.html">Home</a><a href="how-it-works.html">How it works</a><a href="getting-started.html">Resources</a><a href="features.html" class="active">Features</a><a href="blog.html">Blog</a><a href="about.html">About</a></div>
+  <div class="nav-links"><a href="index.html">Home</a><a href="how-it-works.html">How it works</a><a href="resources.html">Resources</a><a href="features.html" class="active">Features</a><a href="blog.html">Blog</a><a href="about.html">About</a></div>
   <div class="nav-right"><a href="login.html" class="nav-login">Log in</a><a href="beta.html" class="btn btn-primary">Try the beta — free</a></div>
   <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
 </div></nav>
-<div class="mobile" id="mobile"><a href="index.html">Home</a><a href="how-it-works.html">How it works</a><a href="getting-started.html">Resources</a><a href="features.html">Features</a><a href="blog.html">Blog</a><a href="about.html">About</a><a href="login.html">Log in</a><a href="beta.html">Try the beta — free</a></div>
+<div class="mobile" id="mobile"><a href="index.html">Home</a><a href="how-it-works.html">How it works</a><a href="resources.html">Resources</a><a href="features.html">Features</a><a href="blog.html">Blog</a><a href="about.html">About</a><a href="login.html">Log in</a><a href="beta.html">Try the beta — free</a></div>
 
 <header class="phead"><div class="wrap">
   <span class="eyebrow light">Features</span>
@@ -111,13 +113,13 @@ footer{background:var(--ink);color:#9fb3ab;padding:42px 0;border-top:1px solid r
   <div class="head"><span class="eyebrow light">The roadmap</span><h2>Help shape the roadmap.</h2><p class="lead">Where Legacy Foundry is headed next. Cast your vote — the most-requested features get built first.</p></div>
   <div class="vbar" id="vbar"><span class="vtext" id="vbarText">Sign in to vote — one vote per member.</span><a class="btn btn-primary" id="vbarBtn" href="login.html">Sign in</a></div>
   <div class="vgrid" id="voteList">
-    <div class="vcardx star" data-feat="investor_connect"><button class="uv" data-feat="investor_connect"><span class="ct" data-ct="investor_connect">0</span><span class="lb">Vote</span></button><div class="vm"><div class="vt">Investor connect <span class="badge">Most requested</span></div><div class="vd">Investors discover high-performing founders by their real momentum — and invest directly through the app.</div><div class="barrow"><div class="bartrack"><div class="barfill" data-bar="investor_connect"></div></div><div class="barlbl" data-lbl="investor_connect">—</div></div></div></div>
-    <div class="vcardx" data-feat="team_goals"><button class="uv" data-feat="team_goals"><span class="ct" data-ct="team_goals">0</span><span class="lb">Vote</span></button><div class="vm"><div class="vt">Team &amp; shared goals</div><div class="vd">Bring your co-founders and team into shared goals and accountability.</div><div class="barrow"><div class="bartrack"><div class="barfill" data-bar="team_goals"></div></div><div class="barlbl" data-lbl="team_goals">—</div></div></div></div>
-    <div class="vcardx" data-feat="calendar_sync"><button class="uv" data-feat="calendar_sync"><span class="ct" data-ct="calendar_sync">0</span><span class="lb">Vote</span></button><div class="vm"><div class="vt">Calendar &amp; reminder sync</div><div class="vd">Sync your sessions and moves to Google Calendar with smart reminders.</div><div class="barrow"><div class="bartrack"><div class="barfill" data-bar="calendar_sync"></div></div><div class="barlbl" data-lbl="calendar_sync">—</div></div></div></div>
-    <div class="vcardx" data-feat="web_app"><button class="uv" data-feat="web_app"><span class="ct" data-ct="web_app">0</span><span class="lb">Vote</span></button><div class="vm"><div class="vt">Web app</div><div class="vd">Use Legacy Foundry on desktop, not just your phone.</div><div class="barrow"><div class="bartrack"><div class="barfill" data-bar="web_app"></div></div><div class="barlbl" data-lbl="web_app">—</div></div></div></div>
-    <div class="vcardx" data-feat="integrations"><button class="uv" data-feat="integrations"><span class="ct" data-ct="integrations">0</span><span class="lb">Vote</span></button><div class="vm"><div class="vt">Integrations</div><div class="vd">Connect Notion, Slack, and Google so your moves live where you work.</div><div class="barrow"><div class="bartrack"><div class="barfill" data-bar="integrations"></div></div><div class="barlbl" data-lbl="integrations">—</div></div></div></div>
-    <div class="vcardx" data-feat="voice_sessions"><button class="uv" data-feat="voice_sessions"><span class="ct" data-ct="voice_sessions">0</span><span class="lb">Vote</span></button><div class="vm"><div class="vt">Voice sessions</div><div class="vd">Talk through your morning and evening sessions out loud, hands-free.</div><div class="barrow"><div class="bartrack"><div class="barfill" data-bar="voice_sessions"></div></div><div class="barlbl" data-lbl="voice_sessions">—</div></div></div></div>
-    <div class="vcardx" data-feat="analytics"><button class="uv" data-feat="analytics"><span class="ct" data-ct="analytics">0</span><span class="lb">Vote</span></button><div class="vm"><div class="vt">Progress analytics</div><div class="vd">A dashboard of your momentum, streaks, and goal trends over time.</div><div class="barrow"><div class="bartrack"><div class="barfill" data-bar="analytics"></div></div><div class="barlbl" data-lbl="analytics">—</div></div></div></div>
+    <div class="vcardx star" data-feat="investor_connect"><div class="vm"><div class="vt">Investor connect <span class="badge">Most requested</span></div><div class="vd">Investors discover high-performing founders by their real momentum — and invest directly through the app.</div><div class="barrow"><div class="bartrack"><div class="barfill" data-bar="investor_connect"></div></div><div class="barlbl" data-lbl="investor_connect">—</div></div></div><button class="uv" data-feat="investor_connect"><span class="ar">↑</span><span class="lb">Vote</span></button></div>
+    <div class="vcardx" data-feat="team_goals"><div class="vm"><div class="vt">Team &amp; shared goals</div><div class="vd">Bring your co-founders and team into shared goals and accountability.</div><div class="barrow"><div class="bartrack"><div class="barfill" data-bar="team_goals"></div></div><div class="barlbl" data-lbl="team_goals">—</div></div></div><button class="uv" data-feat="team_goals"><span class="ar">↑</span><span class="lb">Vote</span></button></div>
+    <div class="vcardx" data-feat="calendar_sync"><div class="vm"><div class="vt">Calendar &amp; reminder sync</div><div class="vd">Sync your sessions and moves to Google Calendar with smart reminders.</div><div class="barrow"><div class="bartrack"><div class="barfill" data-bar="calendar_sync"></div></div><div class="barlbl" data-lbl="calendar_sync">—</div></div></div><button class="uv" data-feat="calendar_sync"><span class="ar">↑</span><span class="lb">Vote</span></button></div>
+    <div class="vcardx" data-feat="web_app"><div class="vm"><div class="vt">Web app</div><div class="vd">Use Legacy Foundry on desktop, not just your phone.</div><div class="barrow"><div class="bartrack"><div class="barfill" data-bar="web_app"></div></div><div class="barlbl" data-lbl="web_app">—</div></div></div><button class="uv" data-feat="web_app"><span class="ar">↑</span><span class="lb">Vote</span></button></div>
+    <div class="vcardx" data-feat="integrations"><div class="vm"><div class="vt">Integrations</div><div class="vd">Connect Notion, Slack, and Google so your moves live where you work.</div><div class="barrow"><div class="bartrack"><div class="barfill" data-bar="integrations"></div></div><div class="barlbl" data-lbl="integrations">—</div></div></div><button class="uv" data-feat="integrations"><span class="ar">↑</span><span class="lb">Vote</span></button></div>
+    <div class="vcardx" data-feat="voice_sessions"><div class="vm"><div class="vt">Voice sessions</div><div class="vd">Talk through your morning and evening sessions out loud, hands-free.</div><div class="barrow"><div class="bartrack"><div class="barfill" data-bar="voice_sessions"></div></div><div class="barlbl" data-lbl="voice_sessions">—</div></div></div><button class="uv" data-feat="voice_sessions"><span class="ar">↑</span><span class="lb">Vote</span></button></div>
+    <div class="vcardx" data-feat="analytics"><div class="vm"><div class="vt">Progress analytics</div><div class="vd">A dashboard of your momentum, streaks, and goal trends over time.</div><div class="barrow"><div class="bartrack"><div class="barfill" data-bar="analytics"></div></div><div class="barlbl" data-lbl="analytics">—</div></div></div><button class="uv" data-feat="analytics"><span class="ar">↑</span><span class="lb">Vote</span></button></div>
   </div>
 </div></section>
 

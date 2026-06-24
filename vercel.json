@@ -1,4 +1,11 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/getting-started",
+      "destination": "/resources",
+      "permanent": true
+    }
+  ]
 }
