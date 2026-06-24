@@ -47,17 +47,17 @@ nav{position:sticky;top:0;z-index:30;background:rgba(251,251,250,.88);backdrop-f
 .vcardx{display:flex;gap:16px;align-items:flex-start;background:#11201b;border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:16px;transition:.15s}
 .vcardx:hover{border-color:rgba(70,212,158,.4)}
 .vcardx.star{border-color:rgba(70,212,158,.5);background:linear-gradient(120deg,#12281e,#11201b)}
-.uv{flex:none;width:64px;align-self:stretch;border:1px solid rgba(255,255,255,.18);border-radius:12px;background:#0c1512;color:#9ff0cf;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;transition:.15s;font-weight:800}
-.uv:hover{background:rgba(16,168,118,.16);border-color:var(--brand-2)}
-.uv .ar{font-size:18px;line-height:1}.uv .lb{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.03em}
-.uv .ct{font-size:15px;line-height:1}
-.uv.voted{background:var(--brand);border-color:var(--brand);color:#fff;cursor:default}
+.uv{flex:none;width:56px;align-self:stretch;border:1px solid rgba(255,255,255,.14);border-radius:10px;background:#0e1814;color:#bfe8d6;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;transition:.15s}
+.uv:hover{background:rgba(16,168,118,.10);border-color:rgba(70,212,158,.4)}
+.uv .ar{font-size:15px;line-height:1;color:#7e978d}.uv .lb{font-size:10.5px;font-weight:600;letter-spacing:.01em;color:#8fa9a0}
+.uv .ct{font-size:16px;font-weight:700;line-height:1;color:#fff}
+.uv.voted{background:rgba(16,168,118,.18);border-color:var(--brand);cursor:default}.uv.voted .ct{color:#fff}.uv.voted .lb{color:#9ff0cf}
 .vcardx .vm{flex:1;min-width:0}
-.vcardx .vt{font-weight:700;color:#fff;font-size:16px}.vcardx .vt .badge{font-size:10px;font-weight:800;color:var(--ink);background:#46d49e;padding:2px 8px;border-radius:999px;margin-left:8px;text-transform:uppercase;vertical-align:middle}
+.vcardx .vt{font-weight:700;color:#fff;font-size:16px}.vcardx .vt .badge{font-size:10.5px;font-weight:600;color:#9ff0cf;background:transparent;border:1px solid rgba(70,212,158,.45);padding:2px 9px;border-radius:999px;margin-left:8px;letter-spacing:.01em;vertical-align:middle}
 .vcardx .vd{font-size:13.5px;color:#9fb3ab;margin-top:4px}
 .barrow{display:flex;align-items:center;gap:12px;margin-top:12px}
 .bartrack{flex:1;height:8px;background:rgba(255,255,255,.12);border-radius:99px;overflow:hidden}
-.barfill{height:100%;width:0;background:linear-gradient(90deg,var(--brand),#46d49e);border-radius:99px;transition:width .7s cubic-bezier(.65,0,.35,1)}
+.barfill{height:100%;width:0;background:var(--brand);border-radius:99px;transition:width .7s cubic-bezier(.65,0,.35,1)}
 .barlbl{font-size:12px;color:#9fb3ab;white-space:nowrap;min-width:96px;text-align:right}
 .lmodal{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(8,16,13,.62);backdrop-filter:blur(3px)}
 .lmodal.open{display:flex}
@@ -80,16 +80,16 @@ footer{background:var(--ink);color:#9fb3ab;padding:42px 0;border-top:1px solid r
 
 <nav id="nav"><div class="wrap nav-in">
   <a href="index.html" class="brand"><span class="logo">LF</span> Legacy Foundry</a>
-  <div class="nav-links"><a href="index.html">Home</a><a href="how-it-works.html">How it works</a><a href="getting-started.html">Getting started</a><a href="features.html" class="active">Features</a><a href="blog.html">Blog</a><a href="about.html">About</a></div>
+  <div class="nav-links"><a href="index.html">Home</a><a href="how-it-works.html">How it works</a><a href="getting-started.html">Resources</a><a href="features.html" class="active">Features</a><a href="blog.html">Blog</a><a href="about.html">About</a></div>
   <div class="nav-right"><a href="login.html" class="nav-login">Log in</a><a href="beta.html" class="btn btn-primary">Try the beta — free</a></div>
   <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
 </div></nav>
-<div class="mobile" id="mobile"><a href="index.html">Home</a><a href="how-it-works.html">How it works</a><a href="getting-started.html">Getting started</a><a href="features.html">Features</a><a href="blog.html">Blog</a><a href="about.html">About</a><a href="login.html">Log in</a><a href="beta.html">Try the beta — free</a></div>
+<div class="mobile" id="mobile"><a href="index.html">Home</a><a href="how-it-works.html">How it works</a><a href="getting-started.html">Resources</a><a href="features.html">Features</a><a href="blog.html">Blog</a><a href="about.html">About</a><a href="login.html">Log in</a><a href="beta.html">Try the beta — free</a></div>
 
 <header class="phead"><div class="wrap">
   <span class="eyebrow light">Features</span>
   <h1>Everything your AI coach does — and what's next.</h1>
-  <p>Here's what Legacy Foundry can do today, plus a roadmap you get to shape. Log in and vote for what we build next.</p>
+  <p>What Legacy Foundry does today — plus a roadmap you help shape. Sign in to vote on what we build next.</p>
 </div></header>
 
 <section><div class="wrap">
@@ -108,10 +108,10 @@ footer{background:var(--ink);color:#9fb3ab;padding:42px 0;border-top:1px solid r
 </div></section>
 
 <section class="road"><div class="wrap">
-  <div class="head"><span class="eyebrow light">The roadmap</span><h2>Vote for what we build next.</h2><p class="lead">This is where Legacy Foundry is headed. The bars show how founders are voting — the most-wanted features get built first.</p></div>
-  <div class="vbar" id="vbar"><span class="vtext" id="vbarText">Log in to cast your vote — one vote per founder.</span><a class="btn btn-primary" id="vbarBtn" href="login.html">Log in</a></div>
+  <div class="head"><span class="eyebrow light">The roadmap</span><h2>Help shape the roadmap.</h2><p class="lead">Where Legacy Foundry is headed next. Cast your vote — the most-requested features get built first.</p></div>
+  <div class="vbar" id="vbar"><span class="vtext" id="vbarText">Sign in to vote — one vote per member.</span><a class="btn btn-primary" id="vbarBtn" href="login.html">Sign in</a></div>
   <div class="vgrid" id="voteList">
-    <div class="vcardx star" data-feat="investor_connect"><button class="uv" data-feat="investor_connect"><span class="ct" data-ct="investor_connect">0</span><span class="lb">Vote</span></button><div class="vm"><div class="vt">Investor connect <span class="badge">Big one</span></div><div class="vd">Investors discover high-performing founders by their real momentum — and invest directly through the app.</div><div class="barrow"><div class="bartrack"><div class="barfill" data-bar="investor_connect"></div></div><div class="barlbl" data-lbl="investor_connect">—</div></div></div></div>
+    <div class="vcardx star" data-feat="investor_connect"><button class="uv" data-feat="investor_connect"><span class="ct" data-ct="investor_connect">0</span><span class="lb">Vote</span></button><div class="vm"><div class="vt">Investor connect <span class="badge">Most requested</span></div><div class="vd">Investors discover high-performing founders by their real momentum — and invest directly through the app.</div><div class="barrow"><div class="bartrack"><div class="barfill" data-bar="investor_connect"></div></div><div class="barlbl" data-lbl="investor_connect">—</div></div></div></div>
     <div class="vcardx" data-feat="team_goals"><button class="uv" data-feat="team_goals"><span class="ct" data-ct="team_goals">0</span><span class="lb">Vote</span></button><div class="vm"><div class="vt">Team &amp; shared goals</div><div class="vd">Bring your co-founders and team into shared goals and accountability.</div><div class="barrow"><div class="bartrack"><div class="barfill" data-bar="team_goals"></div></div><div class="barlbl" data-lbl="team_goals">—</div></div></div></div>
     <div class="vcardx" data-feat="calendar_sync"><button class="uv" data-feat="calendar_sync"><span class="ct" data-ct="calendar_sync">0</span><span class="lb">Vote</span></button><div class="vm"><div class="vt">Calendar &amp; reminder sync</div><div class="vd">Sync your sessions and moves to Google Calendar with smart reminders.</div><div class="barrow"><div class="bartrack"><div class="barfill" data-bar="calendar_sync"></div></div><div class="barlbl" data-lbl="calendar_sync">—</div></div></div></div>
     <div class="vcardx" data-feat="web_app"><button class="uv" data-feat="web_app"><span class="ct" data-ct="web_app">0</span><span class="lb">Vote</span></button><div class="vm"><div class="vt">Web app</div><div class="vd">Use Legacy Foundry on desktop, not just your phone.</div><div class="barrow"><div class="bartrack"><div class="barfill" data-bar="web_app"></div></div><div class="barlbl" data-lbl="web_app">—</div></div></div></div>
@@ -139,10 +139,10 @@ footer{background:var(--ink);color:#9fb3ab;padding:42px 0;border-top:1px solid r
 <div class="lmodal" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="lmTitle">
   <button class="lmclose" id="lmClose" aria-label="Close">×</button>
   <div class="lmcard">
-    <div class="lmicon">🗳️</div>
-    <h3 id="lmTitle">Log in to vote</h3>
-    <p>Votes shape our roadmap, so we keep it to <b>one vote per founder</b>. Log in to your account first, then cast your vote.</p>
-    <a href="login.html" class="btn btn-primary">Log in to vote →</a>
+    <div class="lmicon">↑</div>
+    <h3 id="lmTitle">Sign in to vote</h3>
+    <p>Votes shape our roadmap, so each member gets one. Sign in to your account, then cast your vote.</p>
+    <a href="login.html" class="btn btn-primary">Sign in to vote →</a>
     <p class="lmsignup">New here? <a href="signup.html">Create a free account</a></p>
   </div>
 </div>
@@ -169,13 +169,13 @@ footer{background:var(--ink);color:#9fb3ab;padding:42px 0;border-top:1px solid r
       var ctEl=document.querySelector('.ct[data-ct="'+f+'"]');
       if(fill) fill.style.width=(max>0?(c/max*100):0)+'%';
       if(ctEl) ctEl.textContent=c;
-      if(lbl){ if(haveCounts){ var pct=total>0?Math.round(c/total*100):0; lbl.textContent=c+' vote'+(c===1?'':'s')+' · '+pct+'%'; } else { lbl.textContent=(c>0? c+' vote'+(c===1?'':'s') : 'Be the first'); } }
+      if(lbl){ if(haveCounts){ var pct=total>0?Math.round(c/total*100):0; lbl.textContent=c+' vote'+(c===1?'':'s')+' · '+pct+'%'; } else { lbl.textContent=(c>0? c+' vote'+(c===1?'':'s') : 'No votes yet'); } }
     });
   }
   function restoreVoted(){ voted().forEach(function(f){ var b=document.querySelector('.uv[data-feat="'+f+'"]'); if(b){ b.classList.add('voted'); b.querySelector('.lb').textContent='Voted'; } }); }
   function renderBar(){
-    if(user){ barText.innerHTML='You\'re voting as <b>'+user.email+'</b>. Tap a feature to vote.'; barBtn.style.display='none'; }
-    else { barText.textContent='Log in to cast your vote — one vote per founder.'; barBtn.style.display=''; }
+    if(user){ barText.innerHTML='Signed in as <b>'+user.email+'</b>. Select a feature to vote.'; barBtn.style.display='none'; }
+    else { barText.textContent='Sign in to vote — one vote per member.'; barBtn.style.display=''; }
   }
   var lmodal=document.getElementById('loginModal');
   function flashLogin(){ if(lmodal){ lmodal.classList.add('open'); } }
@@ -220,7 +220,7 @@ footer{background:var(--ink);color:#9fb3ab;padding:42px 0;border-top:1px solid r
     cc.from('contacts').insert({name:'FEATURE_SUGGESTION', email: e||(user?user.email:'suggestion@legacyfoundry.ai'), message: t}).then(function(res){
       if(res&&res.error){ st.style.color='#c0392b'; st.textContent="Couldn't send — please try again."; sgBtn.disabled=false; sgBtn.textContent='Send suggestion'; return; }
       document.getElementById('sgText').value=''; document.getElementById('sgEmail').value='';
-      st.style.color='var(--brand)'; st.textContent="Got it — thanks! If we hear this a lot, it'll go up for a vote."; sgBtn.textContent='Sent ✓';
+      st.style.color='var(--brand)'; st.textContent="Thanks — your suggestion is in. Popular requests get added to the list above."; sgBtn.textContent='Sent ✓';
     });
   });
 })();
