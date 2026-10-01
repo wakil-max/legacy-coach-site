@@ -1,11 +1,16 @@
 {
-  "cleanUrls": true,
-  "trailingSlash": false,
+  "cleanUrls": false,
   "redirects": [
     {
-      "source": "/getting-started",
-      "destination": "/resources",
-      "permanent": true
+      "source": "/(.*)\\.html",
+      "destination": "/$1",
+      "permanent": false
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/((?!api/|.*\\.).*)",
+      "destination": "/index.html"
     }
   ]
 }

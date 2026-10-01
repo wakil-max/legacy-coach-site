@@ -1,201 +1,793 @@
-<!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Legacy Foundry — the AI coach that turns founder ambition into shipped work</title>
-<meta name="description" content="Legacy Foundry is an AI coach for founders and entrepreneurs. Tell it about your business once and it gives you three clear moves every morning, keeps you accountable, and moves your real goals — so you ship, every day.">
-<link rel="canonical" href="https://legacyfoundry.ai/">
-<meta property="og:type" content="website"><meta property="og:url" content="https://legacyfoundry.ai/">
-<meta property="og:title" content="Legacy Foundry — your AI coach for founders">
-<meta property="og:description" content="An AI coach for founders. Three clear moves every morning, accountability, momentum every week. Join the public beta — free.">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="logo.svg"><link rel="apple-touch-icon" href="logo.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Legacy Foundry | An AI coach for founders</title>
+<meta name="description" content="An AI coach for founders. Three clear moves every morning, a check-in every night, and one quarterly goal that actually moves.">
+<meta name="theme-color" content="#231F20">
+<link rel="icon" type="image/png" href="/favicon.png">
+<meta property="og:title" content="Legacy Foundry | An AI coach for founders">
+<meta property="og:description" content="An AI coach for founders. Three clear moves every morning, a check-in every night, and one quarterly goal that actually moves.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.legacyfoundry.ai/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Sans:wght@400;500;600;700&display=swap">
+<style>img{max-width:100%}[hidden]{display:none!important}</style>
 <style>
-:root{--ink:#0c0e0d;--ink-2:#0c1110;--paper:#fbfbfa;--white:#fff;--brand:#0b8a5f;--brand-2:#10a876;--brand-ink:#075c40;--brand-tint:#eaf6f1;--text:#141b19;--muted:#6b736e;--line:#e6e8e5;--gold:#d8a13a}
-*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
-body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:var(--text);background:var(--paper);line-height:1.6;-webkit-font-smoothing:antialiased}
-.wrap{max-width:1140px;margin:0 auto;padding:0 24px}a{color:inherit;text-decoration:none}
-.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:15px;padding:13px 22px;border-radius:11px;border:1px solid transparent;cursor:pointer;transition:.18s}
-.btn-primary{background:var(--brand);color:#fff}.btn-primary:hover{background:var(--brand-ink)}
-.btn-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.28)}.btn-ghost:hover{border-color:#fff}
-.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--brand);background:var(--brand-tint);padding:6px 14px;border-radius:999px}
-.eyebrow.light{color:#a7ecd0;background:rgba(11,138,95,.22)}
-.eyebrow .pill{background:var(--brand);color:#fff;padding:2px 9px;border-radius:999px;font-size:11px;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;flex:none}
-.eyebrow.light{flex-wrap:wrap;row-gap:6px}
-section{padding:84px 0;scroll-margin-top:74px}
-h1{font-size:clamp(34px,5vw,56px);line-height:1.08;font-weight:800;letter-spacing:-.02em}
-h2{font-size:clamp(26px,3.4vw,38px);line-height:1.18;font-weight:800;letter-spacing:-.01em}
-.lead{font-size:18px;color:var(--muted);max-width:620px}.kicker{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--brand)}
-nav{position:sticky;top:0;z-index:30;background:rgba(251,251,250,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.nav-in{display:flex;align-items:center;justify-content:space-between;height:64px}
-.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px}
-.logo{width:30px;height:30px;border-radius:7px;display:block}
+/* Layout: poster columns. Left-aligned 1120px measure, every section opens on a green hairline
+   with a tall condensed headline (last line green, as on the brand statics). One signature
+   element: the day-by-day record strip. Single dark look by choice. */
+:root{
+  color-scheme:dark;
+  --bg:#231F20; --deep:#1A1718; --raise:#2C2829; --line:#3D3839;
+  --fg:#F2F2F2; --mute:#BDB8B5; --dim:#948E8A;
+  --green:#89C764; --green-ink:#17240F; --amber:#E2B24A;
+  --display:"Bebas Neue","Oswald","Arial Narrow",Impact,sans-serif;
+  --body:"Instrument Sans","Segoe UI",system-ui,-apple-system,sans-serif;
+  --wrap:1120px; --gut:clamp(16px,4vw,40px);
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.55;margin:0;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+p{margin:0}
+h1,h2,h3{margin:0;font-weight:400}
+ul{margin:0;padding:0;list-style:none}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--green);outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gut)}
 
-.nav-links{display:flex;gap:26px;font-size:15px;font-weight:500;color:var(--muted)}.nav-links a:hover{color:var(--brand)}
-.nav-links a.active{color:var(--brand);font-weight:700}
-.nav-right{display:flex;align-items:center;gap:16px}.nav-login{font-weight:600;font-size:15px;color:var(--text)}.nav-login:hover{color:var(--brand)}
-.burger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer}.burger span{width:24px;height:2px;background:var(--text);border-radius:2px}
-.mobile{display:none;flex-direction:column;gap:6px;padding:14px 24px;background:#fff;border-bottom:1px solid var(--line)}.mobile.open{display:flex}.mobile a{padding:8px 0;font-weight:600}
-.avatar-wrap{position:relative}.avatar{width:36px;height:36px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:800;font-size:13px;cursor:pointer}
-.avatar-menu{position:absolute;right:0;top:46px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 14px 40px rgba(0,0,0,.14);min-width:200px;padding:8px;display:none}.avatar-menu.open{display:block}
-.avatar-menu .who{padding:10px 12px;border-bottom:1px solid var(--line);margin-bottom:6px}.avatar-menu .nm{font-weight:700;font-size:14px}.avatar-menu .em{font-size:12px;color:var(--muted)}
-.avatar-menu a,.avatar-menu button{display:block;width:100%;text-align:left;padding:9px 12px;border-radius:8px;font-size:14px;border:0;background:none;cursor:pointer;color:var(--text)}.avatar-menu a:hover,.avatar-menu button:hover{background:var(--brand-tint)}
-@media(max-width:840px){.nav-links{display:none}.burger{display:flex}}
-.hero{background:radial-gradient(1200px 540px at 72% -10%,#123a2a 0%,var(--ink) 56%);color:#fff;padding:70px 0 86px;overflow:hidden}
-.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
-.hero h1{margin:18px 0 18px}.hero .em{color:#46d49e;font-style:normal}
-.hero p{color:#c7d4ce;font-size:18px;max-width:560px}
-.row-cta{display:flex;gap:14px;margin:30px 0 26px;flex-wrap:wrap}
-.hero-meta{display:flex;gap:26px;flex-wrap:wrap}.hero-meta div{font-size:14px;color:#c7d4ce}.hero-meta b{color:#fff}
-.phone-wrap{display:flex;justify-content:center}
-.device{position:relative;width:320px;max-width:80vw;background:#0a0c10;border-radius:44px;padding:13px;border:2px solid rgba(255,255,255,.13);box-shadow:0 32px 64px rgba(0,0,0,.55)}
-.device::before{content:"";position:absolute;top:20px;left:50%;transform:translateX(-50%);width:10px;height:10px;border-radius:50%;background:#04050a;z-index:4}
-.screen{position:relative;overflow:hidden;border-radius:32px;aspect-ratio:520/1129;background:#fff}
-.car{display:flex;width:100%;height:100%;transition:transform .6s cubic-bezier(.65,0,.35,1)}
-.car img{width:100%;height:100%;object-fit:cover;flex:none}
-.dots{display:flex;gap:4px;justify-content:center;margin-top:16px}
-.dots i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;border:5px solid transparent;background-clip:padding-box;box-sizing:content-box;transition:background .2s}
-.dots i:hover{background:rgba(255,255,255,.6)}.dots i.on{background:#46d49e}
-@media(max-width:840px){.hero-grid{grid-template-columns:1fr;min-width:0}.hero-grid>*{min-width:0;max-width:100%}.hero p{max-width:100%}.phone-wrap{margin-top:14px}}
-.whatis{background:var(--brand-ink);color:#eafaf3;padding:28px 0}
-.whatis .wrap{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap}.whatis b{color:#fff}.whatis .tag{font-weight:800;color:#bff3df;white-space:nowrap}
-.head{max-width:700px;margin-bottom:46px}.head h2{margin:10px 0 14px}
-.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px}
-.card .n{font-size:13px;font-weight:800;color:var(--brand);opacity:.65}.card h3{font-size:17px;margin:10px 0 8px}.card p{font-size:14px;color:var(--muted)}
-@media(max-width:840px){.grid4{grid-template-columns:1fr 1fr}}@media(max-width:520px){.grid4{grid-template-columns:1fr}}
-.bridge{background:linear-gradient(180deg,#0f1715,#13211b);color:#fff;text-align:center}.bridge h2{max-width:760px;margin:12px auto 16px}.bridge p{color:#c7d4ce;max-width:640px;margin:0 auto 28px;font-size:17px}
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.step{background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px}
-.step .when{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--brand)}
-.step h3{font-size:18px;margin:10px 0 8px}.step p{font-size:14px;color:var(--muted)}
-.step .fix{margin-top:12px;font-size:12px;font-weight:600;color:var(--brand-ink);background:var(--brand-tint);display:inline-block;padding:5px 10px;border-radius:8px}
-@media(max-width:900px){.steps{grid-template-columns:1fr 1fr}}@media(max-width:520px){.steps{grid-template-columns:1fr}}
-.videosec{background:var(--ink);color:#fff;text-align:center}
-.videosec h2{color:#fff;margin:10px 0 12px}.videosec p{color:#c7d4ce;max-width:560px;margin:0 auto 28px}
-.vidbox{max-width:880px;margin:0 auto;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.12);box-shadow:0 30px 70px rgba(0,0,0,.5)}
-.vidbox video{width:100%;display:block;background:#000}
-.feat{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}@media(max-width:840px){.feat{grid-template-columns:1fr}}
-.trust{background:var(--ink);color:#fff}.trust .head h2{color:#fff}.trust p{color:#c7d4ce;font-size:17px;max-width:780px}
-.who-card{display:flex;gap:16px;align-items:center;margin-top:26px;background:#0f1715;border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:18px 20px;max-width:640px}
-.who-card .av{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--brand-ink));display:grid;place-items:center;font-weight:800;color:#fff;flex:none}
-.who-card .nm{font-weight:700;color:#fff}.who-card .ro{font-size:13px;color:#9fb3ab}
-.tstats{display:flex;gap:40px;flex-wrap:wrap;margin-top:34px}.tstats b{display:block;font-size:30px;color:#46d49e;font-weight:800}.tstats span{font-size:13px;color:#9fb3ab}
-.cta{background:var(--brand);color:#fff;text-align:center}.cta h2{color:#fff;max-width:680px;margin:0 auto 20px}.cta .btn-primary{background:#fff;color:var(--brand-ink)}.cta .btn-primary:hover{background:#eafaf3}
-footer{background:var(--ink);color:#9fb3ab;padding:42px 0;border-top:1px solid rgba(255,255,255,.08);font-size:14px}
-.fbot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
-</style></head><body>
+/* type */
+.d1,.d2,.d3{overflow-wrap:break-word;font-family:var(--display);text-transform:uppercase;letter-spacing:.01em;text-wrap:balance}
+.d1{font-size:clamp(3.4rem,9.4vw,7.25rem);line-height:.92}
+.d2{font-size:clamp(2.5rem,5.6vw,4.4rem);line-height:.95}
+.d3{font-size:clamp(1.7rem,3vw,2.2rem);line-height:1}
+.g{color:var(--green)}
+.lede{font-size:clamp(1.1rem,1.6vw,1.3rem);color:var(--mute);max-width:36em}
+.h3{font-size:1.15rem;font-weight:600;line-height:1.3}
+.mute{color:var(--mute)}
+.small{font-size:.9rem;color:var(--dim)}
+.tag{display:inline-block;background:var(--green);color:var(--green-ink);font-weight:700;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;padding:.42em 1em;border-radius:999px}
 
-<nav id="nav"><div class="wrap nav-in">
-  <a href="index.html" class="brand"><img src="logo.svg" class="logo" alt="Legacy Foundry"> Legacy Foundry</a>
-  <div class="nav-links"><a href="index.html" class="active">Home</a><a href="how-it-works.html">How it works</a><a href="resources.html">Resources</a><a href="features.html">Features</a><a href="blog.html">Blog</a><a href="about.html">About</a></div>
-  <div class="nav-right"><a href="login.html" class="nav-login">Log in</a><a href="https://forms.gle/zfffxQVprgRsTpJk8" target="_blank" rel="noopener" class="btn btn-primary">Try the beta — free</a></div>
-  <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
-</div></nav>
-<div class="mobile" id="mobile"><a href="index.html">Home</a><a href="how-it-works.html">How it works</a><a href="resources.html">Resources</a><a href="features.html">Features</a><a href="blog.html">Blog</a><a href="about.html">About</a><a href="login.html">Log in</a><a href="https://forms.gle/zfffxQVprgRsTpJk8" target="_blank" rel="noopener">Try the beta — free</a></div>
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55em;min-height:48px;padding:.7em 1.4em;border-radius:10px;font-weight:600;text-decoration:none;border:1px solid transparent;cursor:pointer;white-space:nowrap}
+.btn-go{background:var(--green);color:var(--green-ink)}
+.btn-go:hover{background:#9BD478}
+.btn-line{border-color:var(--line);color:var(--fg);background:transparent}
+.btn-line:hover{border-color:var(--mute)}
+.btn svg{flex:none}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 
-<header class="hero"><div class="wrap hero-grid">
-  <div>
-    <span class="eyebrow light"><span class="pill">Public beta</span> An AI coach for founders &amp; entrepreneurs</span>
-    <h1>Your AI coach — so you <span class="em">actually do</span> the work.</h1>
-    <p>An AI coach for founders: three clear moves every morning, a check-in every night — so you stop planning and start shipping.</p>
-    <div class="row-cta">
-      <a href="https://forms.gle/zfffxQVprgRsTpJk8" target="_blank" rel="noopener" class="btn btn-primary">Try the beta — it's free →</a>
-      <a href="#video" class="btn btn-ghost">▶ Watch the 1-min video</a>
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(35,31,32,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:24px;min-height:68px}
+.logo{display:flex;align-items:center;flex:none}
+.logo img{height:38px;width:auto;display:block}
+.nav{display:flex;align-items:center;gap:4px;margin-left:auto}
+.nav a,.nav summary{display:block;padding:.55em .8em;border-radius:8px;text-decoration:none;color:var(--mute);font-weight:500;font-size:.97rem;cursor:pointer;list-style:none}
+.nav summary::-webkit-details-marker{display:none}
+.nav a:hover,.nav summary:hover,.nav a[aria-current="page"]{color:var(--fg)}
+.nav a[aria-current="page"]{box-shadow:inset 0 -2px 0 var(--green);border-radius:0}
+.drop{position:relative}
+.drop ul{position:absolute;top:calc(100% + 6px);left:0;min-width:230px;background:var(--raise);border:1px solid var(--line);border-radius:12px;padding:6px}
+.drop ul a{color:var(--fg)}
+.drop ul a:hover{background:var(--bg)}
+.acts{display:flex;align-items:center;gap:10px}
+.acts .btn{min-height:42px;padding:.5em 1.1em}
+.acts .login{color:var(--mute);text-decoration:none;font-weight:500;padding:.5em .6em}
+.menu-btn{display:none;margin-left:auto;background:none;border:1px solid var(--line);border-radius:10px;min-width:46px;min-height:44px;cursor:pointer}
+@media (max-width:920px){
+  .menu-btn{display:inline-flex;align-items:center;justify-content:center}
+  .nav,.acts{display:none}
+  .top.open .wrap{flex-wrap:wrap;padding-bottom:16px}
+  .top.open .nav{display:flex;flex-direction:column;align-items:stretch;width:100%;margin:0;order:3}
+  .top.open .acts{display:flex;width:100%;order:4}
+  .top.open .acts .btn{flex:1}
+  .drop ul{position:static;border:0;background:none;padding:0 0 0 14px}
+  .drop ul a{color:var(--mute)}
+}
+
+/* sections */
+.sec{padding-block:clamp(56px,8vw,104px)}
+.sec + .sec > .wrap,.ruled > .wrap{border-top:1px solid var(--line);padding-top:clamp(40px,6vw,72px)}
+.sec + .sec{padding-top:0}
+.sec.deep{background:var(--deep)}
+.sec.deep > .wrap{border-top:0;padding-top:clamp(56px,8vw,104px)}
+.sec.deep + .sec > .wrap{border-top:0}
+.sec + .sec.deep{padding-top:0}
+.head{display:grid;gap:18px;margin-bottom:clamp(32px,5vw,56px);max-width:52rem}
+.bar{width:72px;height:3px;background:var(--green);border-radius:2px}
+
+/* hero */
+.hero{padding-block:clamp(40px,6vw,80px) clamp(48px,7vw,88px)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:clamp(32px,5vw,72px);align-items:center}
+.hero-copy{display:grid;grid-template-columns:minmax(0,1fr);gap:26px;justify-items:start;min-width:0}
+.facts{display:flex;flex-wrap:wrap;gap:10px 28px;color:var(--mute);font-size:.98rem;padding-top:6px}
+.facts li{display:flex;align-items:center;gap:.5em}
+.facts li::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--green);flex:none}
+@media (max-width:860px){.hero .wrap{grid-template-columns:minmax(0,1fr)}.hero .phone{margin-inline:auto}}
+.sub-hero{padding-block:clamp(48px,7vw,96px) clamp(36px,5vw,64px)}
+.sub-hero .wrap{display:grid;grid-template-columns:minmax(0,1fr);gap:24px;justify-items:start}
+.sub-hero .wrap > *{min-width:0;max-width:100%}
+.sub-hero .d1{font-size:clamp(3rem,7.6vw,5.9rem);max-width:min(15em,100%)}
+
+/* phone */
+.phone{width:min(100%,318px);background:var(--deep);border:1px solid var(--line);border-radius:38px;padding:14px;box-shadow:0 30px 60px -30px #000}
+.screen{background:#141112;border-radius:26px;padding:20px 16px 18px;display:grid;gap:12px;font-size:.86rem;line-height:1.4}
+.screen .hello{color:var(--dim);font-size:.8rem}
+.card{background:var(--raise);border-radius:14px;padding:13px 14px;display:grid;gap:7px}
+.card .k{color:var(--dim);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase}
+.card .v{font-weight:600;font-size:.98rem}
+.prog{height:6px;border-radius:3px;background:#1a1718;overflow:hidden}
+.prog i{display:block;height:100%;width:60%;background:var(--green)}
+.meta{display:flex;justify-content:space-between;color:var(--mute);font-size:.78rem}
+.card.go{background:var(--green);color:var(--green-ink);grid-template-columns:1fr auto;align-items:center}
+.card.go .k{color:var(--green-ink);opacity:.75}
+.card.go b{background:var(--green-ink);color:var(--green);border-radius:8px;padding:.4em .9em;font-size:.8rem}
+.moves{display:grid;gap:8px}
+.moves li{display:flex;gap:9px;align-items:flex-start}
+.box{width:17px;height:17px;border-radius:5px;border:1.5px solid var(--dim);flex:none;margin-top:1px;display:grid;place-items:center}
+.box.on{background:var(--green);border-color:var(--green)}
+.box.on::after{content:"";width:8px;height:4px;border-left:2px solid var(--green-ink);border-bottom:2px solid var(--green-ink);transform:rotate(-45deg) translateY(-1px)}
+.done{color:var(--dim);text-decoration:line-through}
+.pulse{display:flex;gap:8px}
+.pulse i{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--line)}
+.pulse i.on{background:var(--green);border-color:var(--green)}
+.chat{display:grid;gap:9px}
+.msg{padding:10px 13px;border-radius:14px;max-width:88%;font-size:.9rem;line-height:1.4}
+.msg.you{justify-self:end;background:var(--green);color:var(--green-ink);border-bottom-right-radius:4px}
+.msg.coach{justify-self:start;background:var(--raise);border-bottom-left-radius:4px}
+.who{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+
+/* record strip */
+.record{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:10px}
+.day{border:1px solid var(--line);border-radius:12px;padding:14px 12px;display:grid;gap:10px;align-content:start;min-width:0}
+.day .n{font-family:var(--display);font-size:2.2rem;line-height:1;color:var(--mute)}
+.pips{display:flex;gap:5px}
+.pips i{width:100%;height:6px;border-radius:3px;background:var(--line)}
+.day.full{border-color:var(--green)} .day.full .n{color:var(--fg)} .day.full .pips i{background:var(--green)}
+.day.part .pips i:nth-child(-n+2){background:var(--amber)} .day.part .n{color:var(--fg)}
+.day.miss{border-style:dashed}
+.day .t{font-size:.8rem;color:var(--mute);line-height:1.3}
+.day.next .t{color:var(--dim)}
+@media (max-width:860px){.record{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (max-width:420px){.record{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;margin-top:clamp(36px,5vw,56px)}
+.stats .n{font-family:var(--display);font-size:clamp(2.6rem,5vw,3.6rem);line-height:1;color:var(--green)}
+.stats p{color:var(--mute);font-size:.95rem;margin-top:6px}
+@media (max-width:720px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* lists and grids */
+.cols{display:grid;gap:clamp(24px,4vw,48px) clamp(24px,4vw,56px)}
+.c2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.c3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.c4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:900px){.c3,.c4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:620px){.c2,.c3,.c4{grid-template-columns:minmax(0,1fr)}}
+.item{display:grid;gap:8px;align-content:start;padding-top:18px;border-top:1px solid var(--line);min-width:0}
+.item p{color:var(--mute)}
+.item.hit{border-top:3px solid var(--green);padding-top:16px}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:start}
+@media (max-width:820px){.split{grid-template-columns:minmax(0,1fr)}}
+.stack{display:grid;gap:18px;align-content:start;min-width:0}
+.prose{display:grid;gap:16px;max-width:40em;color:var(--mute)}
+.note{border-left:3px solid var(--green);padding:6px 0 6px 20px;color:var(--mute);max-width:44em}
+.checks{display:grid;gap:10px}
+.checks li{display:flex;gap:10px;align-items:flex-start}
+.checks li::before{content:"";width:14px;height:8px;border-left:2.5px solid var(--green);border-bottom:2.5px solid var(--green);transform:rotate(-45deg);flex:none;margin-top:6px}
+.linkcard{display:grid;gap:10px;padding:22px;border:1px solid var(--line);border-radius:14px;text-decoration:none;align-content:start;min-width:0}
+.linkcard:hover{border-color:var(--green)}
+.linkcard p{color:var(--mute)}
+.linkcard span{color:var(--green);font-weight:600;font-size:.95rem}
+
+/* session tabs */
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.tabs button{background:none;border:1px solid var(--line);border-radius:999px;padding:.5em 1.2em;min-height:44px;cursor:pointer;color:var(--mute);font-weight:600}
+.tabs button[aria-selected="true"]{background:var(--green);border-color:var(--green);color:var(--green-ink)}
+.panel{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,5vw,64px);align-items:start}
+@media (max-width:820px){.panel{grid-template-columns:minmax(0,1fr)}}
+.talk{background:var(--deep);border:1px solid var(--line);border-radius:18px;padding:22px}
+
+/* table */
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+table{border-collapse:collapse;width:100%;min-width:720px;font-size:.95rem}
+th,td{text-align:left;padding:14px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child th,tr:last-child td{border-bottom:0}
+thead th{font-weight:600;color:var(--mute);font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+tbody th{font-weight:500}
+td{color:var(--mute)}
+.us{background:rgba(137,199,100,.09);color:var(--fg);font-weight:600}
+thead .us{color:var(--green)}
+.yes{color:var(--green);font-weight:600}
+.no{color:var(--dim)}
+table.two{min-width:480px}
+
+/* pricing */
+.toggle{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:4px;gap:4px}
+.toggle button{background:none;border:0;border-radius:999px;padding:.45em 1.2em;min-height:40px;cursor:pointer;color:var(--mute);font-weight:600}
+.toggle button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.plans{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:28px}
+@media (max-width:720px){.plans{grid-template-columns:minmax(0,1fr)}}
+.plan{border:1px solid var(--line);border-radius:18px;padding:clamp(22px,3vw,32px);display:grid;gap:18px;align-content:start;min-width:0}
+.plan.best{border-color:var(--green);background:var(--deep)}
+.plan .name{display:flex;justify-content:space-between;align-items:center;gap:12px;font-weight:600}
+.price{font-family:var(--display);font-size:clamp(3rem,6vw,4.2rem);line-height:.95}
+.price small{font-family:var(--body);font-size:1rem;color:var(--mute);font-weight:500}
+.was{color:var(--dim);text-decoration:line-through}
+.trust{display:flex;flex-wrap:wrap;gap:10px 26px;margin-top:26px;color:var(--mute);font-size:.93rem}
+.trust li{display:flex;align-items:center;gap:.55em}
+.trust li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--green)}
+
+/* faq */
+.faq{border-top:1px solid var(--line);max-width:52rem}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;padding:20px 40px 20px 0;font-weight:600;font-size:1.08rem;list-style:none;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:6px;top:14px;font-size:1.6rem;font-weight:400;color:var(--green)}
+.faq details[open] summary::after{content:"\2212"}
+.faq p{color:var(--mute);padding:0 40px 22px 0;max-width:44em}
+
+/* cta band */
+.cta{background:var(--green);color:var(--green-ink)}
+.cta .wrap{padding-block:clamp(48px,7vw,88px);display:grid;gap:22px;justify-items:start}
+.cta .lede{color:var(--green-ink);opacity:.85}
+.cta .btn{background:var(--green-ink);color:var(--fg)}
+.cta .small{color:var(--green-ink);opacity:.8}
+
+/* forms */
+form{display:grid;gap:16px;max-width:34rem}
+label{display:grid;gap:6px;font-weight:500;font-size:.95rem}
+input,select,textarea{background:var(--deep);border:1px solid var(--line);border-radius:10px;padding:.7em .9em;min-height:48px;width:100%}
+textarea{min-height:140px;resize:vertical}
+.status{color:var(--green);font-size:.95rem}
+.copy{display:inline-flex;align-items:center;gap:12px;flex-wrap:wrap}
+.copy code{font-family:var(--body);font-size:1.25rem;font-weight:600;user-select:all}
+.copy button{background:none;border:1px solid var(--line);border-radius:8px;padding:.35em .9em;min-height:40px;cursor:pointer;color:var(--mute)}
+
+/* steps (a real sequence) */
+.steps{display:grid;gap:clamp(32px,5vw,56px);counter-reset:s}
+.step{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(24px,5vw,64px);align-items:center;padding-top:28px;border-top:1px solid var(--line);counter-increment:s}
+.step .stack::before{content:"Step " counter(s);color:var(--green);font-weight:700;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}
+@media (max-width:720px){.step{grid-template-columns:minmax(0,1fr)}}
+.legal{display:grid;gap:0;max-width:48rem;counter-reset:l}
+.legal li{display:grid;gap:6px;padding:20px 0;border-top:1px solid var(--line);counter-increment:l}
+.legal li p{color:var(--mute)}
+
+/* footer */
+footer{background:var(--deep);border-top:1px solid var(--line);padding-block:clamp(40px,6vw,72px) 32px;font-size:.95rem}
+.fits{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.fits li{border:1px solid var(--line);border-radius:999px;padding:.3em .95em;color:var(--mute);font-size:.88rem}
+.fgrid{display:grid;grid-template-columns:1.4fr repeat(4,minmax(0,1fr));gap:32px;margin-top:40px;padding-top:36px;border-top:1px solid var(--line)}
+@media (max-width:860px){.fgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.fgrid > :first-child{grid-column:1/-1}}
+.fgrid h3{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);font-weight:600;margin-bottom:12px}
+.fgrid li{margin-bottom:8px}
+.fgrid a{color:var(--mute);text-decoration:none}
+.fgrid a:hover{color:var(--fg)}
+.legalrow{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;margin-top:36px;padding-top:20px;border-top:1px solid var(--line);color:var(--dim);font-size:.88rem}
+@media (prefers-reduced-motion:no-preference){.btn,.linkcard,.tabs button{transition:background-color .15s,border-color .15s,color .15s}}
+</style>
+</head>
+<body>
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="logo" href="/" aria-label="Legacy Foundry home"><img src="/logo.png" alt="Legacy Foundry"></a>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">
+      <svg width="20" height="14" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M1 1h18M1 7h18M1 13h18"/></svg>
+    </button>
+    <nav class="nav" aria-label="Main">
+      <a href="/how-it-works">How it works</a>
+      <a href="/features">Features</a>
+      <details class="drop" id="drop">
+        <summary>Use cases</summary>
+        <ul>
+          <li><a href="/for/solo-founders">Solo founders</a></li>
+          <li><a href="/for/agency-owners">Agency owners</a></li>
+          <li><a href="/for/accelerators">Accelerators</a></li>
+          <li><a href="/for/side-project-builders">Side-project builders</a></li>
+        </ul>
+      </details>
+      <a href="/pricing">Pricing</a>
+    </nav>
+    <div class="acts">
+      <a class="login" href="https://play.google.com/store/apps/details?id=com.oi.legacyfoundry">Log in</a>
+      <a class="btn btn-go" href="https://play.google.com/store/apps/details?id=com.oi.legacyfoundry">Start free</a>
     </div>
-    <div class="hero-meta"><div><b>3 moves</b> every morning</div><div><b>Built</b> for founders</div><div><b>Free</b> in public beta</div></div>
   </div>
-  <div>
-    <div class="phone-wrap"><div class="device"><div class="screen"><div class="car" id="car">
-      <img src="screens/s-home.jpg" alt="Coach home — your goals and daily moves" decoding="async">
-      <img src="screens/s-sessions.jpg" alt="Your coaching sessions" decoding="async">
-      <img src="screens/s-chat.jpg" alt="A morning coaching session" decoding="async">
-      <img src="screens/s-habits.jpg" alt="Daily habit tracker" decoding="async">
-      <img src="screens/s-mentor.jpg" alt="On-demand mentor" decoding="async">
-      <img src="screens/s-history.jpg" alt="Your commitment history" decoding="async">
-    </div></div></div></div>
+</header>
+
+<main id="main" tabindex="-1">
+<div data-page="home">
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <h1 class="d1">Your AI coach, so you actually <span class="g">do the work.</span></h1>
+        <p class="lede">Three clear moves every morning. A check-in every night. You stop planning and start shipping.</p>
+        <div class="row">
+          <a class="btn btn-go" href="https://play.google.com/store/apps/details?id=com.oi.legacyfoundry">Start free</a>
+          <a class="btn btn-line" href="/how-it-works">See how it works</a>
+        </div>
+        <ul class="facts">
+          <li>3 moves every morning</li>
+          <li>Built for founders</li>
+          <li>Free for 14 days</li>
+        </ul>
+      </div>
+      <div class="phone" role="img" aria-label="The Legacy Foundry app home screen: the current quarterly goal with streak and days left, the recommended morning session, today's commitments, and a mood check.">
+        <div class="screen">
+          <div class="hello">Good morning</div>
+          <div class="card">
+            <div class="k">Quarterly goal</div>
+            <div class="v">10 paying customers by Q4</div>
+            <div class="prog"><i></i></div>
+            <div class="meta"><span>6 of 10</span><span>11 day streak</span><span>80 days left</span></div>
+          </div>
+          <div class="card go">
+            <div><div class="k">Recommended</div><div class="v">Morning session</div></div>
+            <b>Start</b>
+          </div>
+          <div class="card">
+            <div class="k">Today's three moves</div>
+            <ul class="moves">
+              <li><span class="box on"></span><span class="done">Follow up with the 4 warm leads</span></li>
+              <li><span class="box on"></span><span class="done">Ship the pricing page</span></li>
+              <li><span class="box"></span><span>Book 2 demos</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="k">Today's Pulse</div>
+            <div class="pulse"><i></i><i></i><i></i><i class="on"></i><i></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec deep">
+    <div class="wrap">
+      <div class="head">
+        <h2 class="d2">The record is <span class="g">the accountability.</span></h2>
+        <p class="lede">Streaks break, goals don't. Nothing is deleted.</p>
+      </div>
+      <div class="record">
+        <div class="day full"><div class="n">07</div><div class="pips"><i></i><i></i><i></i></div><div class="t">3 of 3 moves done</div></div>
+        <div class="day full"><div class="n">08</div><div class="pips"><i></i><i></i><i></i></div><div class="t">3 of 3 moves done</div></div>
+        <div class="day miss"><div class="n">09</div><div class="pips"><i></i><i></i><i></i></div><div class="t">Missed. No moves recorded</div></div>
+        <div class="day full"><div class="n">10</div><div class="pips"><i></i><i></i><i></i></div><div class="t">3 of 3 moves done</div></div>
+        <div class="day part"><div class="n">11</div><div class="pips"><i></i><i></i><i></i></div><div class="t">Partial. 2 of 3 moves done</div></div>
+        <div class="day next"><div class="n">12</div><div class="pips"><i></i><i></i><i></i></div><div class="t">Today</div></div>
+        <div class="day next"><div class="n">13</div><div class="pips"><i></i><i></i><i></i></div><div class="t">Upcoming</div></div>
+        <div class="day next"><div class="n">14</div><div class="pips"><i></i><i></i><i></i></div><div class="t">Upcoming</div></div>
+      </div>
+      <div class="stats">
+        <div><div class="n">2001</div><p>Building companies since</p></div>
+        <div><div class="n">1,000+</div><p>Team across the group</p></div>
+        <div><div class="n">&infin;</div><p>Unlimited memory. It never forgets your business</p></div>
+        <div><div class="n">13 weeks</div><p>One goal, one quarter, measured</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="head">
+        <h2 class="d2">You don't have a knowledge problem. <span class="g">You have a follow-through problem.</span></h2>
+      </div>
+      <div class="cols c4">
+        <div class="item"><h3 class="h3">Wearing every hat</h3><p>Product, sales, marketing, ops. The context-switching burns you out.</p></div>
+        <div class="item"><h3 class="h3">Decision fatigue</h3><p>A hundred tiny choices drain your energy before the important work begins.</p></div>
+        <div class="item"><h3 class="h3">No accountability</h3><p>A human coach is $300 an hour. Friends are not objective. Nobody checks whether you did it.</p></div>
+        <div class="item"><h3 class="h3">Goals quietly stall</h3><p>The launch, the customers, the hire. They slip when daily work is not tied to the goal.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="head">
+        <h2 class="d2">You just talk to it. <span class="g">It does the rest.</span></h2>
+      </div>
+      <div class="js-sessions"></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="head">
+        <h2 class="d2">What is Legacy Foundry?</h2>
+        <p class="lede">An AI coach for founders. You talk to it like a coach in your corner. It learns your business, plans your day, and holds you accountable, so your goals actually move.</p>
+      </div>
+      <div class="cols c3">
+        <div class="item hit"><h3 class="d3">One coach</h3><p>A single tool with nothing extra to manage. The planning becomes a daily rhythm.</p></div>
+        <div class="item hit"><h3 class="d3">One goal</h3><p>One quarterly goal, thirteen weeks, measured. Your three daily moves serve it.</p></div>
+        <div class="item hit"><h3 class="d3">Real accountability</h3><p>The record is the accountability. Streaks break, goals don't. Nothing is deleted.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="head">
+        <h2 class="d2">Join the founders <span class="g">who finish.</span></h2>
+      </div>
+      <div class="cols c2">
+        <a class="linkcard" href="/for/solo-founders"><h3 class="d3">Solo founders</h3><p>You wear every hat. The coach decides what today is for, so context-switching stops running you.</p><span>For solo founders</span></a>
+        <a class="linkcard" href="/for/agency-owners"><h3 class="d3">Agency owners</h3><p>Client work eats the week. The weekly session pulls you back to the goal you set for the quarter.</p><span>For agency owners</span></a>
+        <a class="linkcard" href="/for/accelerators"><h3 class="d3">Accelerators and builders</h3><p>Thirteen weeks, one goal, measured. The same cadence a cohort runs, without the $300 hourly coach.</p><span>For accelerators</span></a>
+        <a class="linkcard" href="/for/side-project-builders"><h3 class="d3">Side-project builders</h3><p>You get four hours a week. Three moves are waiting when you open the laptop, chosen the night before.</p><span>For side-project builders</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="head">
+        <h2 class="d2">An AI coach that actually <span class="g">knows your business.</span></h2>
+        <p class="lede">General AI answers your question and forgets you. Legacy Foundry remembers, and holds you to it.</p>
+      </div>
+      <div class="cols c4">
+        <div class="item"><h3 class="h3">Founder persona onboarding</h3><p>It maps your stage, goals and work style, so sessions fit you and the advice is not recycled.</p></div>
+        <div class="item"><h3 class="h3">The habit engine</h3><p>Streaks and nudges that reward consistency. Founders who win are consistent before they are clever.</p></div>
+        <div class="item"><h3 class="h3">Goal arcs and memory</h3><p>Your daily three moves link to the long-term goal, so each day serves the bigger picture.</p></div>
+        <div class="item"><h3 class="h3">On-demand mentor</h3><p>Call a Strategist, Guide or Challenger. The same coach, with a different level of pressure.</p></div>
+      </div>
+      <p class="note" style="margin-top:44px">It won't write your code, run your ads, or make the call for you. It won't tell you your idea is brilliant because you want to hear it. And it won't replace a human mentor who knows your industry. What it does is make sure the work you already know you should do actually happens.</p>
+    </div>
+  </section>
+
+  <section class="sec deep">
+    <div class="wrap">
+      <div class="split">
+        <div class="stack">
+          <h2 class="d2">Built by people who've already built <span class="g">lasting companies.</span></h2>
+          <p class="lede">This isn't a weekend project. It's built by Legacy Foundry and backed by the OnnoRokom Group, one of Bangladesh's most established tech groups, founded in 2001, with a 1,000+ person team and ventures like Rokomari.com.</p>
+        </div>
+        <div class="stack">
+          <div class="item hit"><h3 class="h3">Mahmudul Hasan Sohag</h3><p>Co-founder and Chairman of OnnoRokom Group. Founded 2001. Rokomari.com.</p></div>
+          <ul class="checks">
+            <li>300 founding members</li>
+            <li>Building since 2001</li>
+            <li>Available on Google Play</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="head">
+        <h2 class="d2">What's included with <span class="g">Legacy Foundry</span></h2>
+      </div>
+      <div class="scroll">
+        <table>
+          <thead><tr><th scope="col">Feature</th><th scope="col">Human coach</th><th scope="col">Generic AI</th><th scope="col">On your own</th><th scope="col" class="us">Legacy Foundry</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Three moves every morning</th><td>Weekly at best</td><td>If you ask</td><td>Some days</td><td class="us">Included</td></tr>
+            <tr><th scope="row">Evening check-in</th><td class="no">Not included</td><td class="no">Not included</td><td>Rarely</td><td class="us">Included</td></tr>
+            <tr><th scope="row">Weekly and monthly review</th><td>$300 an hour</td><td class="no">Not included</td><td class="no">Not included</td><td class="us">Included</td></tr>
+            <tr><th scope="row">Remembers your business</th><td>Yes</td><td>Forgets you</td><td>In your head</td><td class="us">Included</td></tr>
+            <tr><th scope="row">Founder persona onboarding</th><td>After 3 sessions</td><td class="no">Not included</td><td class="no">Not included</td><td class="us">Included</td></tr>
+            <tr><th scope="row">Habit engine and streaks</th><td class="no">Not included</td><td class="no">Not included</td><td class="no">Not included</td><td class="us">Included</td></tr>
+            <tr><th scope="row">Goal arcs tied to the quarter</th><td>Sometimes</td><td class="no">Not included</td><td class="no">Not included</td><td class="us">Included</td></tr>
+            <tr><th scope="row">On-demand mentor, 24/7</th><td class="no">Not included</td><td>Generic advice</td><td class="no">Not included</td><td class="us">Included</td></tr>
+            <tr><th scope="row">Nothing is deleted when you slip</th><td class="no">Not included</td><td>No history</td><td class="no">Not included</td><td class="us">Included</td></tr>
+            <tr><th scope="row">Overall price</th><td>$300 an hour</td><td>$20+ a month</td><td>Free, and stalled</td><td class="us">$12.46 a month</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="split">
+        <div class="stack">
+          <h2 class="d2">Everything you need to finish the quarter, <span class="g">even on the go.</span></h2>
+          <p class="lede">Your coach lives in your pocket. Five minutes in the morning, five at night, wherever the day happens.</p>
+          <div class="cols" style="gap:20px;margin-top:8px">
+            <div class="item"><h3 class="h3">Morning session</h3><p>Three concrete moves before the noise starts.</p></div>
+            <div class="item"><h3 class="h3">Evening check-in</h3><p>Log the day, protect tomorrow's focus.</p></div>
+            <div class="item"><h3 class="h3">24/7 mentor</h3><p>Strategist, Guide or Challenger, whenever you need one.</p></div>
+          </div>
+          <div class="row" style="margin-top:10px">
+            <a class="btn btn-go js-play" href="https://play.google.com/store/apps/details?id=com.oi.legacyfoundry"></a>
+            <span class="small">iOS coming soon</span>
+          </div>
+        </div>
+        <div class="phone" style="justify-self:center" role="img" aria-label="An evening check-in conversation in the Legacy Foundry app.">
+          <div class="screen">
+            <div class="who">Evening check-in</div>
+            <div class="chat">
+              <div class="msg you">Leads and pricing page done. Only booked 1 demo.</div>
+              <div class="msg coach">Two of three. What got in the way of the second demo? I'll put it first tomorrow.</div>
+              <div class="msg you">Calendar tag. Tomorrow, first thing.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="head">
+        <h2 class="d2">A human coach is $300 an hour. <span class="g">This is <span class="js-headprice">$149.53 a year</span>.</span></h2>
+        <p class="lede">One plan, everything in it. Cancel whenever you want.</p>
+      </div>
+      <div class="js-pricing"></div>
+      <p style="margin-top:22px"><a class="g" href="/pricing">Compare plans in full</a></p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="head"><h2 class="d2">Questions founders ask <span class="g">before they start.</span></h2></div>
+      <div class="js-faq" data-keys="chatgpt,skip,fulltime,private,web,stop"></div>
+    </div>
+  </section>
+
+  <div class="js-cta"></div>
+</div>
+<div id="view" hidden></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <h2 class="d3">Fits the way founders already work</h2>
+    <ul class="fits">
+      <li>Google Play</li><li>iOS soon</li><li>Quarterly goals</li><li>Daily three moves</li><li>Habit streaks</li><li>24/7 mentor chat</li><li>Goal memory</li>
+    </ul>
+    <div class="fgrid">
+      <div class="stack">
+        <a class="logo" href="/" aria-label="Legacy Foundry home"><img src="/logo.png" alt="Legacy Foundry"></a>
+        <div class="row"><a class="btn btn-line js-play" href="https://play.google.com/store/apps/details?id=com.oi.legacyfoundry"></a></div>
+        <p class="small">iOS coming soon</p>
+        <p class="mute">team@legacyfoundry.ai</p>
+      </div>
+      <div><h3>Product</h3><ul><li><a href="/how-it-works">How it works</a></li><li><a href="/features">Features</a></li><li><a href="/pricing">Pricing</a></li><li><a href="/get-started">Get started</a></li></ul></div>
+      <div><h3>Use cases</h3><ul><li><a href="/for/solo-founders">Solo founders</a></li><li><a href="/for/agency-owners">Agency owners</a></li><li><a href="/for/accelerators">Accelerators</a></li><li><a href="/for/side-project-builders">Side-project builders</a></li></ul></div>
+      <div><h3>Company</h3><ul><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li><li><a href="/press-kit">Press kit</a></li><li><a href="/affiliates">Affiliates</a></li></ul></div>
+      <div><h3>Legal</h3><ul><li><a href="/terms">Terms</a></li><li><a href="/privacy">Privacy</a></li><li><a href="/refund-policy">Refund policy</a></li><li><a href="/security">Security</a></li></ul></div>
+    </div>
+    <div class="legalrow"><span>&copy; 2026 Legacy Foundry. OnnoRokom Group.</span><span>Legacy Foundry, Dhaka, Bangladesh. team@legacyfoundry.ai</span></div>
   </div>
-</div></header>
+</footer>
 
-<div class="whatis"><div class="wrap">
-  <span class="tag">What is Legacy Foundry?</span>
-  <span>An AI coach for founders. You talk to it like a coach in your corner — it learns your business, plans your day, and holds you accountable, so your goals actually move.</span>
-</div></div>
-
-<section id="problems"><div class="wrap">
-  <div class="head"><span class="kicker">The founder's reality</span><h2>As a founder, you don't have a knowledge problem. You have a follow-through problem.</h2><p class="lead">Every founder knows what they should do. Doing it — alone, consistently, with no one watching — is the hard part. That's the gap Legacy Foundry closes.</p></div>
-  <div class="grid4">
-    <div class="card"><div class="n">01</div><h3>Wearing every hat</h3><p>Product, sales, marketing, ops — all you. Context-switching grinds you down until burnout feels normal.</p></div>
-    <div class="card"><div class="n">02</div><h3>Decision fatigue</h3><p>A hundred tiny choices drain you before you ever touch the work that moves the business.</p></div>
-    <div class="card"><div class="n">03</div><h3>No accountability</h3><p>A human coach is $300/hour. Friends are too kind. Nobody checks whether you did what you said.</p></div>
-    <div class="card"><div class="n">04</div><h3>Goals quietly stall</h3><p>The launch, the first ten customers, the first hire — they slip, because nothing connects today to the goal.</p></div>
-  </div>
-</div></section>
-
-<section class="bridge"><div class="wrap">
-  <span class="eyebrow light">The solution</span>
-  <h2>If that's you, here's the fix.</h2>
-  <p>Legacy Foundry closes those four gaps. You don't manage another tool — you talk to it, and it turns your business into a daily rhythm.</p>
-  <a href="https://forms.gle/zfffxQVprgRsTpJk8" target="_blank" rel="noopener" class="btn btn-primary">Start free →</a>
-</div></section>
-
-<section id="how"><div class="wrap">
-  <div class="head"><span class="kicker">How it works</span><h2>You just talk to it. It does the rest.</h2><p class="lead">Set one quarterly goal, and your coach turns it into daily action through short, regular conversations.</p></div>
-  <div class="steps">
-    <div class="step"><div class="when">☀️ Morning session</div><h3>Set the day</h3><p>It hands you three concrete moves for today — your most important actions, tied to your goal.</p><span class="fix">Beats decision fatigue</span></div>
-    <div class="step"><div class="when">🌙 Evening session</div><h3>Review &amp; reset</h3><p>Tell it how the day went; it logs blockers and protects tomorrow's focus.</p><span class="fix">Real accountability</span></div>
-    <div class="step"><div class="when">🧭 Weekly session</div><h3>Zoom out</h3><p>A deeper review that ties your week back to your goal and recalibrates priorities.</p><span class="fix">Stay on track</span></div>
-    <div class="step"><div class="when">📅 Monthly session</div><h3>Plan the month ahead</h3><p>Step back, review real progress against your goal, and map out the month to come.</p><span class="fix">See the big picture</span></div>
-  </div>
-  <div style="margin-top:28px"><a href="how-it-works.html" class="btn btn-primary">See the full flow →</a></div>
-</div></section>
-
-<section id="video" class="videosec"><div class="wrap">
-  <span class="eyebrow light">1-minute intro</span>
-  <h2>Meet Legacy Foundry.</h2>
-  <p>A quick look at what Legacy Foundry is — and why founders are joining the beta.</p>
-  <div class="vidbox"><video controls preload="metadata" poster="video-poster.jpg" playsinline>
-    <source src="explainer.mp4" type="video/mp4">
-  </video></div>
-</div></section>
-
-<section id="features" style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)"><div class="wrap">
-  <div class="head"><span class="kicker">What's under the hood</span><h2>An AI coach that actually knows your business.</h2><p class="lead">General AI answers your question and forgets you. Legacy Foundry remembers — and holds you to it.</p></div>
-  <div class="feat">
-    <div class="card"><h3>Founder persona onboarding</h3><p>It maps your stage, goals, and how you work — so every session is tailored to your reality, not recycled advice.</p></div>
-    <div class="card"><h3>The habit engine</h3><p>Streaks and nudges that reward showing up. The founders who win aren't the smartest — they're the most consistent.</p></div>
-    <div class="card"><h3>Goal arcs &amp; memory</h3><p>Links today's three moves to your long-term goals, so daily motion always serves the bigger picture.</p></div>
-  </div>
-  <div style="margin-top:26px"><a href="features.html" class="btn btn-primary">Explore all features →</a></div>
-</div></section>
-
-<section id="trust" class="trust"><div class="wrap">
-  <div class="head"><span class="eyebrow light">Why you can trust this</span><h2>Built by people who've already built lasting companies.</h2></div>
-  <p>This isn't a weekend project. It's built by <b style="color:#fff">Legacy Ventures</b> and backed by the <b style="color:#fff">Onnorokom Group</b> — one of Bangladesh's most established tech groups, founded in 2001, with a 1,000+ person team and ventures like <b style="color:#fff">Rokomari.com</b>.</p>
-  <div class="who-card"><div class="av">MHS</div><div><div class="nm">Mahmudul Hasan Sohag</div><div class="ro">Co-founder &amp; Chairman, Onnorokom Group — stands behind Legacy Foundry</div></div></div>
-  <div class="tstats"><div><b>2001</b><span>Building companies since</span></div><div><b>1,000+</b><span>Team across the group</span></div><div><b>∞</b><span>It never forgets your business</span></div><div><b>Free</b><span>For every founding member in beta</span></div></div>
-</div></section>
-
-<section id="cta" class="cta"><div class="wrap">
-  <span class="eyebrow" style="background:rgba(255,255,255,.2);color:#fff"><span class="pill" style="background:#fff;color:var(--brand-ink)">Public beta</span> Limited spots</span>
-  <h2 style="margin-top:14px">Be one of the first 300 founders.</h2>
-  <p style="color:#eafaf3;max-width:600px;margin:0 auto 24px">Join the public beta free, shape the product with your feedback, and lock in a founding-member deal that won't return after launch.</p>
-  <a href="https://forms.gle/zfffxQVprgRsTpJk8" target="_blank" rel="noopener" class="btn btn-primary">Try the beta — it's free →</a>
-  <div style="margin-top:18px"><a href="contact.html" style="color:#eafaf3;font-size:14px;text-decoration:underline">Questions? Talk to us →</a></div>
-</div></section>
-
-<footer><div class="wrap fbot"><span>© 2026 Legacy Foundry · Legacy Ventures · Onnorokom Group</span><span><a href="contact.html">Contact</a> · Privacy · Terms</span></div></footer>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="config.js"></script>
-<script src="site.js"></script>
 <script>
 (function(){
-  var car=document.getElementById('car');
-  if(!car)return; var n=car.children.length, i=0, timer;
-  function go(){ car.style.transform='translateX(-'+(i*100)+'%)'; }
-  function restart(){ clearInterval(timer); timer=setInterval(function(){ i=(i+1)%n; go(); }, 2600); }
-  restart();
+var PLAY="https://play.google.com/store/apps/details?id=com.oi.legacyfoundry";
+var MAIL="team@legacyfoundry.ai";
+var playIcon='<svg width="15" height="17" viewBox="0 0 15 17" fill="currentColor" aria-hidden="true"><path d="M1 .8v15.4l13-7.7z"/></svg>';
+function g(s){return '<span class="g">'+s+'</span>'}
+function startBtn(label){return '<a class="btn btn-go" href="'+PLAY+'">'+(label||'Start free')+'</a>'}
+
+/* ---------- shared content ---------- */
+var FAQ={
+ chatgpt:["Is this just ChatGPT with a different name?","No. ChatGPT answers your question and forgets you by tomorrow. Legacy Foundry holds a quarterly goal, remembers every commitment you made, and asks you about the ones you missed. The value is in the memory and the follow-up, not the answers."],
+ skip:["What if I skip a few days?","Your coach picks it up in the next session and asks what got in the way. Streaks break, goals don't. Nothing is deleted."],
+ fulltime:["Do I need to be a full-time founder?","No. Plenty of founding members are still employed and building on the side. The morning session takes about five minutes."],
+ private:["Is my business information private?",'Yes. Your goals, sessions and commitments are yours. We don\'t train public models on them, and you can export or delete everything from inside the app. Full detail on the <a class="g" href="/security">security page</a>.'],
+ web:["Is there a web version?","The app is on Google Play today. A web app is on the roadmap, and members vote on where it sits in the queue."],
+ stop:["What happens when I stop paying?","You drop to the free plan. Your goal history, streaks and commitments stay in your account. Nothing is deleted."],
+ cancel:["What happens when I cancel?","You drop to the free plan at the end of the period you paid for. Your goals, streaks and commitment history stay in your account. We don't delete anything."],
+ sw:["Can I switch between monthly and yearly?","Any time. Switching to yearly credits what you've already paid for the current month."],
+ refund:["Is there a refund?","14 days, no questions asked. Email "+MAIL+" and it's done."],
+ free:["What does the free plan actually include?","One quarterly goal, the morning session, one habit, and 7 days of memory. It's a real product, not a locked screen. It just doesn't hold your history."],
+ cost:["How much does it cost?","Free is $0 forever. Premium is $20.00 a month, or $149.53 a year billed annually."],
+ costLink:["How much does it cost?",'Current pricing is on the <a class="g" href="/pricing">pricing page</a>.'],
+ pay:["What payment methods do you take?","Cards and PayPal, everywhere. Local methods are coming as volume grows."]
+};
+function faq(keys){return '<div class="faq">'+keys.map(function(k){var f=FAQ[k];return '<details><summary>'+f[0]+'</summary><p>'+f[1]+'</p></details>'}).join('')+'</div>'}
+
+var FEAT={
+ goals:["Quarterly goals","Set one clear 13-week goal. Track progress, streak, momentum and days left at a glance."],
+ sessions:["Morning and evening sessions","A real conversation with your coach to set the day's moves and review them at night."],
+ moves:["Daily moves","Your top three commitments for the day, tied to your goal, so you always know the next right action."],
+ reviews:["Weekly and monthly sessions","Zoom out: a weekly deep review, and a monthly session to plan the month ahead."],
+ pulse:["Today's Pulse","A quick mood check-in your coach remembers and factors into your next session."],
+ mentor:["On-demand mentor","A strategic advisor you can summon any time. Pick a Strategist, Guide, or Challenger style."],
+ habits:["Habit tracker","Build the daily habits behind your goal, with streaks and reminders."],
+ chat:["24/7 Quick Chat","Instant support between sessions whenever a question or blocker comes up."],
+ memory:["Remembers everything","It never forgets your business, your goals, or what you said yesterday."],
+ history:["Commitment history","Every move you committed to, and whether you did it. The record is the accountability."]
+};
+function feats(keys,cols){return '<div class="cols c'+(cols||3)+'">'+keys.map(function(k){return '<div class="item"><h3 class="h3">'+FEAT[k][0]+'</h3><p>'+FEAT[k][1]+'</p></div>'}).join('')+'</div>'}
+
+function cta(h,p,btn,small){
+ return '<section class="cta"><div class="wrap"><h2 class="d2">'+(h||'Tomorrow morning, you could already know your three moves.')+'</h2><p class="lede">'+(p||'Set up takes about ten minutes. The first session takes five.')+'</p>'+(btn||'<a class="btn" href="'+PLAY+'">Start free</a>')+'<p class="small">'+(small||'No card required. 14 days of the full coach. Cancel anytime.')+'</p></div></section>';
+}
+function hero(h,p,extra){return '<section class="sub-hero"><div class="wrap"><div class="bar"></div><h1 class="d1">'+h+'</h1>'+(p?'<p class="lede">'+p+'</p>':'')+(extra||'')+'</div></section>'}
+function sec(inner,deep){return '<section class="sec ruled'+(deep?' deep':'')+'"><div class="wrap">'+inner+'</div></section>'}
+function head(h,p){return '<div class="head"><h2 class="d2">'+h+'</h2>'+(p?'<p class="lede">'+p+'</p>':'')+'</div>'}
+function phone(label,inner){return '<div class="phone" role="img" aria-label="'+label+'"><div class="screen">'+inner+'</div></div>'}
+function chat(title,lines){return '<div class="who">'+title+'</div><div class="chat">'+lines.map(function(l,i){return '<div class="msg '+(i%2?'coach':'you')+'">'+l+'</div>'}).join('')+'</div>'}
+
+/* ---------- sessions (tabs) ---------- */
+var SESS=[
+ {n:"Morning",t:"Set the day",m:"About 5 minutes",p:"You talk through how you're feeling and what's in front of you. It hands you three concrete moves for today, your most important actions, tied to your goal.",b:["Beats decision fatigue","Takes five minutes","Always tied to the quarter"],c:["Goal: 10 paying customers by Q4.","Today's three moves: follow up with the 4 warm leads, ship the pricing page, book 2 demos.","On it."]},
+ {n:"Evening",t:"Review and reset",m:"About 3 minutes",p:"You say what got done and what didn't. It logs the blockers so the same one doesn't take out tomorrow.",b:["Logs what blocked you","Takes three minutes","Protects tomorrow's focus"],c:["Leads and pricing page done. Only booked 1 demo.","Two of three. What got in the way of the second demo? I'll put it first tomorrow.","Calendar tag. Tomorrow, first thing."]},
+ {n:"Weekly",t:"Zoom out",m:"About 15 minutes",p:"A deeper review that ties the week back to your quarterly goal, and recalibrates what matters next.",b:["Ties the week to the quarter","Recalibrates what matters next"],c:["Week done. 3 new customers, 6 of 10.","Ahead of pace. Demos convert best, so next week leans on booking them over cold outreach.","Makes sense. Shift it."]},
+ {n:"Monthly",t:"Plan the month ahead",m:"About 20 minutes",p:"Progress against the goal, honestly. Then the map for the month coming.",b:["An honest progress check","A plan for the month ahead"],c:["Month one closed. Where are we against Q4?","6 of 10 customers, two months left. This month: a referral ask to every customer, and 8 demos.","Locking it in."]}
+];
+function sessions(){
+ return '<div class="tabs" role="tablist" aria-label="Session types">'+SESS.map(function(s,i){return '<button role="tab" aria-selected="'+(i===0)+'" data-i="'+i+'">'+s.n+'</button>'}).join('')+'</div><div class="panel" role="tabpanel"></div>';
+}
+function panel(i){var s=SESS[i];
+ return '<div class="stack"><p class="small">'+s.m+'</p><h3 class="d3">'+s.t+'</h3><p class="mute" style="max-width:34em">'+s.p+'</p><ul class="checks">'+s.b.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul></div><div class="talk">'+chat(s.n+' session',s.c)+'</div>';
+}
+function wireSessions(root){
+ root.querySelectorAll('.js-sessions').forEach(function(el){
+  el.innerHTML=sessions();var p=el.querySelector('.panel');p.innerHTML=panel(0);
+  el.querySelectorAll('[role=tab]').forEach(function(b){b.addEventListener('click',function(){
+   el.querySelectorAll('[role=tab]').forEach(function(x){x.setAttribute('aria-selected',x===b)});p.innerHTML=panel(+b.dataset.i);
+  })});
+ });
+}
+
+/* ---------- pricing ---------- */
+var yearly=true;
+function pricing(){
+ return '<div class="toggle" role="group" aria-label="Billing period"><button data-y="0" aria-pressed="'+(!yearly)+'">Monthly</button><button data-y="1" aria-pressed="'+yearly+'">Yearly</button></div>'+
+ '<div class="plans">'+
+ '<div class="plan"><div class="name"><span>Free</span></div><div class="price">$0 <small>forever</small></div><a class="btn btn-line" href="/get-started">Start free</a>'+
+ '<ul class="checks"><li>Structured coaching sessions</li><li>1 monthly kickoff session</li><li>1 weekly session</li><li>5 morning sessions</li><li>5 evening sessions</li></ul></div>'+
+ '<div class="plan best"><div class="name"><span>Premium</span>'+(yearly?'<span class="tag">Save 37%</span>':'')+'</div>'+
+ (yearly?'<div class="price">$149.53 <small>a year <span class="was">was $299</span></small></div>':'<div class="price">$20.00 <small>a month</small></div>')+
+ '<a class="btn btn-go" href="/get-started">Start 14-day free trial</a>'+
+ '<ul class="checks"><li>Structured coaching sessions</li><li>24/7 instant coaching</li><li>Mentor chats</li><li>File attachments</li><li>Web tools</li></ul>'+
+ '<p class="small">Early Bird Offer: 50% off Premium, applied at checkout and locked for as long as you stay subscribed.</p></div></div>'+
+ '<ul class="trust"><li>14-day refund, no questions</li><li>Cancel in two taps</li><li>No card for the free plan</li><li>Export your data any time</li><li>Secure payment by our merchant of record</li></ul>';
+}
+function drawPricing(){
+ document.querySelectorAll('.js-pricing').forEach(function(el){el.innerHTML=pricing();
+  el.querySelectorAll('.toggle button').forEach(function(b){b.addEventListener('click',function(){yearly=b.dataset.y==='1';drawPricing()})});});
+ document.querySelectorAll('.js-headprice').forEach(function(el){el.textContent=yearly?'$149.53 a year':'$20.00 a month'});
+}
+
+/* ---------- pages ---------- */
+function useCase(o){
+ return hero(o.h,o.p,'<div class="row">'+(o.btn||startBtn())+'</div>')+
+ sec(head('What this looks like '+g('right now'))+'<div class="cols c3">'+o.now.map(function(x){return '<div class="item"><p style="color:var(--fg);font-size:1.12rem">'+x+'</p></div>'}).join('')+'</div>')+
+ (o.extra?sec('<div class="split"><h2 class="d2">'+o.extra[0]+'</h2><p class="lede" style="padding-top:8px">'+o.extra[1]+'</p></div>',true):'')+
+ sec(head('The features that matter most '+g('for this'))+feats(o.f))+
+ sec(head('Questions')+faq(o.q))+cta();
+}
+function legal(title,sub,items,first){
+ return hero(title,sub)+sec('<p class="note" style="margin-bottom:36px">This page is a structural draft. It has not yet been reviewed by a lawyer and is not a binding agreement. It will be replaced with reviewed text before launch.</p><ol class="legal" style="list-style:none;padding:0;margin:0">'+items.map(function(t,i){return '<li><h3 class="h3">'+('0'+(i+1)).slice(-2)+'. '+t+'</h3><p>'+(i===0&&first?first:'Pending legal review.')+'</p></li>'}).join('')+'</ol><p class="mute" style="margin-top:32px">Questions in the meantime: '+MAIL+'. Our <a class="g" href="/security">security page</a> explains how we handle data in plain language, or you can <a class="g" href="/contact">contact us</a>.</p>');
+}
+function copyMail(){return '<div class="copy"><code>'+MAIL+'</code><button type="button" class="js-copy">Copy</button></div>'}
+
+var PAGES={
+"how-it-works":function(){return hero('One goal. A daily rhythm. '+g('Real momentum.'),'You set one goal for the quarter. Your coach turns it into today, every day, for thirteen weeks.','<div class="row">'+startBtn()+'</div>')+
+ sec('<div class="split"><h2 class="d2">Before you start</h2><p class="lede" style="padding-top:8px">Setup is one conversation, about ten minutes. Your coach asks what you\'re building, what stage you\'re at, and what you want done by the end of the quarter. After that, the only thing you do is show up in the morning and again at night.</p></div>',true)+
+ sec(head('The four '+g('sessions'))+'<div class="js-sessions"></div>')+
+ sec(head('Between the '+g('sessions'))+'<div class="cols c4"><div class="item"><h3 class="h3">On-demand mentor</h3><p>Strategist, Guide, or Challenger modes.</p></div><div class="item"><h3 class="h3">Habit tracker</h3><p>Streaks and reminders.</p></div><div class="item"><h3 class="h3">24/7 quick chat</h3><p>Support whenever a question comes up.</p></div><div class="item"><h3 class="h3">Today\'s Pulse</h3><p>A ten-second mood check.</p></div></div>')+
+ sec('<div class="cols c2"><div class="stack"><h2 class="d3">What it won\'t do</h2><p class="mute">It won\'t write your code, run your ads, or make the call for you. It won\'t tell you your idea is brilliant because you want to hear it.</p></div><div class="stack"><h2 class="d3">Your data</h2><p class="mute">Your data stays in your account, isn\'t used for training public models, and can be exported or deleted from settings.</p></div></div>')+cta()},
+
+"features":function(){return hero('Everything your AI coach does, '+g('and what\'s next.'),'What Legacy Foundry does today, plus a roadmap you help shape. Sign in to vote on what we build next.')+
+ sec(head('What you get the moment '+g('you join.'),'A complete coaching system around one quarterly goal: daily guidance, accountability, and momentum.')+feats(['goals','sessions','moves','reviews','pulse','mentor','habits','chat','memory']))+
+ sec(head('Help shape '+g('the roadmap.'),'Where Legacy Foundry is headed next. Cast your vote. The most-requested features get built first.')+
+ '<div class="scroll" style="max-width:44rem"><table class="two" style="min-width:0"><tbody>'+[['Investor connect','Most requested'],['Team and shared goals',''],['Calendar and reminder sync',''],['Web app',''],['Integrations',''],['Voice sessions',''],['Progress analytics','']].map(function(r){return '<tr><th scope="row">'+r[0]+'</th><td style="text-align:right">'+(r[1]?'<span class="tag">'+r[1]+'</span>':'')+'</td></tr>'}).join('')+'</tbody></table></div><p class="small" style="margin-top:14px">Sign in to vote. One vote per member.</p>'+
+ '<div class="item" style="margin-top:44px;max-width:44rem"><h3 class="h3">Don\'t see what you need? Suggest it.</h3><p>Tell us the feature you wish Legacy Foundry had. If we hear the same idea from enough founders, it goes straight onto the voting list above.</p><p><a class="g" href="/contact">Suggest a feature</a></p></div>',true)+
+ cta('Want all of this?','Start free and begin with your first morning session.')},
+
+"pricing":function(){return hero('A human coach is $300 an hour. '+g('This is <span class="js-headprice">$149.53 a year</span>.'),'One plan, everything in it. Cancel whenever you want.')+
+ '<section class="sec" style="padding-top:0"><div class="wrap"><div class="js-pricing"></div></div></section>'+
+ sec(head('Compare '+g('the plans'))+'<div class="scroll" style="max-width:48rem"><table class="two"><thead><tr><th scope="col">Feature</th><th scope="col">Free</th><th scope="col" class="us">Premium</th></tr></thead><tbody>'+
+ [['Structured coaching sessions','Yes','Yes'],['24/7 instant coaching','No','Yes'],['Mentor chats','No','Yes'],['File attachments','No','Yes'],['Web tools','No','Yes'],['Monthly kickoff sessions','1','Yes'],['Weekly sessions','1','Yes'],['Morning sessions','5','Yes'],['Evening sessions','5','Yes']].map(function(r){return '<tr><th scope="row">'+r[0]+'</th><td class="'+(r[1]==='No'?'no':'')+'">'+(r[1]==='No'?'Not included':r[1]==='Yes'?'Included':r[1])+'</td><td class="us">Included</td></tr>'}).join('')+'</tbody></table></div>')+
+ sec('<div class="split"><h2 class="d2">If you cancel</h2><p class="lede" style="padding-top:8px">You drop to the free plan at the end of the period you paid for. Your goals, streaks and commitment history stay in your account. We don\'t delete anything.</p></div>',true)+
+ sec(head('Pricing '+g('questions'))+faq(['cancel','sw','refund','free','cost','pay']))+
+ cta('Try it for two weeks before you decide.','No card required. 14 days of the full coach, free.',null,'Cancel anytime.')},
+
+"get-started":function(){
+ var steps=[
+  ['Create your account','Takes about ten seconds and no card. You get 14 days of the full coach.',phone('The account screen in the Legacy Foundry app.','<div class="who">Welcome</div><div class="card"><div class="k">Create your account</div><div class="v">No card needed</div></div><div class="card go"><div><div class="k">Included</div><div class="v">14 days of the full coach</div></div><b>Go</b></div>')],
+  ['Before you start','Setup is one conversation, about ten minutes. Your coach asks what you\'re building, what stage you\'re at, and what you want done by the end of the quarter. After that, the only thing you do is show up in the morning and again at night.',phone('The onboarding conversation in the Legacy Foundry app.',chat('Onboarding',['I run a small SaaS. Early revenue.','What do you want done by the end of the quarter?','Goal: 10 paying customers by Q4.']))],
+  ['Set the day','You talk through how you\'re feeling and what\'s in front of you. The coach lands on your top three moves for the day, tied to your goal.',phone('A morning session in the Legacy Foundry app.',chat('Morning session',SESS[0].c))],
+  ['Review and reset','You say what got done and what didn\'t. It logs the blockers so the same one doesn\'t take out tomorrow.',phone('An evening check-in in the Legacy Foundry app.',chat('Evening check-in',SESS[1].c))]
+ ];
+ return hero('Up and running '+g('in minutes.'),'Exactly how to set up Legacy Foundry, onboard with your AI coach, and run your first session.','<div class="row">'+startBtn()+'<span class="small">No card required. 14 days of the full coach, free.</span></div>')+
+ sec('<div class="steps">'+steps.map(function(s){return '<div class="step"><div class="stack"><h2 class="d2">'+s[0]+'</h2><p class="lede">'+s[1]+'</p></div>'+s[2]+'</div>'}).join('')+'</div><p class="note" style="margin-top:48px">That\'s the full cycle. Set up once, then run the loop. Every day compounds into real, steady progress toward your goal.</p>')+
+ sec('<div class="split"><div class="stack"><h2 class="d2">On iPhone?</h2><p class="lede">The app is Android-only today and iOS is on the roadmap. Leave your email and we\'ll tell you the day it lands.</p><div class="row"><a class="btn btn-line js-play" href="'+PLAY+'"></a><span class="small">iOS coming soon</span></div></div>'+
+ '<form class="js-mailform" data-subject="Tell me when iOS lands"><label for="ios-email">Your email<input id="ios-email" name="email" type="email" required autocomplete="email"></label><button class="btn btn-go" type="submit">Email me</button><p class="small">This opens your mail app addressed to '+MAIL+'. Nothing is stored here.</p><p class="status" role="status" hidden></p></form></div>',true)+cta(null,null,null,'No card required. 14 days of the full coach, free.')},
+
+"solo-founders":function(){return useCase({h:'Nobody is checking whether you did it. '+g('That\'s the whole problem.'),p:'An AI coach that gives you three moves every morning and asks about them every night.',
+ now:['You are the only person who knows what you promised yourself on Monday.','The urgent work always wins, and the goal work waits for a quieter week that never comes.','You have read the books. The gap is not knowledge.'],
+ extra:['A day in the life','7:40am, five minutes with the coach, three moves locked. 9pm, three minutes, what happened and why. That\'s the whole system.'],
+ f:['moves','sessions','history'],q:['skip','chatgpt','free']})},
+"agency-owners":function(){return useCase({h:'Client work pays this month. '+g('Nothing you do today builds next year.'),p:'A coach that protects the hours you keep giving away to whoever emailed last.',
+ now:['Every hour is billable, so the business itself never gets any.','You have wanted to productise for two years and the deck is still a draft.','Growth means more clients, which means less time, which means less growth.'],
+ f:['goals','reviews','mentor'],q:['fulltime','cancel','sw']})},
+"accelerators":function(){return useCase({h:'Your founders are brilliant in the session '+g('and stuck by Wednesday.'),p:'Give every founder in the cohort a coach between your sessions, and see who is actually executing.',btn:'<a class="btn btn-go" href="/contact">Talk to us about your cohort</a>',
+ now:['Mentor hours are expensive and they do not scale past the cohort you have now.','You find out a founder stalled at the next demo day, not the next day.','The founders who need the most follow-up are the ones least likely to ask for it.'],
+ extra:['What you get','A cohort dashboard showing goals, streaks and momentum across every founder, without reading anyone\'s private sessions.'],
+ f:['goals','habits','history'],q:['costLink','private','pay']})},
+"side-project-builders":function(){return useCase({h:'You get four hours a week. '+g('They should not go on deciding what to do.'),p:'Three moves waiting for you when you open the laptop, chosen the night before.',
+ now:['By the time you have context back, the evening is gone.','Progress is invisible week to week, so motivation drains.','Nobody notices if you skip a week. Or a month.'],
+ f:['moves','habits','chat'],q:['fulltime','skip','free']})},
+
+"about":function(){return hero('Building ethical entrepreneurs who unite '+g('innovation with wisdom.'),'Legacy Foundry is more than an app. It\'s the daily engine of a bigger belief: that founders should build businesses that put people before ideas.')+
+ sec('<div class="split"><h2 class="d2">Why we exist</h2><p class="lede" style="padding-top:8px">The world has advanced technologically, and yet lost some of its soul. We\'re here to reunite progress with purpose, innovation with wisdom, and growth with balance.</p></div>',true)+
+ sec(head('Progress '+g('with conscience.'))+'<div class="prose"><p>The last century brought huge advancement, but also burnout, broken focus, and success that costs us our wellbeing. The missing piece isn\'t more technology. It\'s wisdom: building with conscience, so growth uplifts life.</p><p>That belief lives in the OnnoRokom ecosystem, which helps impact-driven founders build ethical, sustainable ventures through mentoring, coaching, community, and investor access. It started in Bangladesh, but the purpose is global: founders who create value with virtue.</p><p>Legacy Foundry is how that mission shows up daily. A founder who follows through, consistently, with clarity and care, doesn\'t just build a company. They build a legacy worth having.</p></div>')+
+ sec(head('The principles behind '+g('the product.'))+'<div class="cols c3"><div class="item hit"><h3 class="d3">People before ideas</h3><p>We nurture the founder first. Real, lasting ventures are built by people who are supported, accountable, and well. Not burned out.</p></div><div class="item hit"><h3 class="d3">Innovation with wisdom</h3><p>We pair Western innovation with Eastern wisdom, building with conscience, so progress serves humanity and not the other way around.</p></div><div class="item hit"><h3 class="d3">Consistency compounds</h3><p>Follow-through is where ambition becomes legacy. We make showing up, every morning, the easiest thing you do.</p></div></div>')+
+ sec(head('Backed by builders who play '+g('the long game.'),'Legacy Foundry is built by Legacy Ventures within the OnnoRokom Group, one of Bangladesh\'s most established tech groups, founded in 2001, with a 1,000+ person team and ventures like Rokomari.com. This isn\'t a weekend project. It\'s a long-term commitment from people who\'ve spent two decades building companies that endure.')+
+ '<div class="item hit" style="max-width:34rem"><h3 class="h3">Mahmudul Hasan Sohag</h3><p>Co-founder and Chairman, OnnoRokom Group. He stands behind Legacy Foundry.</p></div>'+
+ '<div class="stats" style="grid-template-columns:repeat(3,minmax(0,1fr))"><div><div class="n">2001</div><p>Building companies since</p></div><div><div class="n">1,000+</div><p>People across the group</p></div><div><div class="n">Global</div><p>A mission for founders everywhere</p></div></div>',true)+
+ sec(head('A movement of founders, '+g('and the investors who back them.'),'We\'re building an ecosystem where a founder\'s daily progress is visible, and where investors can discover and back high-performing founders directly. Follow-through shouldn\'t just build your company. It should open doors. That future is on our roadmap, shaped by our founders.'))+
+ cta('Be part of the early story.','Start free and help shape what Legacy Foundry becomes.')},
+
+"contact":function(){return hero('Talk to '+g('a person.'),'Support questions, cohort pricing, press, or something that broke. We answer within one working day.',copyMail())+
+ sec(head('Send us '+g('a message'))+'<form class="js-mailform" data-subject=""><label for="c-name">Your name<input id="c-name" name="name" required autocomplete="name"></label><label for="c-email">Your email<input id="c-email" name="email" type="email" required autocomplete="email"></label><label for="c-topic">What is this about<select id="c-topic" name="topic"><option>Support</option><option>Cohort pricing</option><option>Press</option><option>Affiliate programme</option><option>Something broke</option></select></label><label for="c-msg">Your message<textarea id="c-msg" name="message" required></textarea></label><button class="btn btn-go" type="submit" style="justify-self:start">Send it</button><p class="small">This opens your mail app with everything above addressed to '+MAIL+'. Nothing is stored on this site.</p><p class="status" role="status" hidden></p></form>')},
+
+"press-kit":function(){
+ var d=[['One sentence','An AI coach for founders. You talk to it like a coach in your corner. It learns your business, plans your day, and holds you accountable, so your goals actually move.'],
+ ['25 words','Legacy Foundry is an AI coach for founders. It sets three daily moves toward one quarterly goal, then checks every night whether you did them.'],
+ ['50 words','Legacy Foundry is an AI coach built for founders and entrepreneurs. You set one 13-week goal, and the coach turns it into three concrete moves every morning, reviews them with you every night, and remembers every commitment you make. Built within Bangladesh\'s OnnoRokom Group.'],
+ ['100 words','Legacy Foundry is an AI coach for founders and entrepreneurs, built on a simple premise: founders don\'t have a knowledge problem, they have a follow-through problem. You set one goal for the quarter. Every morning the coach gives you three concrete moves toward it. Every evening it asks what happened. Weekly and monthly sessions step back and recalibrate, and an on-demand mentor is available in Strategist, Guide or Challenger mode between sessions. Unlike general AI, it remembers your business and every commitment you\'ve made. Legacy Foundry is built within the OnnoRokom Group, founded in 2001, with a 1,000+ person team.']];
+ var k=[['Founded','2026'],['Parent','OnnoRokom Group (founded 2001)'],['Team','1,000+ across the group'],['Platform','Android. Web and iOS on the roadmap'],['Pricing','Free plan, plus paid plans billed monthly or yearly. Current pricing at legacyfoundry.ai/pricing'],['Chairman','Mahmudul Hasan Sohag'],['Contact',MAIL]];
+ return hero('Press '+g('kit'),'Everything you need to write about Legacy Foundry, ready to copy.')+
+ sec(head('Descriptions, '+g('ready to copy'))+'<div class="stack" style="gap:28px;max-width:48rem">'+d.map(function(x,i){return '<div class="item"><div class="row" style="justify-content:space-between"><h3 class="h3">'+x[0]+'</h3><button type="button" class="btn btn-line js-copytext" style="min-height:40px;padding:.3em 1em" data-i="'+i+'">Copy</button></div><p id="pk'+i+'">'+x[1]+'</p></div>'}).join('')+'</div>')+
+ sec(head('Key '+g('facts'))+'<div class="scroll" style="max-width:48rem"><table class="two" style="min-width:0"><tbody>'+k.map(function(r){return '<tr><th scope="row" style="color:var(--dim);width:9em">'+r[0]+'</th><td style="color:var(--fg)">'+r[1]+'</td></tr>'}).join('')+'</tbody></table></div>',true)+
+ sec(head('Press '+g('contact'),'Answered within one working day.')+copyMail())},
+
+"affiliates":function(){return hero('Earn from founders you were going to '+g('help anyway.'),'30% of every payment, for the first twelve months, on anyone who signs up through your link.','<div class="row"><a class="btn btn-go" href="/contact">Apply to the programme</a></div>')+
+ sec(head('Programme '+g('terms'))+'<div class="stats" style="margin-top:0"><div><div class="n">30%</div><p>Recurring for 12 months</p></div><div><div class="n">60 days</div><p>Cookie window</p></div><div><div class="n">$50</div><p>Paid monthly once you pass it</p></div><div><div class="n">No cap</div><p>On referrals</p></div></div>',true)+
+ sec('<div class="cols c2"><div class="item hit"><h2 class="d3">What you get</h2><p>A dashboard, your link, and a set of assets that don\'t look like ads.</p></div><div class="item hit"><h2 class="d3">Community partner track</h2><p>Running a founder community, a Slack group, or a newsletter? There\'s a separate arrangement with better terms and co-branded onboarding for your members. <a class="g" href="/contact">Talk to us.</a></p></div></div>')+
+ cta('Apply to the programme.','Tell us where you reach founders and we\'ll set up your link.','<a class="btn" href="/contact">Apply to the programme</a>','We answer within one working day.')},
+
+"security":function(){
+ var s=[['What we store','Your business context, your quarterly goal, your sessions, and every commitment you made. That memory is what makes the coach useful.'],
+ ['What we don\'t do','We don\'t train public AI models on your sessions. We don\'t sell data. We don\'t read your sessions to build case studies without asking you first.'],
+ ['Your controls','Export everything as a file, any time. Delete your account and everything in it, from settings, in two taps.'],
+ ['Where it lives','Encrypted in transit and at rest. Hosting region, provider and audit status: not published yet.'],
+ ['For cohorts','Programme admins see goals, streaks and momentum. They never see the contents of a founder\'s sessions.']];
+ return hero('Your business, '+g('your data.'))+sec('<div class="cols c2">'+s.map(function(x){return '<div class="item"><h2 class="d3">'+x[0]+'</h2><p>'+x[1]+'</p></div>'}).join('')+'</div>')},
+
+"terms":function(){return legal('Terms of '+g('service'),'The agreement between you and Legacy Foundry for the use of the service.',['Who these terms are between','Your account','What you may and may not do with the service','Subscriptions, billing and cancellation','Your content and your business data','Availability and support','Limitation of liability','Changes to these terms','Governing law'])},
+"privacy":function(){return legal('Privacy '+g('policy'),'What the coach stores, how long it keeps it, whether it is used for training, and how to delete it.',['What we store','How long we keep it','Whether your sessions train AI models','How to export or delete everything','Who we share data with','Cookies and analytics','International transfers','Your rights','How to contact us about data'])},
+"refund-policy":function(){return legal('Refund '+g('policy'),'14 days, no questions asked.',['The policy','Annual subscriptions','Purchases made through Google Play','Cohort and invoiced accounts'],'Fourteen days, no questions asked. Email '+MAIL+' and it\'s done.')}
+};
+
+/* ---------- wiring ---------- */
+function wire(root){
+ wireSessions(root);
+ root.querySelectorAll('.js-play').forEach(function(a){a.innerHTML=playIcon+'<span>Get it on Google Play</span>'});
+ root.querySelectorAll('.js-faq').forEach(function(el){el.innerHTML=faq(el.dataset.keys.split(','))});
+ root.querySelectorAll('.js-cta').forEach(function(el){el.innerHTML=cta()});
+ root.querySelectorAll('.js-copy').forEach(function(b){b.addEventListener('click',function(){copyText(MAIL,b)})});
+ root.querySelectorAll('.js-copytext').forEach(function(b){b.addEventListener('click',function(){copyText(document.getElementById('pk'+b.dataset.i).textContent,b)})});
+ root.querySelectorAll('.js-mailform').forEach(function(f){f.addEventListener('submit',function(e){
+  e.preventDefault();var fd=new FormData(f),body=[],subj=f.dataset.subject||fd.get('topic')||'Hello';
+  fd.forEach(function(v,k){body.push(k+': '+v)});
+  var st=f.querySelector('.status');st.hidden=false;
+  st.textContent='Your mail app should open with this message. If nothing opens, write to '+MAIL+'.';
+  try{var a=document.createElement('a');a.href='mailto:'+MAIL+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body.join('\n'));a.target='_blank';a.rel='noopener';a.click()}catch(err){}
+ })});
+}
+function copyText(t,b){
+ var done=function(){var o=b.textContent;b.textContent='Copied';setTimeout(function(){b.textContent=o},1500)};
+ try{navigator.clipboard.writeText(t).then(done,function(){b.textContent='Select and copy'})}catch(e){b.textContent='Select and copy'}
+}
+
+var home=document.querySelector('[data-page="home"]'),view=document.getElementById('view'),top=document.getElementById('top');
+var TITLES={"": "Legacy Foundry | An AI coach for founders", "how-it-works": "How it works | Legacy Foundry", "features": "Features | Legacy Foundry", "pricing": "Pricing | Legacy Foundry", "get-started": "Get started | Legacy Foundry", "solo-founders": "For solo founders | Legacy Foundry", "agency-owners": "For agency owners | Legacy Foundry", "accelerators": "For accelerators | Legacy Foundry", "side-project-builders": "For side-project builders | Legacy Foundry", "about": "About | Legacy Foundry", "contact": "Contact | Legacy Foundry", "press-kit": "Press kit | Legacy Foundry", "affiliates": "Affiliates | Legacy Foundry", "terms": "Terms of service | Legacy Foundry", "privacy": "Privacy policy | Legacy Foundry", "refund-policy": "Refund policy | Legacy Foundry", "security": "Security | Legacy Foundry"};
+function route(){
+ var k=location.pathname.replace(/\/+$/,'').split('/').pop()||'';
+ var isPage=!!PAGES[k];
+ home.hidden=isPage;view.hidden=!isPage;
+ if(isPage){view.innerHTML=PAGES[k]();wire(view)}
+ document.title=TITLES[isPage?k:'']||TITLES[''];
+ drawPricing();
+ document.querySelectorAll('.nav a').forEach(function(a){if(a.getAttribute('href')===location.pathname.replace(/\/+$/,''))a.setAttribute('aria-current','page')});
+}
+wire(document);
+document.getElementById('menuBtn').addEventListener('click',function(){var o=top.classList.toggle('open');this.setAttribute('aria-expanded',o)});
+document.addEventListener('click',function(e){var d=document.getElementById('drop');if(d.open&&!d.contains(e.target))d.removeAttribute('open')});
+route();
 })();
 </script>
-</body></html>
+
+</body>
+</html>
