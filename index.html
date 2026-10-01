@@ -575,7 +575,7 @@ var FAQ={
  sw:["Can I switch between monthly and yearly?","Any time. Switching to yearly credits what you've already paid for the current month."],
  refund:["Is there a refund?","14 days, no questions asked. Email "+MAIL+" and it's done."],
  free:["What does the free plan actually include?","One quarterly goal, the morning session, one habit, and 7 days of memory. It's a real product, not a locked screen. It just doesn't hold your history."],
- cost:["How much does it cost?","Free is $0 forever. Premium is $20.00 a month, or $149.53 a year billed annually."],
+ cost:["How much does it cost?","Free is $0 forever. Premium is $19.99 a month, or $149.53 a year billed annually."],
  costLink:["How much does it cost?",'Current pricing is on the <a class="g" href="/pricing">pricing page</a>.'],
  pay:["What payment methods do you take?","Cards and PayPal, everywhere. Local methods are coming as volume grows."]
 };
@@ -634,7 +634,7 @@ function pricing(){
  '<div class="plan"><div class="name"><span>Free</span></div><div class="price">$0 <small>forever</small></div><a class="btn btn-line" href="/get-started">Start free</a>'+
  '<ul class="checks"><li>Structured coaching sessions</li><li>1 monthly kickoff session</li><li>1 weekly session</li><li>5 morning sessions</li><li>5 evening sessions</li></ul></div>'+
  '<div class="plan best"><div class="name"><span>Premium</span>'+(yearly?'<span class="tag">Save 37%</span>':'')+'</div>'+
- (yearly?'<div class="price">$149.53 <small>a year <span class="was">was $299</span></small></div>':'<div class="price">$20.00 <small>a month</small></div>')+
+ (yearly?'<div class="price">$149.53 <small>a year <span class="was">was $299</span></small></div>':'<div class="price">$19.99 <small>a month</small></div>')+
  '<a class="btn btn-go" href="/get-started">Start 14-day free trial</a>'+
  '<ul class="checks"><li>Structured coaching sessions</li><li>24/7 instant coaching</li><li>Mentor chats</li><li>File attachments</li><li>Web tools</li></ul>'+
  '<p class="small">Early Bird Offer: 50% off Premium, applied at checkout and locked for as long as you stay subscribed.</p></div></div>'+
@@ -643,7 +643,7 @@ function pricing(){
 function drawPricing(){
  document.querySelectorAll('.js-pricing').forEach(function(el){el.innerHTML=pricing();
   el.querySelectorAll('.toggle button').forEach(function(b){b.addEventListener('click',function(){yearly=b.dataset.y==='1';drawPricing()})});});
- document.querySelectorAll('.js-headprice').forEach(function(el){el.textContent=yearly?'$149.53 a year':'$20.00 a month'});
+ document.querySelectorAll('.js-headprice').forEach(function(el){el.textContent=yearly?'$149.53 a year':'$19.99 a month'});
 }
 
 /* ---------- pages ---------- */
